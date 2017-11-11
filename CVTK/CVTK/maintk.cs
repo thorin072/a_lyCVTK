@@ -38,7 +38,7 @@ namespace CVTK
             var contours = ContoursProcessor.GetImageContours(bin,eps);
             var x = points.Select(_ => _.X).ToArray();
             var y = points.Select(_ => _.Y).ToArray();
-
+            ExcelProcessor.Pointtofile(x,y);
             chart1.Series[0].Points.DataBindXY(x, y);
         }
 
