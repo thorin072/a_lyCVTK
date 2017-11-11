@@ -64,13 +64,21 @@ namespace CVTK
 
                 
                 // y = ax+b; - а - найденый коэф, b - найденый коэф
-                //Главный вопрос , как лучше реализовать чтобы были найдены доп точки один или два цикла для Х и У и как 
-                //это все сделать, чтобы в одном списке были совмещены и старые и новые точки.
+                // лишние точки
+                for (int j = x1; j < x2; j++)
+                {
+                    
+                    int y = (int)(a * j + b);
+                    result.Add(new Point(j, y));
+                }
 
-
+                for (int j = y1; j < y2; j++)
+                {
+                    int y = (int)(a * j + b);
+                    result.Add(new Point(x1, j));
+                }
+                result.Add(new Point(x2, y2));
             }
-
-
             return result;
         }
     }
