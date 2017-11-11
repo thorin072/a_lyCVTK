@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Emgu.CV;
-using Emgu.CV.Structure;
-using Emgu.CV.CvEnum;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -24,7 +21,6 @@ namespace CVTK
             Excel.Worksheet workSheet;
             workBook = excelApp.Workbooks.Add();
             workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);
-
             for (int i = 0; i <= x.Length - 1; i++)
             {
                 workSheet.Cells[i + 1, 1] = x[i];
