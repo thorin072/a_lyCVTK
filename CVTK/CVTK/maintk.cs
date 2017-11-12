@@ -34,11 +34,44 @@ namespace CVTK
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
 
             var points = ContoursProcessor.GetImagePoints(bin, eps);
+            var points_sort = points;
+            //.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
 
-            var contours = ContoursProcessor.GetImageContours(bin,eps);
-            var x = points.Select(_ => _.X).ToArray();
-            var y = points.Select(_ => _.Y).ToArray();
-            ExcelProcessor.Pointtofile(x,y);
+            //цикл первой чистки точек
+            for (int i = 0; i <= points_sort.Count - 1; ++i)
+            {
+                for (int j = 1; j <= points_sort.Count - 1; ++j)
+                {
+                    if ((points_sort[i].X == points_sort[j].X) && (points_sort[i].Y == points_sort[j].Y))
+                    {
+                        points_sort.RemoveAt(j);
+                    }
+                }
+            }
+
+            var end_point = ContoursProcessor.Kramer(points_sort);
+            // второй раз чистка точек уже после Крамера 
+            for (int i = 0; i <= end_point.Count - 1; ++i)
+            {
+                comboBox1.Items.Add(end_point[i]);
+            }
+
+            for (int i = 0; i <= end_point.Count - 1; ++i)
+            {
+                for (int j = 1; j <= end_point.Count - 1; ++j)
+                {
+                    if ((end_point[i].X == end_point[j].X) && (end_point[i].Y == end_point[j].Y))
+                    {
+                        end_point.RemoveAt(j);
+                    }
+                }
+            }
+            var x = end_point.Select(_ => _.X).ToArray();
+            var y = end_point.Select(_ => _.Y).ToArray();
+            //var x = points_sort.Select(_ => _.X).ToArray();
+            //var y = points_sort.Select(_ => _.Y).ToArray();
+
+            //ExcelProcessor.Pointtofile(x,y);
             chart1.Series[0].Points.DataBindXY(x, y);
         }
 
