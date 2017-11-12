@@ -62,22 +62,28 @@ namespace CVTK
                 float a = (float) det_a / det_mat;
                 float b = (float)det_b / det_mat;
 
-                
-                // y = ax+b; - а - найденый коэф, b - найденый коэф
-                // лишние точки
-                for (int j = x1; j < x2; j++)
+               
+                //// лишние точки
+                //for (int j = x1; j < x2; j++)
+                //{
+                //    int y = (int)(a * j + b);
+                //    result.Add(new Point(j, y));
+                //}
+
+                for (int j = x1; j < x2; j += 4)
                 {
-                    
-                    int y = (int)(a * j + b);
-                    result.Add(new Point(j, y));
+                    int x = (int)(a * j + b);
+                    result.Add(new Point(j, x));
+                }
+                
+                result.Add(new Point(x1, y1));
+                for (int j = y1; j <= y2; j+=2)
+                {
+                    int x = (int)((j - b) / a);
+                    result.Add(new Point(x, j));
                 }
 
-                for (int j = y1; j < y2; j++)
-                {
-                    int y = (int)(a * j + b);
-                    result.Add(new Point(x1, j));
-                }
-                result.Add(new Point(x2, y2));
+                //result.Add(new Point(x2, y2));
             }
             return result;
         }
