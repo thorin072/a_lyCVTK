@@ -23,22 +23,22 @@ namespace CVTK
         /// </summary>
         /// <param name="bin"></param>
         /// <param name="eps"></param>
-        public void FindContours(Image<Gray, byte> bin)
+          public void FindContours(Image<Gray, byte> bin)
         {
             var points = ContoursProcessor.GetImagePoints(bin);
+            //info.AppendText("Количество контуров: "+points.Count + "\r\n");
             var end_point = ContoursProcessor.Found_lines(points);
-            //var ang = ContoursProcessor.arc_found(end_point.Item2);
+            //info.AppendText("Количество точек: " + end_point.Item1.Count + "\r\n");
+            //var holes = ContoursProcessor.catching(end_point.Item1);
 
             var x = end_point.Item1.Select(_ => _.X).ToArray();
             var y = end_point.Item1.Select(_ => _.Y).ToArray();
             var x1 = end_point.Item2.Select(_ => _.X).ToArray();
             var y1 = end_point.Item2.Select(_ => _.Y).ToArray();
-            //var x1 = ang.Select(_ => _.X).ToArray();
-            //var y1 = ang.Select(_ => _.Y).ToArray();
 
             //ExcelProcessor.Pointtofile(x,y); 
             chart1.Series[0].Points.DataBindXY(x, y);
-          //  chart1.Series[1].Points.DataBindXY(x1, y1);
+            //chart1.Series[1].Points.DataBindXY(x1, y1);
         }
 
         //Может рассматриваться ситуация , что входными могут быть XY YZ ZX
