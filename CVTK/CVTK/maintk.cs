@@ -26,9 +26,9 @@ namespace CVTK
         public void FindContours(Image<Gray, byte> bin)
         {
             var points = ContoursProcessor.GetImagePoints(bin);
-            info.AppendText("Количество контуров: "+points.Count + "\r\n");
+            //info.AppendText("Количество контуров: "+points.Count + "\r\n");
             var end_point = ContoursProcessor.Found_lines(points);
-            info.AppendText("Количество точек: " + end_point.Item1.Count + "\r\n");
+            //info.AppendText("Количество точек: " + end_point.Item1.Count + "\r\n");
             //var holes = ContoursProcessor.catching(end_point.Item1);
 
             var x = end_point.Item1.Select(_ => _.X).ToArray();
@@ -41,19 +41,7 @@ namespace CVTK
             //chart1.Series[1].Points.DataBindXY(x1, y1);
         }
 
-        //Может рассматриваться ситуация , что входными могут быть XY YZ ZX
-        /// <summary>
-        /// Функция масштабирования изображения 
-        /// </summary>
-        /// <param name="Xwight">длинна области</param>
-        /// <param name="Yheight">высота области</param>
-        /// <param name="Z"></param>
-        /// <param name="imgH">высота изображения</param>
-        /// <param name="imgW">длинна изображения</param>
-        /// <param name="aftersclH">высота для нового обьекта </param>
-        /// <param name="aftersclW">длинна для нового обьекта</param>
-        /// 
-
+        /// ресайз
         public void ResizeImg(int nWidth, int nHeight, ref int aftersclH, ref int aftersclW)
         {
             Image result = new Bitmap(nWidth, nHeight);
@@ -99,31 +87,31 @@ namespace CVTK
             {
                 contourgrh.Image = null;
                 _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd
-                info.Clear();
-                info.AppendText("Изображение загружено" + "\r\n");
-                info.AppendText("Размеры изображения: "+Math.Round((_imgInput.Height / 37.795)).ToString() + "*" + Math.Round((_imgInput.Width / 37.795)).ToString() + " cм = "+ _imgInput.Height +"*"+ _imgInput.Width +" px"+ "\r\n");
+                //info.Clear();
+                //info.AppendText("Изображение загружено" + "\r\n");
+                //info.AppendText("Размеры изображения: "+Math.Round((_imgInput.Height / 37.795)).ToString() + "*" + Math.Round((_imgInput.Width / 37.795)).ToString() + " cм = "+ _imgInput.Height +"*"+ _imgInput.Width +" px"+ "\r\n");
                 contourgrh.Invalidate();
                 ApplyCanny(150, 150);//вызов с наальными параметрами 
             }
         }
 
-        private void valueX_ValueChanged(object sender, EventArgs e)
-        {
-            var sm = Math.Round((int)valueX.Value / 37.7952755905511);
-            xsm.Text = sm.ToString() + " cм";
+      //  private void valueX_ValueChanged(object sender, EventArgs e)
+     //   {
+           // var sm = Math.Round((int)valueX.Value / 37.7952755905511);
+           // xsm.Text = sm.ToString() + " cм";
 
-        }
+      //  }
 
-        private void valueY_ValueChanged(object sender, EventArgs e)
-        {
-            var sm = Math.Round((int)valueY.Value / 37.7952755905511);
-            ysm.Text = sm.ToString() + " cм";
-        }
+     //   private void valueY_ValueChanged(object sender, EventArgs e)
+    //    {
+          //  var sm = Math.Round((int)valueY.Value / 37.7952755905511);
+          //  ysm.Text = sm.ToString() + " cм";
+  //      }
 
         private void перестроитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            info.AppendText("---UPDATE---"+ "\r\n");
-            ApplyCanny(150, 150);//вызов с наальными параметрами 
+         // info.AppendText("---UPDATE---"+ "\r\n");
+            ApplyCanny(150, 150);//вызов с начальными параметрами 
             
         }
 
