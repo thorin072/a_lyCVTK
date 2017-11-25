@@ -26,6 +26,7 @@ namespace CVTK
         {
             InitializeComponent();
             _main = hm;
+          
 
         }
        
@@ -33,15 +34,8 @@ namespace CVTK
         {
             if(_main != null)
             {
-                double a;
-                double.TryParse(textBox1.Text,out a);
-                _main.ApplyCanny((double)numericth1.Value, (double)numericth2.Value, a);
+                _main.ApplyCanny((double)numericth1.Value, (double)numericth2.Value);
             }
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
