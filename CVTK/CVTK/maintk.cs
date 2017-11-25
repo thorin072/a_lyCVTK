@@ -26,20 +26,52 @@ namespace CVTK
         /// <param name="bin"></param>
         public void FindContours(Image<Gray, byte> bin)
         {
-            var points = ContoursProcessor.GetImagePoints(bin);
-            info.AppendText("Количество контуров: "+points.Count + "\r\n");
-            var end_point = ContoursProcessor.Found_lines(points);
-            info.AppendText("Количество точек: " + end_point.Item1.Count + "\r\n");
-            //var holes = ContoursProcessor.catching(end_point.Item1);
+            var points = ContoursProcessor.GetImagePoints(bin); // собираем лист всех точек
+            info.AppendText("Количество контуров: " + points.Count + "\r\n");
+            var top_point = ContoursProcessor.GetTopPoint(bin); // собираем лист аппроксимированых точек 
+            top_point = ContoursProcessor.Sort_Top_Point(top_point);
 
-            var x = end_point.Item1.Select(_ => _.X).ToArray();
-            var y = end_point.Item1.Select(_ => _.Y).ToArray();
-            var x1 = end_point.Item2.Select(_ => _.X).ToArray();
-            var y1 = end_point.Item2.Select(_ => _.Y).ToArray();
 
-            //ExcelProcessor.Pointtofile(x,y); 
+            //var end_point = ContoursProcessor.Found_lines(points);
+            // info.AppendText("Количество точек: " + end_point.Item1.Count + "\r\n");
+          
+
+            var x = points.Select(_ => _.X).ToArray();
+            var y = points.Select(_ => _.Y).ToArray();
+            var x1 = top_point.Select(_ => _.X).ToArray();
+            var y1 = top_point.Select(_ => _.Y).ToArray();
+
             chart1.Series[0].Points.DataBindXY(x, y);
-            //chart1.Series[1].Points.DataBindXY(x1, y1);
+            chart1.Series[1].Points.DataBindXY(x1, y1);
+
+            float[] fx = new float[points.Count];
+            float[] fy = new float[points.Count];
+            float[] fxTop = new float[top_point.Count];
+            float[] fyTop = new float[top_point.Count];
+
+            for (int i = 0; i < x.Length; ++i)
+            {
+                fx[i] = (float)x[i];
+            }
+
+            for (int i = 0; i < x.Length; ++i)
+            {
+                fy[i] = (float)y[i];
+            }
+
+            for (int i = 0; i < x1.Length; ++i)
+            {
+                fxTop[i] = (float)x1[i];
+            }
+
+            for (int i = 0; i < x1.Length; ++i)
+            {
+                fyTop[i] = (float)y1[i];
+            }
+
+            ExcelProcessor.Pointtofile(fx,fy,fxTop,fyTop);
+            info.AppendText("Файл координат создан"+ "\r\n");
+
         }
 
         //Может рассматриваться ситуация , что входными могут быть XY YZ ZX
@@ -63,7 +95,7 @@ namespace CVTK
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
                 g.Dispose();
             }
-            aftersclH =  result.Height;
+            aftersclH = result.Height;
             aftersclW = result.Width;
         }
 
@@ -100,18 +132,13 @@ namespace CVTK
                 _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd
                 info.Clear();
                 info.AppendText("Изображение загружено" + "\r\n");
-                info.AppendText("Размеры изображения: "+Math.Round((_imgInput.Height / 37.795)).ToString() + "*" + Math.Round((_imgInput.Width / 37.795)).ToString() + " cм = "+ _imgInput.Height +"*"+ _imgInput.Width +" px"+ "\r\n");
+                info.AppendText("Размеры изображения: " + Math.Round((_imgInput.Height / 37.795)).ToString() + "*" + Math.Round((_imgInput.Width / 37.795)).ToString() + " cм = " + _imgInput.Height + "*" + _imgInput.Width + " px" + "\r\n");
                 contourgrh.Invalidate();
                 ApplyCanny(150, 150);//вызов с наальными параметрами 
             }
         }
 
-        public void AddList( IList<Point> point, string s,byte k)
-        {
-            ListContr.Rows.Add();
 
-           ListContr[0, 0].Value = 1;
-        }
 
         private void valueX_ValueChanged(object sender, EventArgs e)
         {
@@ -128,17 +155,11 @@ namespace CVTK
 
         private void перестроитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            info.AppendText("---UPDATE---"+ "\r\n");
+            info.AppendText("---UPDATE---" + "\r\n");
             ApplyCanny(150, 150);//вызов с наальными параметрами 
-            
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ListContr.Rows.Add();
-
-            ListContr[0, 0].Value = 1;
-        }
 
         private void настройкаКонтураToolStripMenuItem_Click(object sender, EventArgs e) // вызов окна с настройками контура 
         {
