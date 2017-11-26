@@ -21,7 +21,7 @@ namespace CVTK
         /// Поиск контуров изображения и отрисовка на плоскости
         /// </summary>
         /// <param name="bin"></param>
-        public void FindContours(Image<Gray, byte> bin)
+        private void FindContours(Image<Gray, byte> bin)
         {
             var points = ContoursProcessor.GetImagePoints(bin,ChainApproxMethod.ChainApproxNone); // собираем лист всех точек
             info.AppendText("Количество контуров: " + points.Count + "\r\n");
@@ -51,18 +51,25 @@ namespace CVTK
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog(); // диалог открытия изображения
-            if (ofd.ShowDialog() == DialogResult.OK)
+            try
             {
-                contourgrh.Image = null;
-                Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd
-                info.Clear();
-                info.AppendText("Изображение загружено" + "\r\n");
-                info.AppendText("Размеры изображения: " + Math.Round((_imgInput.Height / 37.795)).ToString() + "*" + Math.Round((_imgInput.Width / 37.795)).ToString() + " cм = " + _imgInput.Height + "*" + _imgInput.Width + " px" + "\r\n");
-                contourgrh.Invalidate();
-                var Rsize = GrayImg.ResizeImg((int)valueX.Value,(int)valueY.Value);
-                var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
-                contourgrh.Image = imgCanny.ToBitmap();
-                FindContours(imgCanny);
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    contourgrh.Image = null;
+                    Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd
+                                                                                    //  info.Clear();
+                                                                                    //  info.AppendText("Изображение загружено" + "\r\n");
+                                                                                    //  info.AppendText("Размеры изображения: " + Math.Round((_imgInput.Height / 37.795)).ToString() + "*" + Math.Round((_imgInput.Width / 37.795)).ToString() + " cм = " + _imgInput.Height + "*" + _imgInput.Width + " px" + "\r\n");
+                    contourgrh.Invalidate();
+                    var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
+                    var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
+                    contourgrh.Image = imgCanny.ToBitmap();
+                    FindContours(imgCanny);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

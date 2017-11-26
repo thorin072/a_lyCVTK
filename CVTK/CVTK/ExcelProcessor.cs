@@ -71,11 +71,20 @@ namespace CVTK
             //    workSheet.Cells[i + 1, 4] = x[i] * 1e+1;
             //}
 
-
-            string outpath = Environment.CurrentDirectory+ "/";
-            workBook.SaveAs(@outpath + "end_points.xlsx");
-            workBook.Close();
-            excelApp.Quit();
+            try
+            {
+                string outpath = Environment.CurrentDirectory + "/";
+                workBook.SaveAs(@outpath + "end_points.xlsx");
+                workBook.Close();
+                excelApp.Quit();
+            }
+            catch (Exception ex)
+            {
+                workBook.Close();
+                excelApp.Quit();
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+                System.Windows.Forms.MessageBox.Show("Ошибка сохранения. Файл остался в прежнем состоянии. Ресурсы освобождены.");
+            }
         }
     }
 }
