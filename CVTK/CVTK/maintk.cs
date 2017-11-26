@@ -23,29 +23,26 @@ namespace CVTK
         /// <param name="bin"></param>
         private void FindContours(Image<Gray, byte> bin)
         {
-            var points = ContoursProcessor.GetImagePoints(bin,ChainApproxMethod.ChainApproxNone); // собираем лист всех точек
+            var points = ContoursProcessor.GetImagePoints(bin, ChainApproxMethod.ChainApproxNone); // собираем лист всех точек
             info.AppendText("Количество контуров: " + points.Count + "\r\n");
-            var topPoint = ContoursProcessor.GetImagePoints(bin,ChainApproxMethod.ChainApproxSimple); // собираем лист аппроксимированых точек 
+            var topPoint = ContoursProcessor.GetImagePoints(bin, ChainApproxMethod.ChainApproxSimple); // собираем лист аппроксимированых точек 
             topPoint = SearchDirect.SortTopPoint(topPoint);
-
             //Для полного контура
             var x = points.Select(_ => _.X).ToArray();
-            var flX= x.Select(n=>(float)n).ToArray();
+            var flX = x.Select(n => (float)n).ToArray();
             var y = points.Select(_ => _.Y).ToArray();
             var flY = y.Select(n => (float)n).ToArray();
 
             chart1.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
-
             //Для вершин 
-            var xT= topPoint.Select(_ => _.X).ToArray();
+            var xT = topPoint.Select(_ => _.X).ToArray();
             var flXTop = xT.Select(n => (float)n).ToArray();
             var yT = topPoint.Select(_ => _.Y).ToArray();
             var flYTop = yT.Select(n => (float)n).ToArray();
 
             chart1.Series[1].Points.DataBindXY(xT, yT); // визуализация вершин
-  
-            ExcelProcessor.Pointtofile(flX,flY,flXTop,flYTop);
-            info.AppendText("Файл координат создан"+ "\r\n");
+            ExcelProcessor.PointToFile(flX, flY, flXTop, flYTop);
+            info.AppendText("Файл координат создан" + "\r\n");
         }
 
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
@@ -56,10 +53,7 @@ namespace CVTK
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     contourgrh.Image = null;
-                    Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd
-                                                                                    //  info.Clear();
-                                                                                    //  info.AppendText("Изображение загружено" + "\r\n");
-                                                                                    //  info.AppendText("Размеры изображения: " + Math.Round((_imgInput.Height / 37.795)).ToString() + "*" + Math.Round((_imgInput.Width / 37.795)).ToString() + " cм = " + _imgInput.Height + "*" + _imgInput.Width + " px" + "\r\n");
+                    Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd                                                         
                     contourgrh.Invalidate();
                     var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
                     var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
