@@ -8,6 +8,9 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CVTK
 {
+    /// <summary>
+    /// Класс реализации для создания выходного файла Excel
+    /// </summary>
     public static class ExcelProcessor
     {
 

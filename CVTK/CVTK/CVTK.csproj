@@ -62,14 +62,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="canny.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="canny.Designer.cs">
-      <DependentUpon>canny.cs</DependentUpon>
-    </Compile>
+    <Compile Include="CalculationOfTheLine.cs" />
     <Compile Include="ContoursProcessor.cs" />
     <Compile Include="ExcelProcessor.cs" />
+    <Compile Include="GrayImg.cs" />
     <Compile Include="maintk.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,9 +74,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="canny.resx">
-      <DependentUpon>canny.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="SearchDirect.cs" />
     <EmbeddedResource Include="maintk.resx">
       <DependentUpon>maintk.cs</DependentUpon>
     </EmbeddedResource>

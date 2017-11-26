@@ -37,8 +37,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьИзображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.перестроитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкаКонтураToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.info = new System.Windows.Forms.RichTextBox();
@@ -73,8 +71,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.настройкиToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(892, 24);
@@ -106,23 +103,6 @@
             this.перестроитьToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.перестроитьToolStripMenuItem.Text = "Перестроить ";
             this.перестроитьToolStripMenuItem.Click += new System.EventHandler(this.перестроитьToolStripMenuItem_Click);
-            // 
-            // настройкиToolStripMenuItem
-            // 
-            this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.настройкаКонтураToolStripMenuItem});
-            this.настройкиToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("настройкиToolStripMenuItem.Image")));
-            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.настройкиToolStripMenuItem.Text = "Настройки";
-            // 
-            // настройкаКонтураToolStripMenuItem
-            // 
-            this.настройкаКонтураToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("настройкаКонтураToolStripMenuItem.Image")));
-            this.настройкаКонтураToolStripMenuItem.Name = "настройкаКонтураToolStripMenuItem";
-            this.настройкаКонтураToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.настройкаКонтураToolStripMenuItem.Text = "Настройка контура";
-            this.настройкаКонтураToolStripMenuItem.Click += new System.EventHandler(this.настройкаКонтураToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -320,8 +300,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem открытьИзображениеToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem настройкаКонтураToolStripMenuItem;
         private System.Windows.Forms.PictureBox contourgrh;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
