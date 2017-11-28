@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculationOfTheLine.cs" />
+    <Compile Include="CentroMass.cs" />
     <Compile Include="ContoursProcessor.cs" />
     <Compile Include="ExcelProcessor.cs" />
     <Compile Include="GrayImg.cs" />
@@ -117,6 +118,8 @@
     <Content Include="Properties\vcruntime140.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\excel.png" />
+    <None Include="Resources\2000px-Microsoft_Excel_2013_logo.png" />
     <None Include="Resources\reload.png" />
     <None Include="Resources\database_copy.png" />
     <None Include="Resources\box_picture.png" />

@@ -8,6 +8,7 @@ using System;
 
 namespace CVTK
 {
+    ///центромассный 
     /// <summary>
     /// Класс для нахождения контуров изображения
     /// </summary>
@@ -19,22 +20,29 @@ namespace CVTK
         /// <param name="bin">Изображение после обработки Сanny</param>
         /// <param name="method">Метод аппроксимации</param>
         /// <returns></returns>
-        public static IList<Point> GetImagePoints(Image<Gray, byte> bin, ChainApproxMethod method)
+        public static List<Point> GetImagePoints(Image<Gray, byte> bin, ChainApproxMethod method)
         {
             var result = new List<Point>();
+          
+
             Mat hierarchy = new Mat();// выделение массива для хранения контуров
             using (VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint())
             {
                 CvInvoke.FindContours(bin, contours, hierarchy, RetrType.List, method);//поиск контуров
+                var r = contours.Size;
                 for (int i = 0; i < contours.Size; i++)
                 {
                     using (VectorOfPoint contour = contours[i])// ищем i-тый контур в коллекции всех контуров 
                     {
                         result.AddRange(contour.ToArray());// добавление
+                        var mass  = CentroMass.DeterminationOfCentromass(result);
+                        ListWithMass.AddRange(new Tuple<List<Point>, List<Point>> (result,result));
                     }
                 }
             }
-            return result;
+            //  ListWithMass.Add(new Tuple<Point, Point>((new Point(points[i].X, points[i].Y)), (new Point((int)massx, (int)massy))));
+        }
+            return ListWithMass;
         }
     }
 }

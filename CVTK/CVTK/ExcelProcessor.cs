@@ -14,7 +14,7 @@ namespace CVTK
     public static class ExcelProcessor
     {
 
-        public static void Pointtofile(float[] x, float[] y, float[] xT, float[] yT)
+        public static void PointToFile(float[] x, float[] y, float[] xT, float[] yT)
         {
             // Создаём экземпляр приложения
             Excel.Application excelApp = new Excel.Application();
@@ -40,12 +40,12 @@ namespace CVTK
             //------для X = Z ------
             for (int i = 1; i <= x.Length-1 ; i++) 
             {
-                workSheet.Cells[i + 1, 4] = x[i]*1e+1;
+                workSheet.Cells[i + 1, 4] = x[i];//*1e+1;
             }
             //------для Y = X------
             for (int i = 1; i <= y.Length-1; i++) 
             {
-                workSheet.Cells[i + 1, 2] = y[i]* 1e+1;
+                workSheet.Cells[i + 1, 2] = y[i];//* 1e+1;
             }
 
             workSheet.Cells[1, 6] = "XT";
@@ -53,12 +53,12 @@ namespace CVTK
             //------для XT = Z ------
             for (int i = 1; i <= xT.Length - 1; i++)
             {
-                workSheet.Cells[i + 1, 6] = xT[i] * 1e+1;
+                workSheet.Cells[i + 1, 6] = xT[i];// * 1e+1;
             }
             //------для YT = X------
             for (int i = 1; i <= yT.Length - 1; i++)
             {
-                workSheet.Cells[i + 1, 7] = yT[i] * 1e+1;
+                workSheet.Cells[i + 1, 7] = yT[i];// * 1e+1;
             }
             // для момента когда x - const
 
