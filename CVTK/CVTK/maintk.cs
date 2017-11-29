@@ -24,7 +24,8 @@ namespace CVTK
         /// <param name="bin"></param>
         private void FindContours(Image<Gray, byte> bin)
         {
-            var points = ContoursProcessor.GetImagePoints(bin, ChainApproxMethod.ChainApproxNone); // собираем лист всех точек
+            var points = CentroMass.DeterminationOfCentromass(bin, ChainApproxMethod.ChainApproxNone); 
+          // собираем лист всех точек
             infopoint.Text = points.Count.ToString();
             //var topPoint = ContoursProcessor.GetImagePoints(bin, ChainApproxMethod.ChainApproxSimple); // собираем лист аппроксимированых точек 
             //topPoint = SearchDirect.SortTopPoint(topPoint);

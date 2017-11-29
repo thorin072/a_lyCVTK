@@ -23,8 +23,6 @@ namespace CVTK
         public static List<Point> GetImagePoints(Image<Gray, byte> bin, ChainApproxMethod method)
         {
             var result = new List<Point>();
-          
-
             Mat hierarchy = new Mat();// выделение массива для хранения контуров
             using (VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint())
             {
@@ -35,14 +33,11 @@ namespace CVTK
                     using (VectorOfPoint contour = contours[i])// ищем i-тый контур в коллекции всех контуров 
                     {
                         result.AddRange(contour.ToArray());// добавление
-                        var mass  = CentroMass.DeterminationOfCentromass(result);
-                        ListWithMass.AddRange(new Tuple<List<Point>, List<Point>> (result,result));
                     }
                 }
             }
             //  ListWithMass.Add(new Tuple<Point, Point>((new Point(points[i].X, points[i].Y)), (new Point((int)massx, (int)massy))));
-        }
-            return ListWithMass;
+            return result;
         }
     }
 }
