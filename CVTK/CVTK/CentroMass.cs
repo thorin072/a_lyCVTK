@@ -21,69 +21,98 @@ namespace CVTK
 
         public static IList<Point> DeterminationOfCentromass(Image<Gray, byte> bin, ChainApproxMethod method)
         {
-
+            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var totalresult = new List<ContourWithMass>();
             Mat hierarchy = new Mat();// выделение массива для хранения контуров
             using (VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint())
             {
                 CvInvoke.FindContours(bin, contours, hierarchy, RetrType.List, method);//поиск контуров
-                for (int i = 0; i < contours.Size; i++)
+                using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(mydocpath + @"\WriteLines.txt"))
                 {
-                    using (VectorOfPoint contour = contours[i])// ищем i-тый контур в коллекции всех контуров 
+                    for (int i = 0; i < contours.Size; i++)
                     {
-                        ContourWithMass massVar = new ContourWithMass();
-                        var result = new List<Point>();
-                        result.AddRange(contour.ToArray());
-                        massVar.Mass.X = (int)result.Average(_ => _.X);
-                        massVar.Mass.Y = (int)result.Average(_ => _.Y);
-                        massVar.Contr = result;
-                        totalresult.Add(massVar);
+                        using (VectorOfPoint contour = contours[i])// ищем i-тый контур в коллекции всех контуров 
+                        {
+                            ContourWithMass massVar = new ContourWithMass();
+                            var result = new List<Point>();
+                            result.AddRange(contour.ToArray());
+                            massVar.Mass.X = (int)result.Average(_ => _.X);
+                            massVar.Mass.Y = (int)result.Average(_ => _.Y);
+                            massVar.Contr = result;
+
+
+                            outputFile.WriteLine("Номер:" + i.ToString() + " " + "massX:" + massVar.Mass.X.ToString() + " " + "massY:" + massVar.Mass.Y.ToString() + " " + massVar.Contr.Count.ToString());
+                            outputFile.WriteLine("---------------------");
+                            totalresult.Add(massVar);
+                        }
                     }
                 }
             }
-            var sort = SortDeterminationOfCentromass(totalresult);
+
+
+            List<ContourWithMass> SortedList = totalresult.OrderByDescending(o => o.Mass.X).ToList();
+            var sort = SortDeterminationOfCentromass(SortedList);
             return sort;
         }
 
+
+
         private static List<Point> SortDeterminationOfCentromass(List<ContourWithMass> point)
         {
-            var tresult = new List<ContourWithMass>();
+            
+            //var tresult = new List<ContourWithMass>();
             var endPointAfterMass = new List<Point>();
-            for (int i = 0; i < point.Count - 1; i++)
+            var k = 0;
+            for (int i = k; i < point.Count - 1; i=i+k)
             {
-                for (int j = i + 1; j < point.Count; j++)
+                var tresult = new List<ContourWithMass>();
+                
+                for (int j = k; j < point.Count; j++)
                 {
-                    ContourWithMass massVar = new ContourWithMass();
-                    if (((point[i].Mass.X > point[j].Mass.X - 7) && (point[i].Mass.X < point[j].Mass.X + 7)) && ((point[i].Mass.Y > point[j].Mass.Y - 7) && (point[i].Mass.Y < point[j].Mass.Y + 7)))
+                    if (((point[i].Mass.X <= point[j].Mass.X + 3) && (point[j].Mass.X - 3 <= point[i].Mass.X))
+                        && ((point[i].Mass.Y <= point[j].Mass.Y + 3) && (point[j].Mass.Y - 3 <= point[i].Mass.Y)))
                     {
-                        if (point[i].Contr.Count > point[i + 1].Contr.Count)
-                        {
-                            var result = new List<Point>();
-                            result.AddRange(point[j].Contr.ToArray());
-                            massVar.Mass.X = (int)result.Average(_ => _.X);
-                            massVar.Mass.Y = (int)result.Average(_ => _.Y);
-                            massVar.Contr = result;
-                            tresult.Add(massVar);
-                        }
-                        else
-                        {
-                            var result = new List<Point>();
-                            result.AddRange(point[j].Contr.ToArray());
-                            massVar.Mass.X = (int)result.Average(_ => _.X);
-                            massVar.Mass.Y = (int)result.Average(_ => _.Y);
-                            massVar.Contr = result;
-                            tresult.Add(massVar); ;
-                        }
+                        ContourWithMass massVar = new ContourWithMass();
+                        var result = new List<Point>();
+                        result.AddRange(point[j].Contr.ToArray());
+                        massVar.Contr = result;
+                        tresult.Add(massVar);
+                        k = j;
                     }
+                    
                 }
             }
 
-            List<ContourWithMass> SortedList = tresult.OrderBy(o => o.Mass.X).ToList();
-            for (int i = 0; i < SortedList.Count; i++)
-            {
-                endPointAfterMass.AddRange(SortedList[i].Contr.ToArray());
-            }
 
+            //int max = int.MinValue;
+            //int k = 0;//индекс макс
+
+            //for (int i = 0; i < point.Count - 1; i=i+k)
+            //{
+            //    ContourWithMass massVar = new ContourWithMass();
+            //    for (int j = k; j < point.Count; j++)
+            //    {
+
+            //       
+            //        {
+            //            max = point[j].Contr.Count;
+            //            k=j;
+            //        }
+            //    }
+            //    var result = new List<Point>();
+            //    result.AddRange(point[k].Contr.ToArray());
+            //    massVar.Mass.X = (int)result.Average(_ => _.X);
+            //    massVar.Mass.Y = (int)result.Average(_ => _.Y);
+            //    massVar.Contr = result;
+            //    tresult.Add(massVar);
+
+
+
+            //List<ContourWithMass> SortedList = tresult.OrderBy(o => o.Mass.X).ToList();
+            //for (int i = 0; i < SortedList.Count; i++)
+            //{
+            //    endPointAfterMass.AddRange(SortedList[i].Contr.ToArray());
+            //}
             return endPointAfterMass;
         }
     }
