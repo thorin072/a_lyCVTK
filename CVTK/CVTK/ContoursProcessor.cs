@@ -20,7 +20,7 @@ namespace CVTK
         /// <param name="bin">Изображение после обработки Сanny</param>
         /// <param name="method">Метод аппроксимации</param>
         /// <returns></returns>
-        public static List<Point> GetImagePoints(Image<Gray, byte> bin, ChainApproxMethod method)
+        public static IList<Point> GetImagePoints(Image<Gray, byte> bin, ChainApproxMethod method)
         {
             var result = new List<Point>();
             Mat hierarchy = new Mat();// выделение массива для хранения контуров
