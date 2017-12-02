@@ -46,7 +46,6 @@ namespace CVTK
         {
             Image<Bgr, byte> newinput = orign.Resize(rW, rH, Inter.Linear);
             Image<Gray, byte> _imgCanny = new Image<Gray, byte>(newinput.Width, newinput.Width, new Gray(0)); // создать новый обьект изображения Canny
-
             _imgCanny = newinput.Canny(tresch, tresch2); // вызов Canny из библиотеки
             newinput = newinput.Rotate(180, new Bgr(255, 255, 255), false);
             newinput = newinput.Flip(FlipType.Horizontal);

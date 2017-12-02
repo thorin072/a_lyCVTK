@@ -27,7 +27,6 @@ namespace CVTK
 
         public static IList<ContourWithMass> DeterminationOfCentromass(Image<Gray, byte> bin, ChainApproxMethod method)
         {
-
             var totalresult = new List<ContourWithMass>(); // лист для хранения ВСЕХ НАЙДЕНЫХ КОНТУРОВ
             Mat hierarchy = new Mat();// выделение массива для хранения контуров
             using (VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint())
@@ -57,14 +56,13 @@ namespace CVTK
         private static List<ContourWithMass> SortDeterminationOfCentromass(List<ContourWithMass> point)
         {
             var endPointAfterMass = new List<ContourWithMass>(); //  лист для хранения ВСЕХ ИСТИННЫХ КОНТУРОВ
-            var k = 0; // счетчик для отсечки 
-            int i = 0;
+            int i = 0, k = 0;// счетчик для отсечки 
             while (i < point.Count)
             {
                 var tresult = new List<ContourWithMass>();
                 for (int j = k; j < point.Count; j++)
                 {
-                  //проблема с О
+                    //проблема с О
                     if (((point[i].Mass.X <= point[j].Mass.X + 2) && (point[j].Mass.X - 2 <= point[i].Mass.X))
                        && ((point[i].Mass.Y <= point[j].Mass.Y + 2) && (point[j].Mass.Y - 2 <= point[i].Mass.Y)))
                     {
@@ -79,8 +77,8 @@ namespace CVTK
                 List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList(); // сортировка листа по убыванию по числу точек контура
                 // использование класса , но уже с хранением не центра масс , а последней точки контура
                 ContourWithMass endPointAndContr = new ContourWithMass();
-                endPointAndContr.Mass.X = tresult[0].Contr[tresult[0].Contr.Count-1].X; 
-                endPointAndContr.Mass.Y = tresult[0].Contr[tresult[0].Contr.Count-1].Y;
+                endPointAndContr.Mass.X = tresult[0].Contr[tresult[0].Contr.Count - 1].X;
+                endPointAndContr.Mass.Y = tresult[0].Contr[tresult[0].Contr.Count - 1].Y;
                 endPointAndContr.Contr = tresult[0].Contr;
                 endPointAfterMass.Add(endPointAndContr);
                 i = k;

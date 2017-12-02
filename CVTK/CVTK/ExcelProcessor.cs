@@ -38,33 +38,34 @@ namespace CVTK
             workSheet.Cells[1, 2] = "x";
             workSheet.Cells[1, 3] = "y";
             workSheet.Cells[1, 4] = "z";
-            workSheet.Cells[2, 1] = 0*1e-3;
+            workSheet.Cells[2, 1] = 0 * 1e-3;
             workSheet.Cells[2, 4] = 0 * 1e-3;
-            workSheet.Cells[2, 2] =points[0].Contr[0].Y;
+            workSheet.Cells[2, 2] = points[0].Contr[0].Y;
             workSheet.Cells[2, 3] = 686.6;
-            //****Файл инициализирован****н
+            //****Файл инициализирован****
 
             //****Заполнение данными 
             double time = 1 * 1e-3;
-            int count = 3;
+            int count = 3, m = 0, i = 0;
             double u = 686.6;
-            for (int i = 0; i < points.Count; i++) // Коллекция I - ых контуров ( количество найденых 0..n)
+            while (i < points.Count) // Коллекция I - ых контуров ( количество найденых 0..n)
             {
-                for (int m = 0; m < points[i].Contr.Count; m++) // Обращение к элементам коллекции points[i].Contr 
+                while (m < points[i].Contr.Count) // Обращение к элементам коллекции points[i].Contr 
                 {
                     workSheet.Cells[count, 1] = time;
                     workSheet.Cells[count, 4] = points[i].Contr[m].X; //------для X = Z —--— 
                     workSheet.Cells[count, 2] = points[i].Contr[m].Y; //------для Y = X----—
-                    workSheet.Cells[count, 3] = u - (0.00120148148148148 * Math.Pow((1000 * time), 2))/ 2;
+                    workSheet.Cells[count, 3] = u - (0.00120148148148148 * Math.Pow((1000 * time), 2)) / 2;
                     if ((points[i].Contr[m].X == points[i].Mass.X) && (points[i].Contr[m].Y == points[i].Mass.Y))
                     {
                         workSheet.Cells[count, 3] = 0; // проверка
                     }
                     count++;
+                    m++;
                     time = 0.001 + time;
                 }
+                i++;
             }
-
             //Обработка ошибки сохранения
             try
             {
