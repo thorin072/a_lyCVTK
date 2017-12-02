@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCV));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label9 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,23 +108,23 @@
             // 
             // visualgraph
             // 
-            chartArea1.Name = "ChartArea1";
-            this.visualgraph.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.visualgraph.ChartAreas.Add(chartArea2);
             this.visualgraph.Location = new System.Drawing.Point(149, 24);
             this.visualgraph.Name = "visualgraph";
             this.visualgraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.visualgraph.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Blue};
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.Color = System.Drawing.Color.RoyalBlue;
-            series1.Name = "Series1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series2.Color = System.Drawing.Color.Red;
-            series2.Name = "Series2";
-            this.visualgraph.Series.Add(series1);
-            this.visualgraph.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series3.Color = System.Drawing.Color.RoyalBlue;
+            series3.Name = "Series1";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series4.Color = System.Drawing.Color.Red;
+            series4.Name = "Series2";
+            this.visualgraph.Series.Add(series3);
+            this.visualgraph.Series.Add(series4);
             this.visualgraph.Size = new System.Drawing.Size(538, 454);
             this.visualgraph.TabIndex = 23;
             this.visualgraph.Text = "visualgraph";
@@ -260,9 +260,9 @@
             this.label8.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(11, 155);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(75, 16);
+            this.label8.Size = new System.Drawing.Size(94, 16);
             this.label8.TabIndex = 4;
-            this.label8.Text = "Кол-во точек:";
+            this.label8.Text = "Кол-во контуров:";
             // 
             // infosize
             // 

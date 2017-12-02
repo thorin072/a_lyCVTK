@@ -38,7 +38,6 @@ namespace CVTK
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
             ExcelProcessor.PointToFile(points);
             infoex.Text = "Cоздан";
-
         }
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -49,9 +48,8 @@ namespace CVTK
                 {
                     Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd   
                     infosize.Text = _imgInput.Width.ToString() + "*" + _imgInput.Height.ToString() + "px";
-                    // var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
-                    // var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
-                    var imgCanny = GrayImg.ApplyCanny(100, 150, _imgInput.Width, _imgInput.Height, _imgInput);
+                    var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
+                    var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
                     img = _imgInput;
                     FindContours(imgCanny);
                 }
@@ -61,7 +59,7 @@ namespace CVTK
                 MessageBox.Show(ex.Message);
             }
         }
-
+ 
         private void valueX_ValueChanged(object sender, EventArgs e)
         {
             var sm = Math.Round((int)valueX.Value / 37.7952755905511);
@@ -76,9 +74,17 @@ namespace CVTK
 
         private void перестроитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
-            var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, img);
-            FindContours(imgCanny);
+            try
+            {
+                infoex.Text = "Перестройка файла";
+                var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
+                var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, img);
+                FindContours(imgCanny);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "Попытка перестроить нулевое изображение");
+            }
         }
     }
 }

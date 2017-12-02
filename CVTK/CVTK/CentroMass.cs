@@ -11,18 +11,24 @@ using Emgu.CV.Util;
 
 namespace CVTK
 {
+    /// <summary>
+    /// Класс для определения цетра масс контура 
+    /// </summary>
     public static class CentroMass
     {
+        /// <summary>
+        /// Специальная структура для выходного листа данных
+        /// </summary>
         public class ContourWithMass
         {
-            public Point Mass;
-            public List<Point> Contr;
+            public Point Mass; // (x,y) - центра масс
+            public List<Point> Contr; // лист точек контура 
         }
 
         public static IList<ContourWithMass> DeterminationOfCentromass(Image<Gray, byte> bin, ChainApproxMethod method)
         {
 
-            var totalresult = new List<ContourWithMass>();
+            var totalresult = new List<ContourWithMass>(); // лист для хранения ВСЕХ НАЙДЕНЫХ КОНТУРОВ
             Mat hierarchy = new Mat();// выделение массива для хранения контуров
             using (VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint())
             {
@@ -50,8 +56,8 @@ namespace CVTK
 
         private static List<ContourWithMass> SortDeterminationOfCentromass(List<ContourWithMass> point)
         {
-            var endPointAfterMass = new List<ContourWithMass>();
-            var k = 0;
+            var endPointAfterMass = new List<ContourWithMass>(); //  лист для хранения ВСЕХ ИСТИННЫХ КОНТУРОВ
+            var k = 0; // счетчик для отсечки 
             int i = 0;
             while (i < point.Count)
             {
@@ -70,10 +76,10 @@ namespace CVTK
                         k++;
                     }
                 }
-                List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList();
-
+                List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList(); // сортировка листа по убыванию по числу точек контура
+                // использование класса , но уже с хранением не центра масс , а последней точки контура
                 ContourWithMass endPointAndContr = new ContourWithMass();
-                endPointAndContr.Mass.X = tresult[0].Contr[tresult[0].Contr.Count-1].X;
+                endPointAndContr.Mass.X = tresult[0].Contr[tresult[0].Contr.Count-1].X; 
                 endPointAndContr.Mass.Y = tresult[0].Contr[tresult[0].Contr.Count-1].Y;
                 endPointAndContr.Contr = tresult[0].Contr;
                 endPointAfterMass.Add(endPointAndContr);

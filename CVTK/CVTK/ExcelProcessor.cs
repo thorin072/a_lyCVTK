@@ -18,7 +18,10 @@ namespace CVTK
     /// </summary>
     public static class ExcelProcessor
     {
-
+        /// <summary>
+        /// Вывод файла координат
+        /// </summary>
+        /// <param name="points">Лист контуров с соответствующим цетром масс для контура</param>
         public static void PointToFile(IList<CentroMass.ContourWithMass> points)
         {
             //****Создание экземпляра файла Excel****
@@ -30,7 +33,7 @@ namespace CVTK
             Excel.Worksheet workSheet;
             workBook = excelApp.Workbooks.Add();
             workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);
-            workSheet.Range["A2:D10000"].NumberFormat = "0.00E+00";
+            workSheet.Range["A2:D10000"].NumberFormat = "0.00E+00"; // установка формата ячеек
             workSheet.Cells[1, 1] = "t";
             workSheet.Cells[1, 2] = "x";
             workSheet.Cells[1, 3] = "y";
@@ -41,9 +44,7 @@ namespace CVTK
             workSheet.Cells[2, 3] = 686.6;
             //****Файл инициализирован****
 
-            //****Разбиение на компоненты
-
-            //---time-— 
+            //****Заполнение данными 
             double time = 1 * 1e-3;
             int count = 3;
             double u = 686.6;
@@ -53,7 +54,7 @@ namespace CVTK
                 {
                     workSheet.Cells[count, 1] = time;
                     workSheet.Cells[count, 4] = points[i].Contr[m].X; //------для X = Z —--— 
-                    workSheet.Cells[count, 2] = points[i].Contr[m].Y; //------для Y = X----—  =C$2-(0,00120148148148148*(1000*A3)^2)/2
+                    workSheet.Cells[count, 2] = points[i].Contr[m].Y; //------для Y = X----—
                     workSheet.Cells[count, 3] = u - (0.00120148148148148 * Math.Pow((1000 * time), 2))/ 2;
                     if ((points[i].Contr[m].X == points[i].Mass.X) && (points[i].Contr[m].Y == points[i].Mass.Y))
                     {
@@ -63,6 +64,8 @@ namespace CVTK
                     time = 0.001 + time;
                 }
             }
+
+            //Обработка ошибки сохранения
             try
             {
                 string outpath = Environment.CurrentDirectory + "/";
@@ -74,8 +77,7 @@ namespace CVTK
             {
                 workBook.Close();
                 excelApp.Quit();
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-                System.Windows.Forms.MessageBox.Show("Ошибка сохранения. Файл остался в прежнем состоянии. Ресурсы освобождены.");
+                System.Windows.Forms.MessageBox.Show(ex.Message + "Ошибка сохранения. Файл остался в прежнем состоянии. Ресурсы освобождены.");
             }
         }
     }
