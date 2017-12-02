@@ -19,15 +19,14 @@ namespace CVTK
             public List<Point> Contr;
         }
 
-        public static IList<Point> DeterminationOfCentromass(Image<Gray, byte> bin, ChainApproxMethod method)
+        public static IList<ContourWithMass> DeterminationOfCentromass(Image<Gray, byte> bin, ChainApproxMethod method)
         {
-            string mydocpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
             var totalresult = new List<ContourWithMass>();
             Mat hierarchy = new Mat();// выделение массива для хранения контуров
             using (VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint())
             {
                 CvInvoke.FindContours(bin, contours, hierarchy, RetrType.List, method);//поиск контуров
-                using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(mydocpath + @"\WriteLines.txt"))
                 {
                     for (int i = 0; i < contours.Size; i++)
                     {
@@ -39,9 +38,6 @@ namespace CVTK
                             massVar.Mass.X = (int)result.Average(_ => _.X);
                             massVar.Mass.Y = (int)result.Average(_ => _.Y);
                             massVar.Contr = result;
-
-                            outputFile.WriteLine("Номер:" + i.ToString() + " " + "massX:" + massVar.Mass.X.ToString() + " " + "massY:" + massVar.Mass.Y.ToString() + " " + massVar.Contr.Count.ToString());
-                            outputFile.WriteLine("---------------------");
                             totalresult.Add(massVar);
                         }
                     }
@@ -52,21 +48,19 @@ namespace CVTK
             return sort;
         }
 
-
-
-        private static List<Point> SortDeterminationOfCentromass(List<ContourWithMass> point)
+        private static List<ContourWithMass> SortDeterminationOfCentromass(List<ContourWithMass> point)
         {
-            var endPointAfterMass = new List<Point>();
+            var endPointAfterMass = new List<ContourWithMass>();
             var k = 0;
             int i = 0;
             while (i < point.Count)
             {
                 var tresult = new List<ContourWithMass>();
-
                 for (int j = k; j < point.Count; j++)
                 {
-                    if (((point[i].Mass.X <= point[j].Mass.X + 3) && (point[j].Mass.X - 3 <= point[i].Mass.X))
-                        && ((point[i].Mass.Y <= point[j].Mass.Y + 3) && (point[j].Mass.Y - 3 <= point[i].Mass.Y)))
+                  //проблема с О
+                    if (((point[i].Mass.X <= point[j].Mass.X + 2) && (point[j].Mass.X - 2 <= point[i].Mass.X))
+                       && ((point[i].Mass.Y <= point[j].Mass.Y + 2) && (point[j].Mass.Y - 2 <= point[i].Mass.Y)))
                     {
                         ContourWithMass massVar = new ContourWithMass();
                         var result = new List<Point>();
@@ -77,8 +71,13 @@ namespace CVTK
                     }
                 }
                 List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList();
-                endPointAfterMass.AddRange(SortedList[0].Contr.ToArray());
-                i=k;
+
+                ContourWithMass endPointAndContr = new ContourWithMass();
+                endPointAndContr.Mass.X = tresult[0].Contr[tresult[0].Contr.Count-1].X;
+                endPointAndContr.Mass.Y = tresult[0].Contr[tresult[0].Contr.Count-1].Y;
+                endPointAndContr.Contr = tresult[0].Contr;
+                endPointAfterMass.Add(endPointAndContr);
+                i = k;
             }
             return endPointAfterMass;
         }

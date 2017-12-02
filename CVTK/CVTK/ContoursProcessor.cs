@@ -36,7 +36,6 @@ namespace CVTK
                     }
                 }
             }
-            //  ListWithMass.Add(new Tuple<Point, Point>((new Point(points[i].X, points[i].Y)), (new Point((int)massx, (int)massy))));
             return result;
         }
     }
