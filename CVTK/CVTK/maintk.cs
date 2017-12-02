@@ -18,7 +18,6 @@ namespace CVTK
             InitializeComponent();
         }
 
-        //// result.AddRange(point[i+1].Contr.ToArray()
         /// <summary>
         /// Поиск контуров изображения и отрисовка на плоскости
         /// </summary>
@@ -27,27 +26,20 @@ namespace CVTK
         {
             var points = CentroMass.DeterminationOfCentromass(bin, ChainApproxMethod.ChainApproxNone);
             infopoint.Text = points.Count.ToString();
-
             var visualXY = new List<Point>();
-
             ////Для полного контура
             for (int i = 0; i < points.Count; i++)
             {
                 visualXY.AddRange(points[i].Contr.ToArray());
 
             }
-             var x = visualXY.Select(_ => _.X).ToArray();
-            var  y = visualXY.Select(_ => _.Y).ToArray();
-      
-
+            var x = visualXY.Select(_ => _.X).ToArray();
+            var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
-           
-            //  chart1.Series[1].Points.DataBindXY(xT, yT); // визуализация вершин
             ExcelProcessor.PointToFile(points);
             infoex.Text = "Cоздан";
 
         }
-
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog(); // диалог открытия изображения
@@ -88,6 +80,5 @@ namespace CVTK
             var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, img);
             FindContours(imgCanny);
         }
-
     }
 }

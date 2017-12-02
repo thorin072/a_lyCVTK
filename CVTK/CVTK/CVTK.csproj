@@ -65,9 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CalculationOfTheLine.cs" />
     <Compile Include="CentroMass.cs" />
-    <Compile Include="ContoursProcessor.cs" />
     <Compile Include="ExcelProcessor.cs" />
     <Compile Include="GrayImg.cs" />
     <Compile Include="maintk.cs">
@@ -78,7 +76,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchDirect.cs" />
     <EmbeddedResource Include="maintk.resx">
       <DependentUpon>maintk.cs</DependentUpon>
     </EmbeddedResource>

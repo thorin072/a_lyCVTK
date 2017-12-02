@@ -66,7 +66,7 @@ namespace CVTK
             try
             {
                 string outpath = Environment.CurrentDirectory + "/";
-                workBook.SaveAs(@outpath + "end_points.xlsx");
+                workBook.SaveAs(@outpath + "end_position.xlsx");
                 workBook.Close();
                 excelApp.Quit();
             }
