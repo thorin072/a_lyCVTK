@@ -30,10 +30,10 @@ namespace CVTK
             Excel.Worksheet workSheet;
             workBook = excelApp.Workbooks.Add();
             workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);
-            workSheet.Range["A2:A10000"].NumberFormat = "0.E+00";
+            workSheet.Range["A2:D10000"].NumberFormat = "0.00E+00";
             workSheet.Cells[1, 1] = "t";
             workSheet.Cells[1, 2] = "x";
-            workSheet.Cells[1, 3] = "y";//Z
+            workSheet.Cells[1, 3] = "y";
             workSheet.Cells[1, 4] = "z";
             workSheet.Cells[2, 1] = 0*1e-3;
             workSheet.Cells[2, 4] = 0 * 1e-3;
@@ -63,7 +63,6 @@ namespace CVTK
                     time = 0.001 + time;
                 }
             }
-           
             try
             {
                 string outpath = Environment.CurrentDirectory + "/";
