@@ -42,7 +42,7 @@ namespace CVTK
             workSheet.Cells[2, 4] = 0 * 1e-3;
             workSheet.Cells[2, 2] =points[0].Contr[0].Y;
             workSheet.Cells[2, 3] = 686.6;
-            //****Файл инициализирован****
+            //****Файл инициализирован****н
 
             //****Заполнение данными 
             double time = 1 * 1e-3;
