@@ -119,6 +119,8 @@
     <Content Include="Properties\vcruntime140.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\robot.png" />
+    <None Include="Resources\580348083f4ce157ccd16043.png" />
     <None Include="Resources\excel.png" />
     <None Include="Resources\2000px-Microsoft_Excel_2013_logo.png" />
     <None Include="Resources\reload.png" />

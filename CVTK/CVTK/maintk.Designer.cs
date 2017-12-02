@@ -28,14 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCV));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCV));
             this.label9 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьИзображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.перестроитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visualgraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ysm = new System.Windows.Forms.Label();
             this.xsm = new System.Windows.Forms.Label();
@@ -43,7 +40,6 @@
             this.valueX = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.infoex = new System.Windows.Forms.Label();
             this.infopoint = new System.Windows.Forms.Label();
@@ -51,12 +47,18 @@
             this.infosize = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьИзображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.перестроитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label9
@@ -76,38 +78,14 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(684, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(678, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.открытьИзображениеToolStripMenuItem,
-            this.перестроитьToolStripMenuItem});
-            this.fileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fileToolStripMenuItem.Image")));
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.fileToolStripMenuItem.Text = "Файл";
-            // 
-            // открытьИзображениеToolStripMenuItem
-            // 
-            this.открытьИзображениеToolStripMenuItem.Image = global::CVTK.Properties.Resources.box_picture;
-            this.открытьИзображениеToolStripMenuItem.Name = "открытьИзображениеToolStripMenuItem";
-            this.открытьИзображениеToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.открытьИзображениеToolStripMenuItem.Text = "Открыть изображение...";
-            this.открытьИзображениеToolStripMenuItem.Click += new System.EventHandler(this.открытьИзображениеToolStripMenuItem_Click);
-            // 
-            // перестроитьToolStripMenuItem
-            // 
-            this.перестроитьToolStripMenuItem.Image = global::CVTK.Properties.Resources.reload;
-            this.перестроитьToolStripMenuItem.Name = "перестроитьToolStripMenuItem";
-            this.перестроитьToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.перестроитьToolStripMenuItem.Text = "Перестроить ";
-            this.перестроитьToolStripMenuItem.Click += new System.EventHandler(this.перестроитьToolStripMenuItem_Click);
-            // 
             // visualgraph
             // 
+            this.visualgraph.BackColor = System.Drawing.Color.Transparent;
+            this.visualgraph.BorderlineColor = System.Drawing.SystemColors.ButtonFace;
             chartArea1.Name = "ChartArea1";
             this.visualgraph.ChartAreas.Add(chartArea1);
             this.visualgraph.Location = new System.Drawing.Point(149, 24);
@@ -210,15 +188,6 @@
             this.label7.TabIndex = 4;
             this.label7.Text = "Y                         px";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::CVTK.Properties.Resources.excel;
-            this.pictureBox1.Location = new System.Drawing.Point(14, 190);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(18, 20);
-            this.pictureBox1.TabIndex = 7;
-            this.pictureBox1.TabStop = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -305,12 +274,57 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки";
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::CVTK.Properties.Resources.robot;
+            this.pictureBox2.Location = new System.Drawing.Point(21, 269);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(137, 165);
+            this.pictureBox2.TabIndex = 27;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CVTK.Properties.Resources.excel;
+            this.pictureBox1.Location = new System.Drawing.Point(14, 190);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(18, 20);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьИзображениеToolStripMenuItem,
+            this.перестроитьToolStripMenuItem});
+            this.fileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fileToolStripMenuItem.Image")));
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.fileToolStripMenuItem.Text = "Файл";
+            // 
+            // открытьИзображениеToolStripMenuItem
+            // 
+            this.открытьИзображениеToolStripMenuItem.Image = global::CVTK.Properties.Resources.box_picture;
+            this.открытьИзображениеToolStripMenuItem.Name = "открытьИзображениеToolStripMenuItem";
+            this.открытьИзображениеToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.открытьИзображениеToolStripMenuItem.Text = "Открыть изображение...";
+            this.открытьИзображениеToolStripMenuItem.Click += new System.EventHandler(this.открытьИзображениеToolStripMenuItem_Click);
+            // 
+            // перестроитьToolStripMenuItem
+            // 
+            this.перестроитьToolStripMenuItem.Image = global::CVTK.Properties.Resources.reload;
+            this.перестроитьToolStripMenuItem.Name = "перестроитьToolStripMenuItem";
+            this.перестроитьToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.перестроитьToolStripMenuItem.Text = "Перестроить ";
+            this.перестроитьToolStripMenuItem.Click += new System.EventHandler(this.перестроитьToolStripMenuItem_Click);
+            // 
             // MainCV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(684, 494);
+            this.ClientSize = new System.Drawing.Size(678, 494);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.visualgraph);
@@ -324,9 +338,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -353,6 +368,7 @@
         private System.Windows.Forms.Label infosize;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
