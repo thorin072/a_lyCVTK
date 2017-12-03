@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCV));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label9 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьИзображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.перестроитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visualgraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ysm = new System.Windows.Forms.Label();
             this.xsm = new System.Windows.Forms.Label();
@@ -47,18 +50,15 @@
             this.infosize = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьИзображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.перестроитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueX)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label9
@@ -82,22 +82,48 @@
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьИзображениеToolStripMenuItem,
+            this.перестроитьToolStripMenuItem});
+            this.fileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fileToolStripMenuItem.Image")));
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.fileToolStripMenuItem.Text = "Файл";
+            // 
+            // открытьИзображениеToolStripMenuItem
+            // 
+            this.открытьИзображениеToolStripMenuItem.Image = global::CVTK.Properties.Resources.box_picture;
+            this.открытьИзображениеToolStripMenuItem.Name = "открытьИзображениеToolStripMenuItem";
+            this.открытьИзображениеToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.открытьИзображениеToolStripMenuItem.Text = "Открыть изображение...";
+            this.открытьИзображениеToolStripMenuItem.Click += new System.EventHandler(this.открытьИзображениеToolStripMenuItem_Click);
+            // 
+            // перестроитьToolStripMenuItem
+            // 
+            this.перестроитьToolStripMenuItem.Image = global::CVTK.Properties.Resources.reload;
+            this.перестроитьToolStripMenuItem.Name = "перестроитьToolStripMenuItem";
+            this.перестроитьToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.перестроитьToolStripMenuItem.Text = "Перестроить ";
+            this.перестроитьToolStripMenuItem.Click += new System.EventHandler(this.перестроитьToolStripMenuItem_Click);
+            // 
             // visualgraph
             // 
             this.visualgraph.BackColor = System.Drawing.Color.Transparent;
             this.visualgraph.BorderlineColor = System.Drawing.SystemColors.ButtonFace;
-            chartArea1.Name = "ChartArea1";
-            this.visualgraph.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.visualgraph.ChartAreas.Add(chartArea2);
             this.visualgraph.Location = new System.Drawing.Point(149, 24);
             this.visualgraph.Name = "visualgraph";
             this.visualgraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.visualgraph.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Blue};
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.Color = System.Drawing.Color.RoyalBlue;
-            series1.Name = "Series1";
-            this.visualgraph.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series2.Color = System.Drawing.Color.RoyalBlue;
+            series2.Name = "Series1";
+            this.visualgraph.Series.Add(series2);
             this.visualgraph.Size = new System.Drawing.Size(538, 454);
             this.visualgraph.TabIndex = 23;
             this.visualgraph.Text = "visualgraph";
@@ -274,15 +300,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::CVTK.Properties.Resources.robot;
-            this.pictureBox2.Location = new System.Drawing.Point(21, 269);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(137, 165);
-            this.pictureBox2.TabIndex = 27;
-            this.pictureBox2.TabStop = false;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CVTK.Properties.Resources.excel;
@@ -292,31 +309,14 @@
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
-            // fileToolStripMenuItem
+            // pictureBox2
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.открытьИзображениеToolStripMenuItem,
-            this.перестроитьToolStripMenuItem});
-            this.fileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fileToolStripMenuItem.Image")));
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.fileToolStripMenuItem.Text = "Файл";
-            // 
-            // открытьИзображениеToolStripMenuItem
-            // 
-            this.открытьИзображениеToolStripMenuItem.Image = global::CVTK.Properties.Resources.box_picture;
-            this.открытьИзображениеToolStripMenuItem.Name = "открытьИзображениеToolStripMenuItem";
-            this.открытьИзображениеToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.открытьИзображениеToolStripMenuItem.Text = "Открыть изображение...";
-            this.открытьИзображениеToolStripMenuItem.Click += new System.EventHandler(this.открытьИзображениеToolStripMenuItem_Click);
-            // 
-            // перестроитьToolStripMenuItem
-            // 
-            this.перестроитьToolStripMenuItem.Image = global::CVTK.Properties.Resources.reload;
-            this.перестроитьToolStripMenuItem.Name = "перестроитьToolStripMenuItem";
-            this.перестроитьToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.перестроитьToolStripMenuItem.Text = "Перестроить ";
-            this.перестроитьToolStripMenuItem.Click += new System.EventHandler(this.перестроитьToolStripMenuItem_Click);
+            this.pictureBox2.Image = global::CVTK.Properties.Resources.robot;
+            this.pictureBox2.Location = new System.Drawing.Point(12, 280);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(152, 198);
+            this.pictureBox2.TabIndex = 27;
+            this.pictureBox2.TabStop = false;
             // 
             // MainCV
             // 
@@ -329,9 +329,11 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.visualgraph);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainCV";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainCV";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -340,8 +342,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.valueX)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

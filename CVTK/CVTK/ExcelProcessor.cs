@@ -65,6 +65,7 @@ namespace CVTK
                     time = 0.001 + time;
                 }
                 i++;
+                m = 0;
             }
             //Обработка ошибки сохранения
             try

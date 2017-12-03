@@ -25,18 +25,20 @@ namespace CVTK
         private void FindContours(Image<Gray, byte> bin)
         {
             var points = CentroMass.DeterminationOfCentromass(bin, ChainApproxMethod.ChainApproxNone);
+            List<CentroMass.ContourWithMass> SortedList = points.OrderBy(j => j.Mass.X).ToList();
             infopoint.Text = points.Count.ToString();
             var visualXY = new List<Point>();
             ////Для полного контура
-            for (int i = 0; i < points.Count; i++)
+            for (int i = 0; i < SortedList.Count; i++)
             {
-                visualXY.AddRange(points[i].Contr.ToArray());
+                visualXY.AddRange(SortedList[i].Contr.ToArray());
 
             }
             var x = visualXY.Select(_ => _.X).ToArray();
             var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
-            ExcelProcessor.PointToFile(points);
+
+            ExcelProcessor.PointToFile(SortedList);
             infoex.Text = "Cоздан";
         }
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
@@ -48,8 +50,9 @@ namespace CVTK
                 {
                     Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd   
                     infosize.Text = _imgInput.Width.ToString() + "*" + _imgInput.Height.ToString() + "px";
-                    var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
-                    var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
+                    //var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
+                    // var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
+                     var imgCanny = GrayImg.ApplyCanny(100, 150, _imgInput.Width,_imgInput.Height, _imgInput);
                     img = _imgInput;
                     FindContours(imgCanny);
                 }
@@ -74,17 +77,17 @@ namespace CVTK
 
         private void перестроитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                infoex.Text = "Перестройка файла";
-                var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
-                var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, img);
-                FindContours(imgCanny);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "Попытка перестроить нулевое изображение");
-            }
+            //try
+            //{
+            //    infoex.Text = "Перестройка файла";
+            //    var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
+            //    var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, img);
+            //    FindContours(imgCanny);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message + "Попытка перестроить нулевое изображение");
+            //}
         }
     }
 }
