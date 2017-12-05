@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCV));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label9 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +66,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.label9.Location = new System.Drawing.Point(329, 461);
+            this.label9.Location = new System.Drawing.Point(437, 621);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(201, 16);
             this.label9.TabIndex = 15;
@@ -78,7 +78,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(678, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(888, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -112,19 +112,19 @@
             // 
             this.visualgraph.BackColor = System.Drawing.Color.Transparent;
             this.visualgraph.BorderlineColor = System.Drawing.SystemColors.ButtonFace;
-            chartArea2.Name = "ChartArea1";
-            this.visualgraph.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.visualgraph.ChartAreas.Add(chartArea1);
             this.visualgraph.Location = new System.Drawing.Point(149, 24);
             this.visualgraph.Name = "visualgraph";
             this.visualgraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.visualgraph.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Blue};
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series2.Color = System.Drawing.Color.RoyalBlue;
-            series2.Name = "Series1";
-            this.visualgraph.Series.Add(series2);
-            this.visualgraph.Size = new System.Drawing.Size(538, 454);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.RoyalBlue;
+            series1.Name = "Series1";
+            this.visualgraph.Series.Add(series1);
+            this.visualgraph.Size = new System.Drawing.Size(739, 594);
             this.visualgraph.TabIndex = 23;
             this.visualgraph.Text = "visualgraph";
             // 
@@ -323,7 +323,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(678, 494);
+            this.ClientSize = new System.Drawing.Size(888, 646);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label9);

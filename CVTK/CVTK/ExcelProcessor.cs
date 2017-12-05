@@ -39,27 +39,46 @@ namespace CVTK
             workSheet.Cells[1, 3] = "y";
             workSheet.Cells[1, 4] = "z";
             workSheet.Cells[2, 1] = 0 * 1e-3;
-            workSheet.Cells[2, 4] = 0 * 1e-3;
-            workSheet.Cells[2, 2] = points[0].Contr[0].Y;
+            workSheet.Cells[2, 4] = 0;
+            workSheet.Cells[2, 2] = 390;
             workSheet.Cells[2, 3] = 686.6;
             //****Файл инициализирован****
-
+            ///flag для буквы 
             //****Заполнение данными 
             double time = 1 * 1e-3;
-            int count = 3, m = 0, i = 0;
-            double u = 686.6;
+            int count = 0, m = 0, i = 0, counttime = 3;
+            double u = 687, k = 687;
+
+            while (k > 200)
+            {
+                workSheet.Cells[counttime, 1] = time;
+                workSheet.Cells[counttime, 4] = 0 - (0.000123457 * Math.Pow(time * 1000, 2)) / 2; //------для X = Z —--— 
+                workSheet.Cells[counttime, 2] = 390 + (0.000271605 * Math.Pow(time * 1000, 2)) / 2; //------для Y = X----—
+                k = u - (0.00120148148148148 * Math.Pow((1000 * time), 2)) / 2;
+                workSheet.Cells[counttime, 3] = k;
+                time = 0.001 + time;
+                counttime++;
+                k--;
+
+            }
+            count = counttime;
             while (i < points.Count) // Коллекция I - ых контуров ( количество найденых 0..n)
             {
                 while (m < points[i].Contr.Count) // Обращение к элементам коллекции points[i].Contr 
                 {
+
+                    if ((points[i].Contr[m].X == points[i].Mass.X) && (points[i].Contr[m].Y == points[i].Mass.Y))
+                    {
+                        workSheet.Cells[count, 3] = 201; // проверка
+                        workSheet.Cells[count + 1, 4] = points[i].Contr[0].X; //------для X = Z —--— 
+                        workSheet.Cells[count + 1, 2] = points[i].Contr[0].Y; //------для Y = X----—
+
+                    }
                     workSheet.Cells[count, 1] = time;
                     workSheet.Cells[count, 4] = points[i].Contr[m].X; //------для X = Z —--— 
                     workSheet.Cells[count, 2] = points[i].Contr[m].Y; //------для Y = X----—
-                    workSheet.Cells[count, 3] = u - (0.00120148148148148 * Math.Pow((1000 * time), 2)) / 2;
-                    if ((points[i].Contr[m].X == points[i].Mass.X) && (points[i].Contr[m].Y == points[i].Mass.Y))
-                    {
-                        workSheet.Cells[count, 3] = 0; // проверка
-                    }
+                    workSheet.Cells[count, 3] = 200;
+
                     count++;
                     m++;
                     time = 0.001 + time;

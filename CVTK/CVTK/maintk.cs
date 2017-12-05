@@ -34,11 +34,12 @@ namespace CVTK
                 visualXY.AddRange(SortedList[i].Contr.ToArray());
 
             }
+
             var x = visualXY.Select(_ => _.X).ToArray();
             var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
 
-            ExcelProcessor.PointToFile(SortedList);
+        ExcelProcessor.PointToFile(SortedList);
             infoex.Text = "Cоздан";
         }
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)

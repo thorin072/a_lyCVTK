@@ -42,15 +42,15 @@ namespace CVTK
                             result.AddRange(contour.ToArray());
                             massVar.Mass.X = (int)result.Average(_ => _.X);
                             massVar.Mass.Y = (int)result.Average(_ => _.Y);
-                            massVar.Contr = result;
+                            massVar.Contr = result;                  
                             totalresult.Add(massVar);
                         }
                     }
                 }
             }
             List<ContourWithMass> SortedList = totalresult.OrderByDescending(o => o.Mass.X).ToList();
-            var sort = SortDeterminationOfCentromass(SortedList);
-            return sort;
+            var sortToX = SortDeterminationOfCentromass(SortedList);
+            return sortToX;
         }
 
         private static List<ContourWithMass> SortDeterminationOfCentromass(List<ContourWithMass> point)
@@ -80,9 +80,13 @@ namespace CVTK
                 endPointAndContr.Mass.X = tresult[0].Contr[tresult[0].Contr.Count - 1].X;
                 endPointAndContr.Mass.Y = tresult[0].Contr[tresult[0].Contr.Count - 1].Y;
                 endPointAndContr.Contr = tresult[0].Contr;
+              //  endPointAndContr.Contr[i].=
                 endPointAfterMass.Add(endPointAndContr);
                 i = k;
             }
+            
+
+
             return endPointAfterMass;
         }
     }
