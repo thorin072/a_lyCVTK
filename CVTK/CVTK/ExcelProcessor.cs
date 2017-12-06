@@ -22,7 +22,7 @@ namespace CVTK
         /// Вывод файла координат
         /// </summary>
         /// <param name="points">Лист контуров с соответствующим цетром масс для контура</param>
-        public static void PointToFile(IList<CentroMass.ContourWithMass> points)
+        public static void PointToFile(IList<CentroMass.ContourWithMass> points,int timeend)
         {
             //****Создание экземпляра файла Excel****
             // Создаём экземпляр приложения
@@ -33,6 +33,7 @@ namespace CVTK
             Excel.Worksheet workSheet;
             workBook = excelApp.Workbooks.Add();
             workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);
+            workSheet.Name = "data1";
             workSheet.Range["A2:D10000"].NumberFormat = "0.00E+00"; // установка формата ячеек
             workSheet.Cells[1, 1] = "t";
             workSheet.Cells[1, 2] = "x";
@@ -60,20 +61,36 @@ namespace CVTK
                 counttime++;
                 k--;
             }
+
+            var Xdx = -50.0000850000001; // точка старта для манипулятора
+            var Ydx = 500.000025;
+            while (Xdx> points[0].Contr[0].X-100)
+            {
+                workSheet.Cells[counttime, 1] = time;
+                workSheet.Cells[counttime, 4] = Xdx+1; //------для X = Z —--— 
+                workSheet.Cells[counttime, 2] = Ydx+1; //------для Y = X----—
+                workSheet.Cells[counttime, 3] = 202;
+                time = 0.001 + time;
+                counttime++;
+                Xdx--;
+                Ydx++;
+            }
             count = counttime;
+
             var X = 500.000025;
+            
+
             while (i < points.Count) // Коллекция I - ых контуров ( количество найденых 0..n)
             {
                 while (m < points[i].Contr.Count) // Обращение к элементам коллекции points[i].Contr 
                 {
 
-                    if ((points[i].Contr[m].X == points[i].Mass.X) && (points[i].Contr[m].Y == points[i].Mass.Y))
-                    {
-                        workSheet.Cells[count, 3] = 201; // проверка
-                        workSheet.Cells[count + 1, 4] = points[i].Contr[0].X-100 ; //------для X = Z —--— 
-                        workSheet.Cells[count + 1, 2] = points[i].Contr[0].Y + X; //------для Y = X----—
-
-                    }
+                    //if ((points[i].Contr[m].X == points[i].Mass.X) && (points[i].Contr[m].Y == points[i].Mass.Y))
+                    //{
+                    //    workSheet.Cells[count, 3] = 201; // проверка
+                    //    workSheet.Cells[count + 1, 4] = points[i].Contr[0].X-100 ; //------для X = Z —--— 
+                    //    workSheet.Cells[count + 1, 2] = points[i].Contr[0].Y + X; //------для Y = X----—
+                    //}
                     workSheet.Cells[count, 1] = time;
                     workSheet.Cells[count, 4] = points[i].Contr[m].X-100; //------для X = Z —--— 
                     workSheet.Cells[count, 2] = points[i].Contr[m].Y + X; //------для Y = X----—
@@ -88,7 +105,7 @@ namespace CVTK
             }
 
             //cтабилизация точки при завершении
-            while (time <= 2.1)
+            while (time <= timeend)
             {
                 workSheet.Cells[count, 4] = points[points.Count-1].Contr[points[points.Count - 1].Contr.Count-1].X-100; //------для X = Z —--— 
                 workSheet.Cells[count, 2] = points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + X; //------для Y = X----—
@@ -101,7 +118,7 @@ namespace CVTK
             //Обработка ошибки сохранения
             try
             {
-                string outpath = Environment.CurrentDirectory + "/";
+               string outpath = Environment.CurrentDirectory + "/";
                 workBook.SaveAs(@outpath + "end_position.xlsx");
                 workBook.Close();
                 excelApp.Quit();

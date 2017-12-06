@@ -39,6 +39,7 @@ namespace CVTK
                         {
                             ContourWithMass massVar = new ContourWithMass();
                             var result = new List<Point>();
+                            result.Add(new Point(contour[contour.Size-1].X, contour[contour.Size - 1].Y));
                             result.AddRange(contour.ToArray());
                             massVar.Mass.X = (int)result.Average(_ => _.X);
                             massVar.Mass.Y = (int)result.Average(_ => _.Y);
@@ -77,17 +78,17 @@ namespace CVTK
                 List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList(); // сортировка листа по убыванию по числу точек контура
                 // использование класса , но уже с хранением не центра масс , а последней точки контура
                 ContourWithMass endPointAndContr = new ContourWithMass();
-                endPointAndContr.Mass.X = tresult[0].Contr[tresult[0].Contr.Count - 1].X;
-                endPointAndContr.Mass.Y = tresult[0].Contr[tresult[0].Contr.Count - 1].Y;
+                endPointAndContr.Mass.X = SortedList[0].Contr[SortedList[0].Contr.Count -1].X;
+                endPointAndContr.Mass.Y = SortedList[0].Contr[SortedList[0].Contr.Count -1].Y;
                 endPointAndContr.Contr = tresult[0].Contr;
               //  endPointAndContr.Contr[i].=
                 endPointAfterMass.Add(endPointAndContr);
                 i = k;
             }
-            
-
-
             return endPointAfterMass;
         }
+
+
+      
     }
 }

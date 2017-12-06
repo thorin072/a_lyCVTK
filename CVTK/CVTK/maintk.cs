@@ -32,14 +32,12 @@ namespace CVTK
             for (int i = 0; i < SortedList.Count; i++)
             {
                 visualXY.AddRange(SortedList[i].Contr.ToArray());
-
             }
-
             var x = visualXY.Select(_ => _.X).ToArray();
+            pointinfo.Text = x.Length.ToString();
             var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
-
-        ExcelProcessor.PointToFile(SortedList);
+            ExcelProcessor.PointToFile(SortedList,(int)time.Value);
             infoex.Text = "Cоздан";
         }
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
@@ -53,7 +51,7 @@ namespace CVTK
                     infosize.Text = _imgInput.Width.ToString() + "*" + _imgInput.Height.ToString() + "px";
                     //var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
                     // var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
-                     var imgCanny = GrayImg.ApplyCanny(100, 150, _imgInput.Width,_imgInput.Height, _imgInput);
+                    var imgCanny = GrayImg.ApplyCanny(100, 150, _imgInput.Width, _imgInput.Height, _imgInput);
                     img = _imgInput;
                     FindContours(imgCanny);
                 }
@@ -63,7 +61,7 @@ namespace CVTK
                 MessageBox.Show(ex.Message);
             }
         }
- 
+
         private void valueX_ValueChanged(object sender, EventArgs e)
         {
             var sm = Math.Round((int)valueX.Value / 37.7952755905511);
@@ -90,5 +88,7 @@ namespace CVTK
             //    MessageBox.Show(ex.Message + "Попытка перестроить нулевое изображение");
             //}
         }
+
+
     }
 }
