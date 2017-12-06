@@ -59,9 +59,9 @@ namespace CVTK
                 time = 0.001 + time;
                 counttime++;
                 k--;
-
             }
             count = counttime;
+            var X = 500.000025;
             while (i < points.Count) // Коллекция I - ых контуров ( количество найденых 0..n)
             {
                 while (m < points[i].Contr.Count) // Обращение к элементам коллекции points[i].Contr 
@@ -70,13 +70,13 @@ namespace CVTK
                     if ((points[i].Contr[m].X == points[i].Mass.X) && (points[i].Contr[m].Y == points[i].Mass.Y))
                     {
                         workSheet.Cells[count, 3] = 201; // проверка
-                        workSheet.Cells[count + 1, 4] = points[i].Contr[0].X; //------для X = Z —--— 
-                        workSheet.Cells[count + 1, 2] = points[i].Contr[0].Y; //------для Y = X----—
+                        workSheet.Cells[count + 1, 4] = points[i].Contr[0].X-100 ; //------для X = Z —--— 
+                        workSheet.Cells[count + 1, 2] = points[i].Contr[0].Y + X; //------для Y = X----—
 
                     }
                     workSheet.Cells[count, 1] = time;
-                    workSheet.Cells[count, 4] = points[i].Contr[m].X; //------для X = Z —--— 
-                    workSheet.Cells[count, 2] = points[i].Contr[m].Y; //------для Y = X----—
+                    workSheet.Cells[count, 4] = points[i].Contr[m].X-100; //------для X = Z —--— 
+                    workSheet.Cells[count, 2] = points[i].Contr[m].Y + X; //------для Y = X----—
                     workSheet.Cells[count, 3] = 200;
 
                     count++;
@@ -86,6 +86,18 @@ namespace CVTK
                 i++;
                 m = 0;
             }
+
+            //cтабилизация точки при завершении
+            while (time <= 2.1)
+            {
+                workSheet.Cells[count, 4] = points[points.Count-1].Contr[points[points.Count - 1].Contr.Count-1].X-100; //------для X = Z —--— 
+                workSheet.Cells[count, 2] = points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + X; //------для Y = X----—
+                workSheet.Cells[count, 1] = time;
+                workSheet.Cells[count, 3] = 200;
+                time = 0.01 + time;
+                count++;
+            }
+
             //Обработка ошибки сохранения
             try
             {
