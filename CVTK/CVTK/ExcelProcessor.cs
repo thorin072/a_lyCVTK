@@ -85,40 +85,63 @@ namespace CVTK
 
             while (i < points.Count) // Коллекция I - ых контуров ( количество найденых 0..n)
             {
+
                 while (m < points[i].Contr.Count) // Обращение к элементам коллекции points[i].Contr 
                 {
                     workSheet.Cells[count, 1] = time;
-                    workSheet.Cells[count, 4] = points[i].Contr[m].X - 100; //------для X = Z —--— 
-                    workSheet.Cells[count, 2] = points[i].Contr[m].Y + Y; //------для Y = X----—
+                    workSheet.Cells[count, 4] = points[i].Contr[m].X - 100; 
+                    workSheet.Cells[count, 2] = points[i].Contr[m].Y + Y;
                     workSheet.Cells[count, 3] = 200;
                     count++;
                     m++;
                     time = 0.001 + time;
                     flagContourType = true; // идем по контуру
                 }
+                
+                if (i == points.Count - 1)
+                {
+                    break;
+                }
+                
 
                 flagContourType = false; // переход
                 if (flagContourType == false)
                 {
                     k = 200; // начальное положения для поднятия по Z
 
+                    var oneX = points[i].Contr[points[i].Contr.Count - 1].X - 100; // X точки поднятия
+                    var oneY = points[i].Contr[points[i].Contr.Count - 1].Y + Y; // Y точки поднятия  
+                    var firstX = points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100; // X точки опускания ///БАГ
+                    var firstY = points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Y; // Y точки опускания ////БАГ
+                    var coef = Coefficients(oneX, oneY, firstX, firstY); // коэффициенты для прямой перехода
+
                     ///---------Поднятие пера------------
-                    
+
                     var timeUP = 1 * 1e-3; // время , чтобы поднять
                     while (k <= 215)
                     {
                         k = 200 + (0.00120148148148148 * Math.Pow((1000 * timeUP), 2)) / 2;
                         workSheet.Cells[count, 3] = k;
                         workSheet.Cells[count, 1] = time;
-                        workSheet.Cells[count, 4] = points[i].Contr[points[i].Contr.Count-1].X - 100; //------для X = Z —--— 
-                        workSheet.Cells[count, 2] = points[i].Contr[points[i].Contr.Count-1].Y + Y; //------для Y = X----—
+                        workSheet.Cells[count, 4] = oneX; //------для X = Z —--— 
+                        workSheet.Cells[count, 2] = oneY; //------для Y = X----—
                         time = 0.001 + time;
                         timeUP = 0.001 + timeUP;
                         count++;
                     }
 
-                    ///
-                    ///траектория для перехода с контура на контур
+                    ///траектория для перехода с контура на контур                   
+                    //y = -ax-c/b
+                    for (int d = oneX; d < firstX; d++)
+                    {
+                        var Yzn = ((-coef.Item1 * d) - coef.Item3) / coef.Item2;
+                        workSheet.Cells[count, 3] = k;
+                        workSheet.Cells[count, 1] = time;
+                        workSheet.Cells[count, 4] = d; //------для X = Z —--— 
+                        workSheet.Cells[count, 2] = Yzn; //------для Y = X----—
+                        time = 0.001 + time;
+                        count++;
+                    }
                     ///
 
                     ///---------Опустить перо------------
@@ -128,8 +151,8 @@ namespace CVTK
                         k = 215 - (0.00120148148148148 * Math.Pow((1000 * timeUP), 2)) / 2;
                         workSheet.Cells[count, 3] = k;
                         workSheet.Cells[count, 1] = time;
-                       // workSheet.Cells[count, 4] =  - 100; //------для X = Z —--—
-                       // workSheet.Cells[count, 2] =  + Y; //------для Y = X----—
+                        workSheet.Cells[count, 4] = firstX;
+                        workSheet.Cells[count, 2] = firstY;
                         time = 0.001 + time;
                         timeUP = 0.001 + timeUP;
                         count++;
@@ -164,6 +187,15 @@ namespace CVTK
                 excelApp.Quit();
                 System.Windows.Forms.MessageBox.Show(ex.Message + "Ошибка сохранения. Файл остался в прежнем состоянии. Ресурсы освобождены.");
             }
+        }
+        private static Tuple<double, double, double> Coefficients(double x1, double y1, double x2, double y2)
+        {
+            //(y1-y2)*x+(x2-x1)*y+(x1y2-x2y1) = 0
+            //Ax+By+C=0
+            var A = (y1 - y2);
+            var B = (x2 - x1);
+            var C = (x1 * y2 - x2 * y1);
+            return Tuple.Create(A, B, C);
         }
     }
 }
