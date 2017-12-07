@@ -39,7 +39,8 @@ namespace CVTK
                         {
                             ContourWithMass massVar = new ContourWithMass();
                             var result = new List<Point>();
-                            result.Add(new Point(contour[contour.Size-1].X, contour[contour.Size - 1].Y));
+                            // result.Add(new Point(contour[contour.Size-1].X, contour[contour.Size - 1].Y));
+                            result.Add(new Point(contour[0].X, contour[0].Y));
                             result.AddRange(contour.ToArray());
                             massVar.Mass.X = (int)result.Average(_ => _.X);
                             massVar.Mass.Y = (int)result.Average(_ => _.Y);
@@ -76,19 +77,16 @@ namespace CVTK
                     }
                 }
                 List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList(); // сортировка листа по убыванию по числу точек контура
+                List<ContourWithMass> SortedList2 = SortedList.OrderBy(o => o.Contr[0].X).ToList();
                 // использование класса , но уже с хранением не центра масс , а последней точки контура
-                ContourWithMass endPointAndContr = new ContourWithMass();
-                endPointAndContr.Mass.X = SortedList[0].Contr[SortedList[0].Contr.Count -1].X;
-                endPointAndContr.Mass.Y = SortedList[0].Contr[SortedList[0].Contr.Count -1].Y;
-                endPointAndContr.Contr = tresult[0].Contr;
-              //  endPointAndContr.Contr[i].=
-                endPointAfterMass.Add(endPointAndContr);
+                ContourWithMass STRUCTendPointAndContr = new ContourWithMass();
+                STRUCTendPointAndContr.Mass.X = SortedList2[0].Contr[SortedList2[0].Contr.Count -1].X;
+                STRUCTendPointAndContr.Mass.Y = SortedList2[0].Contr[SortedList2[0].Contr.Count -1].Y;
+                STRUCTendPointAndContr.Contr = tresult[0].Contr;
+                endPointAfterMass.Add(STRUCTendPointAndContr);
                 i = k;
             }
             return endPointAfterMass;
         }
-
-
-      
     }
 }

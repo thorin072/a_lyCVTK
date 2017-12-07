@@ -22,7 +22,7 @@ namespace CVTK
         /// Вывод файла координат
         /// </summary>
         /// <param name="points">Лист контуров с соответствующим цетром масс для контура</param>
-        public static void PointToFile(IList<CentroMass.ContourWithMass> points,int timeend)
+        public static void PointToFile(IList<CentroMass.ContourWithMass> points, int timeend)
         {
             //****Создание экземпляра файла Excel****
             // Создаём экземпляр приложения
@@ -50,6 +50,7 @@ namespace CVTK
             int count = 0, m = 0, i = 0, counttime = 3;
             double u = 687, k = 687;
 
+            //опускает перо
             while (k > 200)
             {
                 workSheet.Cells[counttime, 1] = time;
@@ -62,14 +63,15 @@ namespace CVTK
                 k--;
             }
 
-            var Xdx = -50.0000850000001; // точка старта для манипулятора
+            //переещение от точки старта до точки контура 
+            var Xdx = -52.0000850000001; // точка старта для манипулятора
             var Ydx = 500.000025;
-            while (Xdx> points[0].Contr[0].X-100)
+            while (Xdx >= points[0].Contr[0].X - 100)
             {
                 workSheet.Cells[counttime, 1] = time;
-                workSheet.Cells[counttime, 4] = Xdx+1; //------для X = Z —--— 
-                workSheet.Cells[counttime, 2] = Ydx+1; //------для Y = X----—
-                workSheet.Cells[counttime, 3] = 202;
+                workSheet.Cells[counttime, 4] = Xdx + 1; //------для X = Z —--— 
+                workSheet.Cells[counttime, 2] = Ydx + 1; //------для Y = X----—
+                workSheet.Cells[counttime, 3] = 200;
                 time = 0.001 + time;
                 counttime++;
                 Xdx--;
@@ -77,28 +79,61 @@ namespace CVTK
             }
             count = counttime;
 
-            var X = 500.000025;
-            
+            var Y = 500.000025;
+
+            bool flagContourType;// флаг для поднятия
 
             while (i < points.Count) // Коллекция I - ых контуров ( количество найденых 0..n)
             {
                 while (m < points[i].Contr.Count) // Обращение к элементам коллекции points[i].Contr 
                 {
-
-                    //if ((points[i].Contr[m].X == points[i].Mass.X) && (points[i].Contr[m].Y == points[i].Mass.Y))
-                    //{
-                    //    workSheet.Cells[count, 3] = 201; // проверка
-                    //    workSheet.Cells[count + 1, 4] = points[i].Contr[0].X-100 ; //------для X = Z —--— 
-                    //    workSheet.Cells[count + 1, 2] = points[i].Contr[0].Y + X; //------для Y = X----—
-                    //}
                     workSheet.Cells[count, 1] = time;
-                    workSheet.Cells[count, 4] = points[i].Contr[m].X-100; //------для X = Z —--— 
-                    workSheet.Cells[count, 2] = points[i].Contr[m].Y + X; //------для Y = X----—
+                    workSheet.Cells[count, 4] = points[i].Contr[m].X - 100; //------для X = Z —--— 
+                    workSheet.Cells[count, 2] = points[i].Contr[m].Y + Y; //------для Y = X----—
                     workSheet.Cells[count, 3] = 200;
-
                     count++;
                     m++;
                     time = 0.001 + time;
+                    flagContourType = true; // идем по контуру
+                }
+
+                flagContourType = false; // переход
+                if (flagContourType == false)
+                {
+                    k = 200; // начальное положения для поднятия по Z
+
+                    ///---------Поднятие пера------------
+                    
+                    var timeUP = 1 * 1e-3; // время , чтобы поднять
+                    while (k <= 215)
+                    {
+                        k = 200 + (0.00120148148148148 * Math.Pow((1000 * timeUP), 2)) / 2;
+                        workSheet.Cells[count, 3] = k;
+                        workSheet.Cells[count, 1] = time;
+                        workSheet.Cells[count, 4] = points[i].Contr[points[i].Contr.Count-1].X - 100; //------для X = Z —--— 
+                        workSheet.Cells[count, 2] = points[i].Contr[points[i].Contr.Count-1].Y + Y; //------для Y = X----—
+                        time = 0.001 + time;
+                        timeUP = 0.001 + timeUP;
+                        count++;
+                    }
+
+                    ///
+                    ///траектория для перехода с контура на контур
+                    ///
+
+                    ///---------Опустить перо------------
+                    timeUP = 1 * 1e-3;// время , чтобы опустить
+                    while (k >= 200)
+                    {
+                        k = 215 - (0.00120148148148148 * Math.Pow((1000 * timeUP), 2)) / 2;
+                        workSheet.Cells[count, 3] = k;
+                        workSheet.Cells[count, 1] = time;
+                       // workSheet.Cells[count, 4] =  - 100; //------для X = Z —--—
+                       // workSheet.Cells[count, 2] =  + Y; //------для Y = X----—
+                        time = 0.001 + time;
+                        timeUP = 0.001 + timeUP;
+                        count++;
+                    }
                 }
                 i++;
                 m = 0;
@@ -107,8 +142,8 @@ namespace CVTK
             //cтабилизация точки при завершении
             while (time <= timeend)
             {
-                workSheet.Cells[count, 4] = points[points.Count-1].Contr[points[points.Count - 1].Contr.Count-1].X-100; //------для X = Z —--— 
-                workSheet.Cells[count, 2] = points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + X; //------для Y = X----—
+                workSheet.Cells[count, 4] = points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100; //------для X = Z —--— 
+                workSheet.Cells[count, 2] = points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Y; //------для Y = X----—
                 workSheet.Cells[count, 1] = time;
                 workSheet.Cells[count, 3] = 200;
                 time = 0.01 + time;
@@ -118,7 +153,7 @@ namespace CVTK
             //Обработка ошибки сохранения
             try
             {
-               string outpath = Environment.CurrentDirectory + "/";
+                string outpath = Environment.CurrentDirectory + "/";
                 workBook.SaveAs(@outpath + "end_position.xlsx");
                 workBook.Close();
                 excelApp.Quit();
