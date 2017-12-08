@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
-
+//адовая оптимизация
 namespace CVTK
 {
     /// <summary>
@@ -140,7 +140,7 @@ namespace CVTK
                 workSheet.Cells[COUNT, 3] = STRUCT[j].y;
                 COUNT++;
             }
-
+            
             //Обработка ошибки сохранения
             try
             {
