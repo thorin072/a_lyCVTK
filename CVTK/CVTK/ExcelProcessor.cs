@@ -44,14 +44,15 @@ namespace CVTK
             workSheet.Cells[2, 2] = 390;
             workSheet.Cells[2, 3] = 686.6;
             //****Файл инициализирован****
-            ///flag для буквы 
+
+
             //****Заполнение данными 
             double time = 1 * 1e-3;
             int count = 0, m = 0, i = 0, counttime = 3;
             double u = 687, k = 687;
 
             //опускает перо
-            while (k > 200)
+            while (k > 202)
             {
                 workSheet.Cells[counttime, 1] = time;
                 workSheet.Cells[counttime, 4] = 0 - (0.000123457 * Math.Pow(time * 1000, 2)) / 2; //------для X = Z —--— 
@@ -66,18 +67,29 @@ namespace CVTK
             //переещение от точки старта до точки контура 
             var Xdx = -52.0000850000001; // точка старта для манипулятора
             var Ydx = 500.000025;
-            while (Xdx >= points[0].Contr[0].X - 100)
+
+            var oneX1 = -52; ; // X точки поднятия
+            var oneY1 = 500.000025; // Y точки поднятия  
+            var firstX1 = points[0].Contr[0].X - 100; // X точки опускания ///БАГ
+            var firstY1 = points[0].Contr[0].Y; // Y точки опускания ////БАГ
+            var coef1 = Coefficients(oneX1, oneY1, firstX1, firstY1); // коэффициенты для прямой перехода
+
+
+
+            for (int h = oneX1; h < firstX1; h++)
             {
+                var Yzn = ((-coef1.Item1 * h) - coef1.Item3) / coef1.Item2;
                 workSheet.Cells[counttime, 1] = time;
-                workSheet.Cells[counttime, 4] = Xdx + 1; //------для X = Z —--— 
-                workSheet.Cells[counttime, 2] = Ydx + 1; //------для Y = X----—
-                workSheet.Cells[counttime, 3] = 200;
+                workSheet.Cells[counttime, 4] = h; //------для X = Z —--— 
+                workSheet.Cells[counttime, 2] = Yzn; //------для Y = X----—
+                workSheet.Cells[counttime, 3] = k;
                 time = 0.001 + time;
                 counttime++;
                 Xdx--;
                 Ydx++;
             }
             count = counttime;
+
 
             var Y = 500.000025;
 
@@ -89,7 +101,7 @@ namespace CVTK
                 while (m < points[i].Contr.Count) // Обращение к элементам коллекции points[i].Contr 
                 {
                     workSheet.Cells[count, 1] = time;
-                    workSheet.Cells[count, 4] = points[i].Contr[m].X - 100; 
+                    workSheet.Cells[count, 4] = points[i].Contr[m].X - 100;
                     workSheet.Cells[count, 2] = points[i].Contr[m].Y + Y;
                     workSheet.Cells[count, 3] = 200;
                     count++;
@@ -97,12 +109,12 @@ namespace CVTK
                     time = 0.001 + time;
                     flagContourType = true; // идем по контуру
                 }
-                
+
                 if (i == points.Count - 1)
                 {
                     break;
                 }
-                
+
 
                 flagContourType = false; // переход
                 if (flagContourType == false)

@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RobotCommand.cs" />
     <EmbeddedResource Include="maintk.resx">
       <DependentUpon>maintk.cs</DependentUpon>
     </EmbeddedResource>

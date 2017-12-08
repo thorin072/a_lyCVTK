@@ -9,6 +9,13 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 
+
+/// <summary>
+/// Баг 1
+/// Лишние точки на контуре ( удалить повторения )
+/// Баг 2
+/// Переходы с контура на контур
+/// </summary>
 namespace CVTK
 {
     /// <summary>
@@ -17,12 +24,18 @@ namespace CVTK
     public static class CentroMass
     {
         /// <summary>
-        /// Специальная структура для выходного листа данных
+        /// Структура с центром масс и листом точек контура
         /// </summary>
         public class ContourWithMass
         {
-            public Point Mass; // (x,y) - центра масс
-            public List<Point> Contr; // лист точек контура 
+            /// <summary>
+            /// Центр масс контура
+            /// </summary>
+            public Point Mass; 
+            /// <summary>
+            /// Лист точек контура
+            /// </summary>
+            public List<Point> Contr; 
         }
 
         public static IList<ContourWithMass> DeterminationOfCentromass(Image<Gray, byte> bin, ChainApproxMethod method)
