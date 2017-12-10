@@ -37,7 +37,8 @@ namespace CVTK
             pointinfo.Text = x.Length.ToString();
             var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
-            ExcelProcessor.PointToFile(SortedList, (int)time.Value);
+            var ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (int)time.Value);
+            ExcelProcessor.PointToFile(ExcelArr);
             infoex.Text = "Cоздан";
         }
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)

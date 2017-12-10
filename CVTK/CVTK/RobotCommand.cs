@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace CVTK
         /// <summary>
         /// Структура положения робота в реальный момент времени
         /// </summary>
-        public class RobotPosition
+        public class RobotPosition 
         {
             public double x; // = z
             public double y; // = x
@@ -19,9 +20,9 @@ namespace CVTK
             public double time;
         }
 
-        public static List<RobotPosition> Start(ref double time, double ZHight)
+        
+        public static IEnumerable<RobotPosition> Start(double time, double ZHight)
         {
-            var totalresult = new List<RobotPosition>();
             while (ZHight > 202)
             {
                 RobotPosition result = new RobotPosition();
@@ -32,15 +33,13 @@ namespace CVTK
                 result.y = ZHight;
                 time = 0.001 + time;
                 ZHight--;
-                totalresult.Add(result);
-            }
-            return totalresult;
+                yield return result ;
+            }  
         }
 
-
-        public static List<RobotPosition> ToTheContourPoint(ref double time, double ZHight, int x1, double y1, double x2, double y2)
+        public static IEnumerable<RobotPosition> ToTheContourPoint( double time, double ZHight, int x1, double y1, double x2, double y2)
         {
-            var totalresult = new List<RobotPosition>();
+            double lastX = 0, lastY = 0;
             var coef = Coefficients(x1, y1, x2, y2); // коэффициенты для прямой перехода
             for (int i = x1; i > x2; i--) // вычисление точек траектории
             {
@@ -51,25 +50,25 @@ namespace CVTK
                 result.x = Yzn;
                 result.y = ZHight;
                 time = 0.001 + time;
-                totalresult.Add(result);
+                lastX = result.z;
+                lastY = result.x;
+                yield return result;
             }
             for (double i = ZHight; i >= 200; i--) // опустить перо в первую точку контура
             {
                 RobotPosition result = new RobotPosition();
                 result.time = time;
-                result.z = totalresult[totalresult.Count - 1].z;
-                result.x = totalresult[totalresult.Count - 1].x;
+                result.z = lastX;
+                result.x = lastY;
                 result.y = i;
                 time = 0.001 + time;
-                totalresult.Add(result);
+                yield return result;
             }
-            return totalresult;
         }
 
 
-        public static List<RobotPosition> PenUp(ref double time, double ZHight, int x1, double y1, double timeUP)
+        public static IEnumerable<RobotPosition> PenUp( double time, double ZHight, int x1, double y1, double timeUP)
         {
-            var totalresult = new List<RobotPosition>();
             while (ZHight <= 215)
             {
                 RobotPosition result = new RobotPosition();
@@ -80,14 +79,12 @@ namespace CVTK
                 result.x = y1;
                 time = 0.001 + time;
                 timeUP = 0.001 + timeUP;
-                totalresult.Add(result);
-            }
-            return totalresult;
+                yield return result;
+            } 
         }
 
-        public static List<RobotPosition> PenPause(ref double time, double ZHight, int x1, double y1, double x2, double y2)
+        public static IEnumerable<RobotPosition> PenPause( double time, double ZHight, int x1, double y1, double x2, double y2)
         {
-            var totalresult = new List<RobotPosition>();
             var coef = Coefficients(x1, y1, x2, y2); // коэффициенты для прямой перехода
             for (int i = x1; i < x2; i++) // вычисление точек траектории
             {
@@ -98,14 +95,12 @@ namespace CVTK
                 result.x = Yzn;
                 result.y = ZHight;
                 time = 0.001 + time;
-                totalresult.Add(result);
+                yield return result;
             }
-            return totalresult;
         }
 
-        public static List<RobotPosition> PenDown(ref double time, double ZHight, int x1, double y1, double timeUP)
+        public static IEnumerable<RobotPosition> PenDown( double time, double ZHight, int x1, double y1, double timeUP)
         {
-            var totalresult = new List<RobotPosition>();
             while (ZHight >= 200)
             {
                 RobotPosition result = new RobotPosition();
@@ -116,14 +111,13 @@ namespace CVTK
                 result.x = y1;
                 time = 0.001 + time;
                 timeUP = 0.001 + timeUP;
-                totalresult.Add(result);
+                yield return result;
             }
-            return totalresult;
+            
         }
 
-        public static List<RobotPosition> Stop (ref double time,double timeend , int x1, double y1,double ZHight)
+        public static IEnumerable<RobotPosition> Stop ( double time,double timeend , int x1, double y1,double ZHight)
         {
-            var totalresult = new List<RobotPosition>();
             while (time <= timeend)
             {
                 RobotPosition result = new RobotPosition();
@@ -132,12 +126,9 @@ namespace CVTK
                 result.z = x1;
                 result.x = y1;
                 time = 0.001 + time;
-                totalresult.Add(result);
+                yield return result;
             }
-            return totalresult;
         }
-
-
         private static Tuple<double, double, double> Coefficients(double x1, double y1, double x2, double y2)
         {
             //(y1-y2)*x+(x2-x1)*y+(x1y2-x2y1) = 0
@@ -147,9 +138,6 @@ namespace CVTK
             var C = (x1 * y2 - x2 * y1);
             return Tuple.Create(A, B, C);
         }
-
-
-
     }
 
 }

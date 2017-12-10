@@ -52,8 +52,8 @@ namespace CVTK
                         {
                             ContourWithMass massVar = new ContourWithMass();
                             var result = new List<Point>();
-                            // result.Add(new Point(contour[contour.Size-1].X, contour[contour.Size - 1].Y));
-                            result.Add(new Point(contour[0].X, contour[0].Y));
+                             result.Add(new Point(contour[contour.Size-1].X, contour[contour.Size - 1].Y));
+                           // result.Add(new Point(contour[0].X, contour[0].Y));
                             result.AddRange(contour.ToArray());
                             massVar.Mass.X = (int)result.Average(_ => _.X);
                             massVar.Mass.Y = (int)result.Average(_ => _.Y);
