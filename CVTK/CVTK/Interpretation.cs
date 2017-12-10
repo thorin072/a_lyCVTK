@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Класс Interpretation
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,22 +37,23 @@ namespace CVTK
             /// </summary>
             public const int ZPlotPause = 215;
         }
-        public class Times
+        public class TimeAll
         {
-            public static double TIME;
+            public double Time;
         }
 
         /// <summary>
-        /// 
+        /// Интерпритация команд для робота (вычисление траекторий)
         /// </summary>
         /// <param name="points">Входной лист точек всего контура</param>
         /// <param name="timeend">Время реализации</param>
         /// <returns></returns>
         public static IEnumerable<RobotCommand.RobotPosition> InterpretationOfCommands(IList<CentroMass.ContourWithMass> points, int timeend)
         {
-            Times.TIME = 1 * 1e-3;
+            TimeAll Times = new TimeAll();
+            Times.Time = 1 * 1e-3;
 
-            var STRUCT = RobotCommand.Start(Times.TIME, Constants.StartHight);
+            var STRUCT = RobotCommand.Start(Times.Time, Constants.StartHight);
             foreach (var position in STRUCT)
             {
                 RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -59,10 +61,10 @@ namespace CVTK
                 result.y = position.y;
                 result.z = position.z;
                 result.time = position.time;
-                Times.TIME = 0.001 + Times.TIME;
+                Times.Time = 0.001 + Times.Time;
                 yield return result;
             }
-            STRUCT = RobotCommand.ToTheContourPoint(Times.TIME, Constants.HightPause, Constants.StartXPlot, Constants.StartYPlot, points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot);
+            STRUCT = RobotCommand.ToTheContourPoint(Times.Time, Constants.HightPause, Constants.StartXPlot, Constants.StartYPlot, points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot);
             foreach (var position in STRUCT)
             {
                 RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -70,7 +72,7 @@ namespace CVTK
                 result.y = position.y;
                 result.z = position.z;
                 result.time = position.time;
-                Times.TIME = 0.001 + Times.TIME;
+                Times.Time = 0.001 + Times.Time;
                 yield return result;
             }
 
@@ -80,11 +82,11 @@ namespace CVTK
                 for (int m = 0; m < points[i].Contr.Count; m++) // Обращение к элементам коллекции points[i].Contr 
                 {
                     RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
-                    result.time = Times.TIME;
+                    result.time = Times.Time;
                     result.z = points[i].Contr[m].X - 100;
                     result.x = points[i].Contr[m].Y + Constants.StartYPlot;
                     result.y = Constants.ZPlot;
-                    Times.TIME = 0.001 + Times.TIME;
+                    Times.Time = 0.001 + Times.Time;
                     flagContourType = true; // идем по контуру
                     yield return result;
                 }
@@ -97,7 +99,7 @@ namespace CVTK
 
                 if (flagContourType == false)
                 {
-                    STRUCT = RobotCommand.PenUp(Times.TIME, Constants.ZPlot, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp);
+                    STRUCT = RobotCommand.PenUp(Times.Time, Constants.ZPlot, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp);
                     foreach (var position in STRUCT)
                     {
                         RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -105,13 +107,23 @@ namespace CVTK
                         result.y = position.y;
                         result.z = position.z;
                         result.time = position.time;
-                        Times.TIME = 0.001 + Times.TIME;
+                        Times.Time = 0.001 + Times.Time;
+                        yield return result;
+                    }
+                    STRUCT = RobotCommand.PenPause(Times.Time, Constants.ZPlotPause, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot);
+
+                    foreach (var position in STRUCT)
+                    {
+                        RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
+                        result.x = position.x;
+                        result.y = position.y;
+                        result.z = position.z;
+                        result.time = position.time;
+                        Times.Time = 0.001 + Times.Time;
                         yield return result;
                     }
 
-
-                    STRUCT = RobotCommand.PenPause(Times.TIME, Constants.ZPlotPause, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot);
-
+                    STRUCT = RobotCommand.PenDown(Times.Time, Constants.ZPlotPause, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp);
                     foreach (var position in STRUCT)
                     {
                         RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -119,24 +131,12 @@ namespace CVTK
                         result.y = position.y;
                         result.z = position.z;
                         result.time = position.time;
-                        Times.TIME = 0.001 + Times.TIME;
-                        yield return result;
-                    }
-
-                    STRUCT = RobotCommand.PenDown(Times.TIME, Constants.ZPlotPause, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp);
-                    foreach (var position in STRUCT)
-                    {
-                        RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
-                        result.x = position.x;
-                        result.y = position.y;
-                        result.z = position.z;
-                        result.time = position.time;
-                        Times.TIME = 0.001 + Times.TIME;
+                        Times.Time = 0.001 + Times.Time;
                         yield return result;
                     }
                 }
             }
-            STRUCT = RobotCommand.Stop(Times.TIME, timeend, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.ZPlot);
+            STRUCT = RobotCommand.Stop(Times.Time, timeend, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.ZPlot);
             foreach (var position in STRUCT)
             {
                 RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -144,10 +144,9 @@ namespace CVTK
                 result.y = position.y;
                 result.z = position.z;
                 result.time = position.time;
-                Times.TIME = 0.001 + Times.TIME;
+                Times.Time = 0.001 + Times.Time;
                 yield return result;
             }
-
         }
     }
 }

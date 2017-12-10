@@ -128,8 +128,9 @@
             this.visualgraph.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Blue};
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             series1.Color = System.Drawing.Color.RoyalBlue;
+            series1.MarkerSize = 3;
             series1.Name = "Series1";
             this.visualgraph.Series.Add(series1);
             this.visualgraph.Size = new System.Drawing.Size(543, 538);

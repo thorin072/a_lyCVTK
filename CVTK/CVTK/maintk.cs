@@ -1,4 +1,5 @@
-﻿using System;
+﻿//Класс MainCV
+using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -53,8 +54,8 @@ namespace CVTK
                 {
                     Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd   
                     infosize.Text = _imgInput.Width.ToString() + "*" + _imgInput.Height.ToString() + "px";
-                    //var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
-                    // var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
+                    var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
+                    var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
                     var imgCanny = GrayImg.ApplyCanny(100, 150, _imgInput.Width, _imgInput.Height, _imgInput);
                     img = _imgInput;
                     FindContours(imgCanny);
@@ -80,17 +81,17 @@ namespace CVTK
 
         private void перестроитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    infoex.Text = "Перестройка файла";
-            //    var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
-            //    var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, img);
-            //    FindContours(imgCanny);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message + "Попытка перестроить нулевое изображение");
-            //}
+            try
+            {
+                infoex.Text = "Перестройка файла";
+                var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
+                var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, img);
+                FindContours(imgCanny);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "Попытка перестроить нулевое изображение");
+            }
         }
 
 
