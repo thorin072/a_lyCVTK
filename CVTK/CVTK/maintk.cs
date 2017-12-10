@@ -25,10 +25,11 @@ namespace CVTK
         private void FindContours(Image<Gray, byte> bin)
         {
             var points = CentroMass.DeterminationOfCentromass(bin, ChainApproxMethod.ChainApproxNone);
-            List<CentroMass.ContourWithMass> SortedList = points.OrderBy(j => j.Mass.X).ToList();
+            List<CentroMass.ContourWithMass> SortedList = points.OrderBy(j => j.Mass.X).ToList(); // сортировка по центру масс (х)
             infopoint.Text = points.Count.ToString();
+
             var visualXY = new List<Point>();
-            ////Для полного контура
+            ////Заполнение массивов для графика визуализации
             for (int i = 0; i < SortedList.Count; i++)
             {
                 visualXY.AddRange(SortedList[i].Contr.ToArray());
@@ -37,6 +38,8 @@ namespace CVTK
             pointinfo.Text = x.Length.ToString();
             var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
+
+            //Создание выходного файла
             var ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (int)time.Value);
             ExcelProcessor.PointToFile(ExcelArr);
             infoex.Text = "Cоздан";

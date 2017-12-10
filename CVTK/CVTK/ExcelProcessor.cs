@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
-//адовая оптимизация
+
 namespace CVTK
 {
     /// <summary>
@@ -46,8 +46,9 @@ namespace CVTK
             workSheet.Cells[2, 2] = 390;
             workSheet.Cells[2, 3] = 686.6;
 
-            int COUNT = 3;
+            int COUNT = 3; // начальное положение для заполнения
 
+            //Заполнение данными
             foreach (var position in points)
             {
                 workSheet.Cells[COUNT, 1] = position.time;
@@ -64,11 +65,20 @@ namespace CVTK
                 workBook.SaveAs(@outpath + "end_position.xlsx");
                 workBook.Close();
                 excelApp.Quit();
+                excelApp = null;
+                workBook = null;
+                workSheet= null;
+                GC.Collect();// обнуляются ссылки, процесс удалится сборщиком мусора
+
             }
             catch (Exception ex)
             {
                 workBook.Close();
                 excelApp.Quit();
+                excelApp = null;
+                workBook = null;
+                workSheet = null;
+                GC.Collect();// обнуляются ссылки, процесс удалится сборщиком мусора
                 System.Windows.Forms.MessageBox.Show(ex.Message + "Ошибка сохранения. Файл остался в прежнем состоянии. Ресурсы освобождены.");
             }
         }

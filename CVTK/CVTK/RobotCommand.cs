@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace CVTK
 {
+    /// <summary>
+    /// Класс реализации (интерпритации) команд для робота
+    /// </summary>
     public static class RobotCommand
     {
         /// <summary>
@@ -20,7 +23,12 @@ namespace CVTK
             public double time;
         }
 
-        
+        /// <summary>
+        /// Вычисление координат для опускания манипулятора 
+        /// </summary>
+        /// <param name="time">Время</param>
+        /// <param name="ZHight">Начальная высота (нуль манипулятора)</param>
+        /// <returns></returns>
         public static IEnumerable<RobotPosition> Start(double time, double ZHight)
         {
             while (ZHight > 202)
@@ -37,9 +45,19 @@ namespace CVTK
             }  
         }
 
+        /// <summary>
+        /// Переход от нуля плоскости к первой точке контура
+        /// </summary>
+        /// <param name="time">Время</param>
+        /// <param name="ZHight">Высота для перехода с одной точки контура к другой</param>
+        /// <param name="x1">Координата нуля плоскости </param>
+        /// <param name="y1">Координата нуля плоскости</param>
+        /// <param name="x2">Координата первой точки контура</param>
+        /// <param name="y2">Координата первой точки контура</param>
+        /// <returns></returns>
         public static IEnumerable<RobotPosition> ToTheContourPoint( double time, double ZHight, int x1, double y1, double x2, double y2)
         {
-            double lastX = 0, lastY = 0;
+            double lastX = 0, lastY = 0; // последняя точка для опускания в начало контура
             var coef = Coefficients(x1, y1, x2, y2); // коэффициенты для прямой перехода
             for (int i = x1; i > x2; i--) // вычисление точек траектории
             {
@@ -66,7 +84,15 @@ namespace CVTK
             }
         }
 
-
+        /// <summary>
+        /// Поднятие пера
+        /// </summary>
+        /// <param name="time">Время</param>
+        /// <param name="ZHight">Высота для поднятия манипулятора</param>
+        /// <param name="x1">Координата в которой осуществляется подьем</param>
+        /// <param name="y1">Координата в которой осуществляется подьем</param>
+        /// <param name="timeUP">Время для поднятия пера</param>
+        /// <returns></returns>
         public static IEnumerable<RobotPosition> PenUp( double time, double ZHight, int x1, double y1, double timeUP)
         {
             while (ZHight <= 215)
@@ -83,6 +109,16 @@ namespace CVTK
             } 
         }
 
+        /// <summary>
+        /// Манипулятор остается на заданой высоте, происзодит перемещение по траектории от контура к контуру 
+        /// </summary>
+        /// <param name="time">Время</param>
+        /// <param name="ZHight">Высота на которой происходит перемещение (постоянна)</param>
+        /// <param name="x1">Последняя точка первого контура</param>
+        /// <param name="y1">Последняя точка первого контура</param>
+        /// <param name="x2">Первая точка нового контура</param>
+        /// <param name="y2">Первая точка нового контура</param>
+        /// <returns></returns>
         public static IEnumerable<RobotPosition> PenPause( double time, double ZHight, int x1, double y1, double x2, double y2)
         {
             var coef = Coefficients(x1, y1, x2, y2); // коэффициенты для прямой перехода
@@ -99,6 +135,15 @@ namespace CVTK
             }
         }
 
+        /// <summary>
+        /// Опускание пера манипулятора
+        /// </summary>
+        /// <param name="time">Время</param>
+        /// <param name="ZHight">Высота с которой опускают</param>
+        /// <param name="x1">Точка в которой осуществляется опускание</param>
+        /// <param name="y1">Точка в которой осуществляется опускание</param>
+        /// <param name="timeUP">Время для опускания</param>
+        /// <returns></returns>
         public static IEnumerable<RobotPosition> PenDown( double time, double ZHight, int x1, double y1, double timeUP)
         {
             while (ZHight >= 200)
@@ -116,6 +161,15 @@ namespace CVTK
             
         }
 
+        /// <summary>
+        /// Фиксация точки в конечном положении
+        /// </summary>
+        /// <param name="time">Время</param>
+        /// <param name="timeend">Время процесса</param>
+        /// <param name="x1">Точка удержания</param>
+        /// <param name="y1">Точка удержания</param>
+        /// <param name="ZHight">Рабочая высота</param>
+        /// <returns></returns>
         public static IEnumerable<RobotPosition> Stop ( double time,double timeend , int x1, double y1,double ZHight)
         {
             while (time <= timeend)
@@ -129,6 +183,11 @@ namespace CVTK
                 yield return result;
             }
         }
+
+        /// <summary>
+        /// Нахождение коэфициетов прямой
+        /// </summary>
+        /// <returns></returns>
         private static Tuple<double, double, double> Coefficients(double x1, double y1, double x2, double y2)
         {
             //(y1-y2)*x+(x2-x1)*y+(x1y2-x2y1) = 0

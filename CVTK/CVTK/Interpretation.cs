@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CVTK
 {
+    /// <summary>
+    /// Класс для создания выходного (полного) списка всех параметров манипулятора в зависимости от времени
+    /// </summary>
     public static class Interpretation
     {
         public class Constants
@@ -38,7 +41,12 @@ namespace CVTK
             public static double TIME;
         }
 
- 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points">Входной лист точек всего контура</param>
+        /// <param name="timeend">Время реализации</param>
+        /// <returns></returns>
         public static IEnumerable<RobotCommand.RobotPosition> InterpretationOfCommands(IList<CentroMass.ContourWithMass> points, int timeend)
         {
             Times.TIME = 1 * 1e-3;
@@ -54,7 +62,7 @@ namespace CVTK
                 Times.TIME = 0.001 + Times.TIME;
                 yield return result;
             }
-            STRUCT = RobotCommand.ToTheContourPoint(Times.TIME, Constants.HightPause, Constants.StartXPlot, Constants.StartYPlot, points[0].Contr[0].X - 100, points[0].Contr[0].Y+Constants.StartYPlot);
+            STRUCT = RobotCommand.ToTheContourPoint(Times.TIME, Constants.HightPause, Constants.StartXPlot, Constants.StartYPlot, points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot);
             foreach (var position in STRUCT)
             {
                 RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -100,7 +108,7 @@ namespace CVTK
                         Times.TIME = 0.001 + Times.TIME;
                         yield return result;
                     }
-                    
+
 
                     STRUCT = RobotCommand.PenPause(Times.TIME, Constants.ZPlotPause, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot);
 

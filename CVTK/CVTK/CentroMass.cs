@@ -13,8 +13,6 @@ using Emgu.CV.Util;
 /// <summary>
 /// Баг 1
 /// Лишние точки на контуре ( удалить повторения )
-/// Баг 2
-/// Переходы с контура на контур
 /// </summary>
 namespace CVTK
 {
@@ -91,6 +89,7 @@ namespace CVTK
                 }
                 List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList(); // сортировка листа по убыванию по числу точек контура
                 List<ContourWithMass> SortedList2 = SortedList.OrderBy(o => o.Contr[0].X).ToList();
+
                 // использование класса , но уже с хранением не центра масс , а последней точки контура
                 ContourWithMass STRUCTendPointAndContr = new ContourWithMass();
                 STRUCTendPointAndContr.Mass.X = SortedList2[0].Contr[SortedList2[0].Contr.Count -1].X;

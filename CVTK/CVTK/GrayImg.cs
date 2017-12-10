@@ -19,8 +19,8 @@ namespace CVTK
         /// <summary>
         /// Преобразование изображения
         /// </summary>
-        /// <param name="nWidth"></param>
-        /// <param name="nHeight"></param>
+        /// <param name="nWidth">Новый размер</param>
+        /// <param name="nHeight">Новый размер</param>
         /// <returns></returns>
         public static Tuple<int, int> ResizeImg(int nWidth, int nHeight)
         {
