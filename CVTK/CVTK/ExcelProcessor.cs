@@ -23,6 +23,7 @@ namespace CVTK
         {
             //****Создание экземпляра файла Excel****
             // Создаём экземпляр приложения
+           
             Excel.Application excelApp = new Excel.Application();
             // Создаём экземпляр рабочий книги Excel
             Excel.Workbook workBook;
@@ -60,7 +61,7 @@ namespace CVTK
             {
                 string outpath = Environment.CurrentDirectory + "/";
                 workBook.SaveAs(@outpath + "end_position.xlsx");
-                workBook.Close();
+                workBook.Close(false);
                 excelApp.Quit();
                 excelApp = null;
                 workBook = null;
@@ -70,7 +71,7 @@ namespace CVTK
             }
             catch (Exception ex)
             {
-                workBook.Close();
+                workBook.Close(false);
                 excelApp.Quit();
                 excelApp = null;
                 workBook = null;

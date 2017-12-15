@@ -17,11 +17,12 @@ namespace CVTK
             /// <summary>
             /// Ноль манипулятора (Z)
             /// </summary>
-            public const int StartHight = 687;
+            public const double StartZ= 686.6;
+            public const double StartX = 390;
             /// <summary>
             /// Высота для перемещения пера от начальной к след.точке
             /// </summary>
-            public const int HightPause = 202;
+            public const int HightPause = 200;
             public const int StartXPlot = -52;
             public const double StartYPlot = 500.000025;
             /// <summary>
@@ -53,18 +54,7 @@ namespace CVTK
             TimeAll Times = new TimeAll();
             Times.Time = 1 * 1e-3;
 
-            var STRUCT = RobotCommand.Start(Times.Time, Constants.StartHight);
-            foreach (var position in STRUCT)
-            {
-                RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
-                result.x = position.x;
-                result.y = position.y;
-                result.z = position.z;
-                result.time = position.time;
-                Times.Time = 0.001 + Times.Time;
-                yield return result;
-            }
-            STRUCT = RobotCommand.ToTheContourPoint(Times.Time, Constants.HightPause, Constants.StartXPlot, Constants.StartYPlot, points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot);
+            var STRUCT = RobotCommand.Start(Times.Time, Constants.StartZ,Constants.StartX ,points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot);
             foreach (var position in STRUCT)
             {
                 RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();

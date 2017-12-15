@@ -54,8 +54,8 @@ namespace CVTK
                 {
                     Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd   
                     infosize.Text = _imgInput.Width.ToString() + "*" + _imgInput.Height.ToString() + "px";
-                    var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
-                    var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
+                  //  var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
+                  //  var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
                     var imgCanny = GrayImg.ApplyCanny(100, 150, _imgInput.Width, _imgInput.Height, _imgInput);
                     img = _imgInput;
                     FindContours(imgCanny);
