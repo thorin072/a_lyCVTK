@@ -1,11 +1,6 @@
 ﻿//Класс ExcelProcessor
 using System.Collections.Generic;
-using System.Drawing;
 using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CVTK

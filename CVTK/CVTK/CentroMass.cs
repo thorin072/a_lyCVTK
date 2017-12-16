@@ -7,11 +7,6 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 
-
-/// <summary>
-/// Баг 1
-/// Лишние точки на контуре ( удалить повторения )
-/// </summary>
 namespace CVTK
 {
     /// <summary>
@@ -27,11 +22,11 @@ namespace CVTK
             /// <summary>
             /// Центр масс контура
             /// </summary>
-            public Point Mass; 
+            public Point Mass;
             /// <summary>
             /// Лист точек контура
             /// </summary>
-            public List<Point> Contr; 
+            public List<Point> Contr;
         }
 
         public static IList<ContourWithMass> DeterminationOfCentromass(Image<Gray, byte> bin, ChainApproxMethod method)
@@ -48,12 +43,11 @@ namespace CVTK
                         {
                             ContourWithMass massVar = new ContourWithMass();
                             var result = new List<Point>();
-                             result.Add(new Point(contour[contour.Size-1].X, contour[contour.Size - 1].Y));
-                           // result.Add(new Point(contour[0].X, contour[0].Y));
+                            result.Add(new Point(contour[contour.Size - 1].X, contour[contour.Size - 1].Y));
                             result.AddRange(contour.ToArray());
                             massVar.Mass.X = (int)result.Average(_ => _.X);
                             massVar.Mass.Y = (int)result.Average(_ => _.Y);
-                            massVar.Contr = result;                  
+                            massVar.Contr = result;
                             totalresult.Add(massVar);
                         }
                     }
@@ -77,6 +71,22 @@ namespace CVTK
                     if (((point[i].Mass.X <= point[j].Mass.X + 2) && (point[j].Mass.X - 2 <= point[i].Mass.X))
                        && ((point[i].Mass.Y <= point[j].Mass.Y + 2) && (point[j].Mass.Y - 2 <= point[i].Mass.Y)))
                     {
+                        //if ((point[i].Mass.X == point[j].Mass.X) && (point[i].Mass.Y == point[j].Mass.Y))
+                        //{
+                        //    var coef = (float)point[i].Contr.Count / point[j].Contr.Count;
+                        //    if (coef >= 0.97) // если коэфициент больше вероятности 0.97 предпологаем, что имеем один и тот же контур 
+                        //    {
+                        //        ContourWithMass massVar2 = new ContourWithMass(); 
+                        //        var results = new List<Point>();
+                        //        results.AddRange(point[j].Contr.ToArray());
+                        //        massVar2.Contr = results;
+                        //        tresult.Add(massVar2);
+                        //        k++;
+                        //        break;
+                        //    }
+                        //    else { break; }
+
+                        //}
                         ContourWithMass massVar = new ContourWithMass();
                         var result = new List<Point>();
                         result.AddRange(point[j].Contr.ToArray());
@@ -85,13 +95,19 @@ namespace CVTK
                         k++;
                     }
                 }
+                //if (tresult.Count == 0) // исходит от случая с буквой О, когда контур внутренний не равен внешнему 
+                //{
+                //    k++;
+                //    i = k;
+                //    continue;
+                //}
                 List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList(); // сортировка листа по убыванию по числу точек контура
                 List<ContourWithMass> SortedList2 = SortedList.OrderBy(o => o.Contr[0].X).ToList();
 
                 // использование класса , но уже с хранением не центра масс , а последней точки контура
                 ContourWithMass STRUCTendPointAndContr = new ContourWithMass();
-                STRUCTendPointAndContr.Mass.X = SortedList2[0].Contr[SortedList2[0].Contr.Count -1].X;
-                STRUCTendPointAndContr.Mass.Y = SortedList2[0].Contr[SortedList2[0].Contr.Count -1].Y;
+                STRUCTendPointAndContr.Mass.X = SortedList2[0].Contr[SortedList2[0].Contr.Count - 1].X;
+                STRUCTendPointAndContr.Mass.Y = SortedList2[0].Contr[SortedList2[0].Contr.Count - 1].Y;
                 STRUCTendPointAndContr.Contr = tresult[0].Contr;
                 endPointAfterMass.Add(STRUCTendPointAndContr);
                 i = k;

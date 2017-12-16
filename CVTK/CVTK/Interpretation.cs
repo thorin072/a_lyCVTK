@@ -1,9 +1,5 @@
 ﻿//Класс Interpretation
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CVTK
 {
@@ -54,6 +50,7 @@ namespace CVTK
             TimeAll Times = new TimeAll();
             Times.Time = 1 * 1e-3;
 
+            ///Манипулятор из точки (0,390,687) будет медленно опускаться в первую точку контура (x1,y1,200)
             var STRUCT = RobotCommand.Start(Times.Time, Constants.StartZ,Constants.StartX ,points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot);
             foreach (var position in STRUCT)
             {
@@ -71,6 +68,7 @@ namespace CVTK
             {
                 for (int m = 0; m < points[i].Contr.Count; m++) // Обращение к элементам коллекции points[i].Contr 
                 {
+                    ///рисуем контур на плоскости
                     RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
                     result.time = Times.Time;
                     result.z = points[i].Contr[m].X - 100;
@@ -81,14 +79,17 @@ namespace CVTK
                     yield return result;
                 }
 
+                ///если контур последний , выход из цикла рисования
                 if (i == points.Count - 1)
                 {
                     break;
                 }
                 flagContourType = false; // переход
 
+                ///поднимаем манипулятор, флаг ложь 
                 if (flagContourType == false)
                 {
+                    ///поднятие пера в одной точке 
                     STRUCT = RobotCommand.PenUp(Times.Time, Constants.ZPlot, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp);
                     foreach (var position in STRUCT)
                     {
@@ -100,6 +101,8 @@ namespace CVTK
                         Times.Time = 0.001 + Times.Time;
                         yield return result;
                     }
+
+                    ///вычисление тракетории перемещения из (x1,y1,210) в (x2,y2,210)
                     STRUCT = RobotCommand.PenPause(Times.Time, Constants.ZPlotPause, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot);
 
                     foreach (var position in STRUCT)
@@ -113,6 +116,7 @@ namespace CVTK
                         yield return result;
                     }
 
+                    ///опускание пера в одной точке
                     STRUCT = RobotCommand.PenDown(Times.Time, Constants.ZPlotPause, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp);
                     foreach (var position in STRUCT)
                     {
@@ -126,6 +130,8 @@ namespace CVTK
                     }
                 }
             }
+
+            ///фиксация пера в установленой точке (последняя точка контура)
             STRUCT = RobotCommand.Stop(Times.Time, timeend, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.ZPlot);
             foreach (var position in STRUCT)
             {

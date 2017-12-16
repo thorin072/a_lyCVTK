@@ -14,6 +14,8 @@ namespace CVTK
     public partial class MainCV : Form
     {
         Image<Bgr, byte> img;
+        IEnumerable<RobotCommand.RobotPosition> ExcelArr;
+
         public MainCV()
         {
             InitializeComponent();
@@ -41,9 +43,8 @@ namespace CVTK
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
 
             //Создание выходного файла
-            var ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (int)time.Value);
-            ExcelProcessor.PointToFile(ExcelArr);
-            infoex.Text = "Cоздан";
+            ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (int)time.Value);
+ 
         }
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -54,8 +55,6 @@ namespace CVTK
                 {
                     Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd   
                     infosize.Text = _imgInput.Width.ToString() + "*" + _imgInput.Height.ToString() + "px";
-                  //  var Rsize = GrayImg.ResizeImg((int)valueX.Value, (int)valueY.Value);
-                  //  var imgCanny = GrayImg.ApplyCanny(100, 150, Rsize.Item1, Rsize.Item2, _imgInput);
                     var imgCanny = GrayImg.ApplyCanny(100, 150, _imgInput.Width, _imgInput.Height, _imgInput);
                     img = _imgInput;
                     FindContours(imgCanny);
@@ -94,6 +93,10 @@ namespace CVTK
             }
         }
 
-
+        private void создатьФайлExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExcelProcessor.PointToFile(ExcelArr);
+            infoex.Text = "Cоздан";
+        }
     }
 }

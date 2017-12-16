@@ -22,10 +22,13 @@ namespace CVTK
         }
 
         /// <summary>
-        /// Вычисление координат для опускания манипулятора 
+        /// Старт
         /// </summary>
-        /// <param name="time">Время</param>
-        /// <param name="ZHight">Начальная высота (нуль манипулятора)</param>
+        /// <param name="time">Начальное время</param>
+        /// <param name="ZHight">Ноль манипулятора по Y</param>
+        /// <param name="YHight">Ноль манипулятора по Х </param>
+        /// <param name="x1">Первая точка контура</param>
+        /// <param name="y1">Первая точка конутра</param>
         /// <returns></returns>
         public static IEnumerable<RobotPosition> Start(double time, double ZHight,double YHight,double x1,double y1)
         {
@@ -58,7 +61,7 @@ namespace CVTK
         /// <returns></returns>
         public static IEnumerable<RobotPosition> PenUp(double time, double ZHight, int x1, double y1, double timeUP)
         {
-            var aY = Math.Abs((2 * (Interpretation.Constants.ZPlotPause - ZHight)) / Math.Pow(10, 6))*10; // ускорение по оси Y
+            var aY = Math.Abs((2 * (Interpretation.Constants.ZPlotPause - ZHight)) / Math.Pow(10, 6))*12; // ускорение по оси Y
             while (ZHight <= 215)
             {
                 RobotPosition result = new RobotPosition();
@@ -83,10 +86,10 @@ namespace CVTK
         /// <param name="x2">Первая точка нового контура</param>
         /// <param name="y2">Первая точка нового контура</param>
         /// <returns></returns>
-        public static IEnumerable<RobotPosition> PenPause(double time, double ZHight, int x1, double y1, double x2, double y2)
+        public static IEnumerable<RobotPosition> PenPause(double time, double ZHight, double x1, double y1, double x2, double y2)
         {
             var coef = Coefficients(x1, y1, x2, y2); // коэффициенты для прямой перехода
-            for (int i = x1; i < x2; i++) // вычисление точек траектории
+            for (double i = x1; i < x2; i++) // вычисление точек траектории
             {
                 RobotPosition result = new RobotPosition();
                 var Yzn = ((-coef.Item1 * i) - coef.Item3) / coef.Item2;
@@ -97,22 +100,7 @@ namespace CVTK
                 time = 0.001 + time;
                 yield return result;
             }
-            //var aX = (2 * (y2-y1) / Math.Pow(10, 6)); // ускорение по оси Х
-            //var aZ = (2 * (x2-x1)) / Math.Pow(10, 6) * (-1); // ускорение по оси Z
-            ////var coef = Coefficients(x1, y1, x2, y2); // коэффициенты для прямой перехода
-            //for (int i = x1; i < x2; i++) // вычисление точек траектории
-            //{
-            //    RobotPosition result = new RobotPosition();
-            //   // var Yzn = ((-coef.Item1 * i) - coef.Item3) / coef.Item2;
-            //    result.time = time;
-            //    result.z = x1 - (aZ * Math.Pow(time * 1000, 2)) / 2;
-            //    result.x = y1 + (aX * Math.Pow(time * 1000, 2)) / 2;
-            //    result.y = ZHight;
-            //    time = 0.001 + time;
-            //    yield return result;
-            //}
         }
-
         /// <summary>
         /// Опускание пера манипулятора
         /// </summary>
@@ -124,7 +112,7 @@ namespace CVTK
         /// <returns></returns>
         public static IEnumerable<RobotPosition> PenDown(double time, double ZHight, int x1, double y1, double timeUP)
         {
-            var aY = Math.Abs((2 * (Interpretation.Constants.ZPlot-ZHight)) / Math.Pow(10, 6))*10; // ускорение по оси Y
+            var aY = Math.Abs((2 * (Interpretation.Constants.ZPlot-ZHight)) / Math.Pow(10, 6))*12; // ускорение по оси Y
             while (ZHight >= 200)
             {
                 RobotPosition result = new RobotPosition();
@@ -137,7 +125,6 @@ namespace CVTK
                 timeUP = 0.001 + timeUP;
                 yield return result;
             }
-
         }
         /// <summary>
         /// Фиксация точки в конечном положении
@@ -175,5 +162,4 @@ namespace CVTK
             return Tuple.Create(A, B, C);
         }
     }
-
 }

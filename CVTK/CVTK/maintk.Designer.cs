@@ -58,6 +58,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.time = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.создатьФайлExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).BeginInit();
@@ -94,7 +95,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.открытьИзображениеToolStripMenuItem,
-            this.перестроитьToolStripMenuItem});
+            this.перестроитьToolStripMenuItem,
+            this.создатьФайлExcelToolStripMenuItem});
             this.fileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fileToolStripMenuItem.Image")));
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
@@ -161,7 +163,7 @@
             // 
             this.valueY.Location = new System.Drawing.Point(24, 78);
             this.valueY.Maximum = new decimal(new int[] {
-            200,
+            210,
             0,
             0,
             0});
@@ -184,7 +186,7 @@
             // 
             this.valueX.Location = new System.Drawing.Point(24, 39);
             this.valueX.Maximum = new decimal(new int[] {
-            200,
+            210,
             0,
             0,
             0});
@@ -399,6 +401,14 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Статус файла Excel:";
             // 
+            // создатьФайлExcelToolStripMenuItem
+            // 
+            this.создатьФайлExcelToolStripMenuItem.Image = global::CVTK.Properties.Resources.excel;
+            this.создатьФайлExcelToolStripMenuItem.Name = "создатьФайлExcelToolStripMenuItem";
+            this.создатьФайлExcelToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.создатьФайлExcelToolStripMenuItem.Text = "Создать файл Excel ";
+            this.создатьФайлExcelToolStripMenuItem.Click += new System.EventHandler(this.создатьФайлExcelToolStripMenuItem_Click);
+            // 
             // MainCV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -416,7 +426,7 @@
             this.MainMenuStrip = this.menu;
             this.Name = "MainCV";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MainCV";
+            this.Text = "Модель для графопостроителя";
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).EndInit();
@@ -463,6 +473,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown time;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolStripMenuItem создатьФайлExcelToolStripMenuItem;
     }
 }
 
