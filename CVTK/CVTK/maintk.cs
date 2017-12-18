@@ -41,10 +41,9 @@ namespace CVTK
             pointinfo.Text = x.Length.ToString();
             var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
-
             //Создание выходного файла
-            ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (int)time.Value);
- 
+            ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (double)height.Value,(double)heigthpause.Value);
+        
         }
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -97,6 +96,11 @@ namespace CVTK
         {
             ExcelProcessor.PointToFile(ExcelArr);
             infoex.Text = "Cоздан";
+        }
+
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(">При первичной и последующем открытии изображения следует установить 'Время построения' для модели" + "\r\n" + ">Для того чтобы реализовать модель контуров выполнить: Файл - Открыть изображение" + "\r\n" + ">Для перерисовки выбранного изображения выполнить: Файл - Перерисовка (будет сжато под указанные размеры в 'Сжатие размеров')" + "\r\n" + ">Для получения выходного файла в формате Excel выполнить: Файл - Создать файл Excel", "Справка", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
     }
 }

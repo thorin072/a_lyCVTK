@@ -14,44 +14,41 @@ namespace CVTK
             /// Ноль манипулятора (Z)
             /// </summary>
             public const double StartZ= 686.6;
-            public const double StartX = 390;
             /// <summary>
-            /// Высота для перемещения пера от начальной к след.точке
+            /// Ноль манипулятора (Y)
             /// </summary>
-            public const int HightPause = 200;
-            public const int StartXPlot = -52;
+            public const double StartY = 390;
+           
+           // public const int StartXPlot = -52;
+            /// <summary>
+            /// Коэфициент для перевода точки на точку плоскости
+            /// </summary>
             public const double StartYPlot = 500.000025;
-            /// <summary>
-            /// Рабочая высота
-            /// </summary>
-            public const int ZPlot = 200;
             /// <summary>
             /// Время для опускания/поднятия
             /// </summary>
             public const double timeUp = 1 * 1e-3;
-            /// <summary>
-            /// Высота для перехода с контура на контур
-            /// </summary>
-            public const int ZPlotPause = 215;
         }
         public class TimeAll
         {
             public double Time;
+
         }
 
         /// <summary>
         /// Интерпритация команд для робота (вычисление траекторий)
         /// </summary>
         /// <param name="points">Входной лист точек всего контура</param>
-        /// <param name="timeend">Время реализации</param>
+        /// <param name="Zplot">Высота на которой находится раб.обл</param>
+        /// <param name="ZplotPause">Высота на которой будет происходить перемещение с контура на контур</param>
         /// <returns></returns>
-        public static IEnumerable<RobotCommand.RobotPosition> InterpretationOfCommands(IList<CentroMass.ContourWithMass> points, int timeend)
+        public static IEnumerable<RobotCommand.RobotPosition> InterpretationOfCommands(IList<CentroMass.ContourWithMass> points,double Zplot,double ZplotPause)
         {
             TimeAll Times = new TimeAll();
             Times.Time = 1 * 1e-3;
 
             ///Манипулятор из точки (0,390,687) будет медленно опускаться в первую точку контура (x1,y1,200)
-            var STRUCT = RobotCommand.Start(Times.Time, Constants.StartZ,Constants.StartX ,points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot);
+            var STRUCT = RobotCommand.Start(Times.Time, Constants.StartZ, Constants.StartY, points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot, Zplot);
             foreach (var position in STRUCT)
             {
                 RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -73,7 +70,7 @@ namespace CVTK
                     result.time = Times.Time;
                     result.z = points[i].Contr[m].X - 100;
                     result.x = points[i].Contr[m].Y + Constants.StartYPlot;
-                    result.y = Constants.ZPlot;
+                    result.y = Zplot;
                     Times.Time = 0.001 + Times.Time;
                     flagContourType = true; // идем по контуру
                     yield return result;
@@ -90,7 +87,7 @@ namespace CVTK
                 if (flagContourType == false)
                 {
                     ///поднятие пера в одной точке 
-                    STRUCT = RobotCommand.PenUp(Times.Time, Constants.ZPlot, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp);
+                    STRUCT = RobotCommand.PenUp(Times.Time, Zplot, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp, Zplot, ZplotPause);
                     foreach (var position in STRUCT)
                     {
                         RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -103,7 +100,7 @@ namespace CVTK
                     }
 
                     ///вычисление тракетории перемещения из (x1,y1,210) в (x2,y2,210)
-                    STRUCT = RobotCommand.PenPause(Times.Time, Constants.ZPlotPause, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot);
+                    STRUCT = RobotCommand.PenPause(Times.Time, ZplotPause, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot);
 
                     foreach (var position in STRUCT)
                     {
@@ -117,7 +114,7 @@ namespace CVTK
                     }
 
                     ///опускание пера в одной точке
-                    STRUCT = RobotCommand.PenDown(Times.Time, Constants.ZPlotPause, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp);
+                    STRUCT = RobotCommand.PenDown(Times.Time, ZplotPause, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp, Zplot);
                     foreach (var position in STRUCT)
                     {
                         RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -131,8 +128,8 @@ namespace CVTK
                 }
             }
 
-            ///фиксация пера в установленой точке (последняя точка контура)
-            STRUCT = RobotCommand.Stop(Times.Time, timeend, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.ZPlot);
+            ///поднятие органа манипулятора
+            STRUCT = RobotCommand.Stop(Times.Time, Constants.StartZ, Constants.StartY, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Zplot);
             foreach (var position in STRUCT)
             {
                 RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();

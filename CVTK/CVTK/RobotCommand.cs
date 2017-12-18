@@ -29,20 +29,21 @@ namespace CVTK
         /// <param name="YHight">Ноль манипулятора по Х </param>
         /// <param name="x1">Первая точка контура</param>
         /// <param name="y1">Первая точка конутра</param>
+        /// <param name="Zplot">Высота на которой находится раб.обл</param>
         /// <returns></returns>
-        public static IEnumerable<RobotPosition> Start(double time, double ZHight,double YHight,double x1,double y1)
+        public static IEnumerable<RobotPosition> Start(double time, double ZHight, double YHight, double x1, double y1, double Zplot)
         {
-            var aX = (2*(y1-YHight)/Math.Pow(10,6)); // ускорение по оси Х
-            var aY = Math.Abs((2*(200-ZHight))/ Math.Pow(10, 6)); // ускорение по оси Y
-            var aZ = (2 * (x1 - 0)) / Math.Pow(10, 6)*(-1); // ускорение по оси Z
+            var aX = (2 * (y1 - YHight) / Math.Pow(10, 6)); // ускорение по оси Х
+            var aY = Math.Abs((2 * (Zplot - ZHight)) / Math.Pow(10, 6)); // ускорение по оси Y
+            var aZ = (2 * (x1 - 0)) / Math.Pow(10, 6) * (-1); // ускорение по оси Z
 
-            while (ZHight >= Interpretation.Constants.HightPause)
+            while (ZHight >= Zplot)
             {
                 RobotPosition result = new RobotPosition();
                 result.time = time;
                 result.z = 0 - (aZ * Math.Pow(time * 1000, 2)) / 2;
-                result.x = 390 + (aX * Math.Pow(time * 1000, 2)) / 2;
-                ZHight = 687 - (aY * Math.Pow((1000 * time), 2)) / 2;
+                result.x = Interpretation.Constants.StartY + (aX * Math.Pow(time * 1000, 2)) / 2;
+                ZHight = Interpretation.Constants.StartZ - (aY * Math.Pow((1000 * time), 2)) / 2;
                 result.y = ZHight;
                 time = 0.001 + time;
                 ZHight--;
@@ -58,14 +59,16 @@ namespace CVTK
         /// <param name="x1">Координата в которой осуществляется подьем</param>
         /// <param name="y1">Координата в которой осуществляется подьем</param>
         /// <param name="timeUP">Время для поднятия пера</param>
+        /// <param name="Zplot">Высота на которой находится раб.обл</param>
+        /// <param name="ZplotPause">Высота на которой будет происходить перемещение с контура на контур</param>
         /// <returns></returns>
-        public static IEnumerable<RobotPosition> PenUp(double time, double ZHight, int x1, double y1, double timeUP)
+        public static IEnumerable<RobotPosition> PenUp(double time, double ZHight, int x1, double y1, double timeUP, double Zplot, double ZplotPause)
         {
-            var aY = Math.Abs((2 * (Interpretation.Constants.ZPlotPause - ZHight)) / Math.Pow(10, 6))*12; // ускорение по оси Y
+            var aY = Math.Abs((2 * (ZplotPause - ZHight)) / Math.Pow(10, 6)) * 12; // ускорение по оси Y
             while (ZHight <= 215)
             {
                 RobotPosition result = new RobotPosition();
-                ZHight = 200 + (aY * Math.Pow((1000 * timeUP), 2)) / 2;
+                ZHight = Zplot + (aY * Math.Pow((1000 * timeUP), 2)) / 2;
                 result.y = ZHight;
                 result.time = time;
                 result.z = x1;
@@ -109,14 +112,15 @@ namespace CVTK
         /// <param name="x1">Точка в которой осуществляется опускание</param>
         /// <param name="y1">Точка в которой осуществляется опускание</param>
         /// <param name="timeUP">Время для опускания</param>
+        /// <param name="Zplot">Высота на которой находится раб.обл</param>
         /// <returns></returns>
-        public static IEnumerable<RobotPosition> PenDown(double time, double ZHight, int x1, double y1, double timeUP)
+        public static IEnumerable<RobotPosition> PenDown(double time, double ZHight, int x1, double y1, double timeUP, double Zplot)
         {
-            var aY = Math.Abs((2 * (Interpretation.Constants.ZPlot-ZHight)) / Math.Pow(10, 6))*12; // ускорение по оси Y
+            var aY = Math.Abs((2 * (Zplot - ZHight)) / Math.Pow(10, 6)) * 12; // ускорение по оси Y
             while (ZHight >= 200)
             {
                 RobotPosition result = new RobotPosition();
-                ZHight = 215 - (aY* Math.Pow((1000 * timeUP), 2)) / 2;
+                ZHight = 215 - (aY * Math.Pow((1000 * timeUP), 2)) / 2;
                 result.y = ZHight;
                 result.time = time;
                 result.z = x1;
@@ -126,28 +130,28 @@ namespace CVTK
                 yield return result;
             }
         }
-        /// <summary>
-        /// Фиксация точки в конечном положении
-        /// </summary>
-        /// <param name="time">Время</param>
-        /// <param name="timeend">Время процесса</param>
-        /// <param name="x1">Точка удержания</param>
-        /// <param name="y1">Точка удержания</param>
-        /// <param name="ZHight">Рабочая высота</param>
-        /// <returns></returns>
-        public static IEnumerable<RobotPosition> Stop(double time, double timeend, int x1, double y1, double ZHight)
+
+        public static IEnumerable<RobotPosition> Stop(double time, double ZHight, double YHight, double x1, double y1, double Zplot)
         {
-            while (time <= timeend)
+            var aX = (2 * (YHight - y1) / Math.Pow(10, 6)); // ускорение по оси Х
+            var aY = Math.Abs((2 * (ZHight - Zplot)) / Math.Pow(10, 6)); // ускорение по оси Y
+            var aZ = (2 * (0 - x1)) / Math.Pow(10, 6) * (-1); // ускорение по оси Z
+
+            var a = Zplot;
+            while (a <= Interpretation.Constants.StartZ)
             {
                 RobotPosition result = new RobotPosition();
-                result.y = ZHight;
                 result.time = time;
-                result.z = x1;
-                result.x = y1;
+                result.z = x1 - (aZ * Math.Pow(time * 1000, 2)) / 2;
+                result.x = y1 + (aX * Math.Pow(time * 1000, 2)) / 2;
+                a = Zplot + (aY * Math.Pow((1000 * time), 2)) / 2;
+                result.y = a;
                 time = 0.001 + time;
+                a++;
                 yield return result;
             }
         }
+
         /// <summary>
         /// Нахождение коэфициетов прямой
         /// </summary>

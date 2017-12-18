@@ -36,6 +36,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.открытьИзображениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.перестроитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьФайлExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visualgraph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ysm = new System.Windows.Forms.Label();
             this.xsm = new System.Windows.Forms.Label();
@@ -58,7 +60,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.time = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.создатьФайлExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.height = new System.Windows.Forms.NumericUpDown();
+            this.heigthpause = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).BeginInit();
@@ -68,6 +75,8 @@
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.time)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.height)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heigthpause)).BeginInit();
             this.SuspendLayout();
             // 
             // label9
@@ -84,10 +93,11 @@
             // menu
             // 
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.справкаToolStripMenuItem});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(507, 24);
+            this.menu.Size = new System.Drawing.Size(672, 24);
             this.menu.TabIndex = 19;
             this.menu.Text = "menuStrip1";
             // 
@@ -117,6 +127,22 @@
             this.перестроитьToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.перестроитьToolStripMenuItem.Text = "Перестроить ";
             this.перестроитьToolStripMenuItem.Click += new System.EventHandler(this.перестроитьToolStripMenuItem_Click);
+            // 
+            // создатьФайлExcelToolStripMenuItem
+            // 
+            this.создатьФайлExcelToolStripMenuItem.Image = global::CVTK.Properties.Resources.excel;
+            this.создатьФайлExcelToolStripMenuItem.Name = "создатьФайлExcelToolStripMenuItem";
+            this.создатьФайлExcelToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.создатьФайлExcelToolStripMenuItem.Text = "Создать файл Excel ";
+            this.создатьФайлExcelToolStripMenuItem.Click += new System.EventHandler(this.создатьФайлExcelToolStripMenuItem_Click);
+            // 
+            // справкаToolStripMenuItem
+            // 
+            this.справкаToolStripMenuItem.Image = global::CVTK.Properties.Resources.if_About_132628;
+            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.справкаToolStripMenuItem.Text = "Справка";
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // visualgraph
             // 
@@ -240,7 +266,7 @@
             this.infoex.AutoSize = true;
             this.infoex.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.infoex.ForeColor = System.Drawing.Color.DarkBlue;
-            this.infoex.Location = new System.Drawing.Point(27, 39);
+            this.infoex.Location = new System.Drawing.Point(26, 137);
             this.infoex.Name = "infoex";
             this.infoex.Size = new System.Drawing.Size(62, 16);
             this.infoex.TabIndex = 6;
@@ -298,9 +324,9 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(30, 543);
+            this.groupBox1.Location = new System.Drawing.Point(507, 30);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(139, 130);
+            this.groupBox1.Size = new System.Drawing.Size(151, 130);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки ";
@@ -308,7 +334,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CVTK.Properties.Resources.excel;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 38);
+            this.pictureBox1.Location = new System.Drawing.Point(8, 136);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(18, 20);
             this.pictureBox1.TabIndex = 7;
@@ -316,15 +342,17 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.pointinfo);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.infosize);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.infopoint);
-            this.groupBox2.Location = new System.Drawing.Point(175, 543);
+            this.groupBox2.Location = new System.Drawing.Point(507, 166);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(151, 130);
+            this.groupBox2.Size = new System.Drawing.Size(151, 161);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Инфо о контурах";
@@ -352,14 +380,18 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.heigthpause);
+            this.groupBox3.Controls.Add(this.height);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.time);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.infoex);
             this.groupBox3.Controls.Add(this.pictureBox1);
-            this.groupBox3.Location = new System.Drawing.Point(332, 543);
+            this.groupBox3.Location = new System.Drawing.Point(508, 333);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(150, 130);
+            this.groupBox3.Size = new System.Drawing.Size(150, 232);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Для манипулятора";
@@ -368,7 +400,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(6, 65);
+            this.label5.Location = new System.Drawing.Point(4, 170);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(105, 16);
             this.label5.TabIndex = 9;
@@ -376,7 +408,7 @@
             // 
             // time
             // 
-            this.time.Location = new System.Drawing.Point(6, 84);
+            this.time.Location = new System.Drawing.Point(5, 189);
             this.time.Minimum = new decimal(new int[] {
             1,
             0,
@@ -395,26 +427,103 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(6, 18);
+            this.label4.Location = new System.Drawing.Point(5, 116);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(113, 16);
             this.label4.TabIndex = 7;
             this.label4.Text = "Статус файла Excel:";
             // 
-            // создатьФайлExcelToolStripMenuItem
+            // label10
             // 
-            this.создатьФайлExcelToolStripMenuItem.Image = global::CVTK.Properties.Resources.excel;
-            this.создатьФайлExcelToolStripMenuItem.Name = "создатьФайлExcelToolStripMenuItem";
-            this.создатьФайлExcelToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.создатьФайлExcelToolStripMenuItem.Text = "Создать файл Excel ";
-            this.создатьФайлExcelToolStripMenuItem.Click += new System.EventHandler(this.создатьФайлExcelToolStripMenuItem_Click);
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.ForeColor = System.Drawing.Color.Brown;
+            this.label10.Location = new System.Drawing.Point(6, 134);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(12, 16);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "-";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(6, 117);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(132, 16);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "Время построения (сек):";
+            // 
+            // height
+            // 
+            this.height.Location = new System.Drawing.Point(7, 37);
+            this.height.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.height.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.height.Name = "height";
+            this.height.Size = new System.Drawing.Size(120, 20);
+            this.height.TabIndex = 10;
+            this.height.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // heigthpause
+            // 
+            this.heigthpause.Location = new System.Drawing.Point(7, 79);
+            this.heigthpause.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.heigthpause.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.heigthpause.Name = "heigthpause";
+            this.heigthpause.Size = new System.Drawing.Size(120, 20);
+            this.heigthpause.TabIndex = 11;
+            this.heigthpause.Value = new decimal(new int[] {
+            215,
+            0,
+            0,
+            0});
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(4, 18);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(138, 16);
+            this.label12.TabIndex = 12;
+            this.label12.Text = "Высота раб.поверхности:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(5, 60);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(121, 16);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "Высота для перехода:";
             // 
             // MainCV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(507, 683);
+            this.ClientSize = new System.Drawing.Size(672, 583);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -440,6 +549,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.time)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.height)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.heigthpause)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -474,6 +585,13 @@
         private System.Windows.Forms.NumericUpDown time;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem создатьФайлExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown height;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown heigthpause;
     }
 }
 
