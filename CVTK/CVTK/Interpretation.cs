@@ -130,7 +130,7 @@ namespace CVTK
             }
             
 
-            ///поднятие органа манипулятора
+            ///поднятие органа манипулятор
             STRUCT = RobotCommand.Stop(Times.Time, Constants.StartZ, Constants.StartY, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Zplot);
             foreach (var position in STRUCT)
             {
