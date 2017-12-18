@@ -42,7 +42,8 @@ namespace CVTK
             var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
             //Создание выходного файла
-            var t = 0;
+           
+
             ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (double)height.Value,(double)heigthpause.Value);
             times.Text = Interpretation.AllTime.ToString();
         

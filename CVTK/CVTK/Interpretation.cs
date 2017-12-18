@@ -8,7 +8,7 @@ namespace CVTK
     /// </summary>
     public static class Interpretation
     {
-        public static double AllTime;
+       
         public class Constants
         {
             /// <summary>
@@ -31,9 +31,8 @@ namespace CVTK
         public class TimeAll
         {
             public double Time;
-            
-
         }
+        public static TimeAll AllTime;
 
         /// <summary>
         /// Интерпритация команд для робота (вычисление траекторий)
@@ -47,8 +46,10 @@ namespace CVTK
             TimeAll Times = new TimeAll();
             Times.Time = 1 * 1e-3;
 
-            AllTime = Times.Time;
-            ///Манипулятор из точки (0,390,687) будет медленно опускаться в первую точку контура (x1,y1,200)
+            
+
+
+            ///Манипулятор из точки (0,390,687) будет медленно опускаться в первую точку контура (x1,y1,z0)
             var STRUCT = RobotCommand.Start(Times.Time, Constants.StartZ, Constants.StartY, points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot, Zplot);
             foreach (var position in STRUCT)
             {
@@ -100,7 +101,7 @@ namespace CVTK
                         yield return result;
                     }
 
-                    ///вычисление тракетории перемещения из (x1,y1,210) в (x2,y2,210)
+                    ///вычисление тракетории перемещения из (x1,y1,z0) в (x2,y2,z0)
                     STRUCT = RobotCommand.PenPause(Times.Time, ZplotPause, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot);
 
                     foreach (var position in STRUCT)
@@ -128,8 +129,6 @@ namespace CVTK
                     }
                 }
             }
-            
-
             ///поднятие органа манипулятор
             STRUCT = RobotCommand.Stop(Times.Time, Constants.StartZ, Constants.StartY, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Zplot);
             foreach (var position in STRUCT)
@@ -143,6 +142,9 @@ namespace CVTK
                 yield return result;
             }
 
+            AllTime = Times;
+            AllTime.Time = Times.Time;
+            
             
 
         }
