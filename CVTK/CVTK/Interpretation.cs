@@ -8,6 +8,7 @@ namespace CVTK
     /// </summary>
     public static class Interpretation
     {
+        public static double AllTime;
         public class Constants
         {
             /// <summary>
@@ -18,8 +19,6 @@ namespace CVTK
             /// Ноль манипулятора (Y)
             /// </summary>
             public const double StartY = 390;
-           
-           // public const int StartXPlot = -52;
             /// <summary>
             /// Коэфициент для перевода точки на точку плоскости
             /// </summary>
@@ -32,6 +31,7 @@ namespace CVTK
         public class TimeAll
         {
             public double Time;
+            
 
         }
 
@@ -47,6 +47,7 @@ namespace CVTK
             TimeAll Times = new TimeAll();
             Times.Time = 1 * 1e-3;
 
+            AllTime = Times.Time;
             ///Манипулятор из точки (0,390,687) будет медленно опускаться в первую точку контура (x1,y1,200)
             var STRUCT = RobotCommand.Start(Times.Time, Constants.StartZ, Constants.StartY, points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot, Zplot);
             foreach (var position in STRUCT)
@@ -127,6 +128,7 @@ namespace CVTK
                     }
                 }
             }
+            
 
             ///поднятие органа манипулятора
             STRUCT = RobotCommand.Stop(Times.Time, Constants.StartZ, Constants.StartY, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Zplot);
@@ -140,6 +142,9 @@ namespace CVTK
                 Times.Time = 0.001 + Times.Time;
                 yield return result;
             }
+
+            
+
         }
     }
 }

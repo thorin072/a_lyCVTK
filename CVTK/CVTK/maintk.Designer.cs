@@ -54,18 +54,18 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.times = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.pointinfo = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.heigthpause = new System.Windows.Forms.NumericUpDown();
+            this.height = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.time = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.height = new System.Windows.Forms.NumericUpDown();
-            this.heigthpause = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).BeginInit();
@@ -74,9 +74,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.time)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.height)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heigthpause)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.height)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.time)).BeginInit();
             this.SuspendLayout();
             // 
             // label9
@@ -342,7 +342,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.times);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.pointinfo);
             this.groupBox2.Controls.Add(this.label3);
@@ -356,6 +356,27 @@
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Инфо о контурах";
+            // 
+            // times
+            // 
+            this.times.AutoSize = true;
+            this.times.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.times.ForeColor = System.Drawing.Color.Brown;
+            this.times.Location = new System.Drawing.Point(6, 134);
+            this.times.Name = "times";
+            this.times.Size = new System.Drawing.Size(12, 16);
+            this.times.TabIndex = 9;
+            this.times.Text = "-";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(6, 117);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(132, 16);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "Время построения (сек):";
             // 
             // pointinfo
             // 
@@ -396,6 +417,70 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Для манипулятора";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label13.Location = new System.Drawing.Point(5, 60);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(121, 16);
+            this.label13.TabIndex = 13;
+            this.label13.Text = "Высота для перехода:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(4, 18);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(138, 16);
+            this.label12.TabIndex = 12;
+            this.label12.Text = "Высота раб.поверхности:";
+            // 
+            // heigthpause
+            // 
+            this.heigthpause.Location = new System.Drawing.Point(7, 79);
+            this.heigthpause.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.heigthpause.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.heigthpause.Name = "heigthpause";
+            this.heigthpause.Size = new System.Drawing.Size(120, 20);
+            this.heigthpause.TabIndex = 11;
+            this.heigthpause.Value = new decimal(new int[] {
+            215,
+            0,
+            0,
+            0});
+            // 
+            // height
+            // 
+            this.height.Location = new System.Drawing.Point(7, 37);
+            this.height.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.height.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.height.Name = "height";
+            this.height.Size = new System.Drawing.Size(120, 20);
+            this.height.TabIndex = 10;
+            this.height.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -433,91 +518,6 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Статус файла Excel:";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.ForeColor = System.Drawing.Color.Brown;
-            this.label10.Location = new System.Drawing.Point(6, 134);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(12, 16);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "-";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(6, 117);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(132, 16);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "Время построения (сек):";
-            // 
-            // height
-            // 
-            this.height.Location = new System.Drawing.Point(7, 37);
-            this.height.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.height.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.height.Name = "height";
-            this.height.Size = new System.Drawing.Size(120, 20);
-            this.height.TabIndex = 10;
-            this.height.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            // 
-            // heigthpause
-            // 
-            this.heigthpause.Location = new System.Drawing.Point(7, 79);
-            this.heigthpause.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.heigthpause.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.heigthpause.Name = "heigthpause";
-            this.heigthpause.Size = new System.Drawing.Size(120, 20);
-            this.heigthpause.TabIndex = 11;
-            this.heigthpause.Value = new decimal(new int[] {
-            215,
-            0,
-            0,
-            0});
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(4, 18);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(138, 16);
-            this.label12.TabIndex = 12;
-            this.label12.Text = "Высота раб.поверхности:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(5, 60);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(121, 16);
-            this.label13.TabIndex = 13;
-            this.label13.Text = "Высота для перехода:";
-            // 
             // MainCV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -548,9 +548,9 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.time)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.height)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heigthpause)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.height)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.time)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -586,7 +586,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem создатьФайлExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label times;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown height;
         private System.Windows.Forms.Label label13;
