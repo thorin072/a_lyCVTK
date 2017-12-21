@@ -62,55 +62,31 @@ namespace CVTK
         {
             var endPointAfterMass = new List<ContourWithMass>(); //  лист для хранения ВСЕХ ИСТИННЫХ КОНТУРОВ
             int i = 0, k = 0;// счетчик для отсечки 
+            // цикл находящий подобные контуры
             while (i < point.Count)
             {
                 var tresult = new List<ContourWithMass>();
                 for (int j = k; j < point.Count; j++)
                 {
-                    //проблема с О
                     if (((point[i].Mass.X <= point[j].Mass.X + 2) && (point[j].Mass.X - 2 <= point[i].Mass.X))
                        && ((point[i].Mass.Y <= point[j].Mass.Y + 2) && (point[j].Mass.Y - 2 <= point[i].Mass.Y)))
                     {
-                        //if ((point[i].Mass.X == point[j].Mass.X) && (point[i].Mass.Y == point[j].Mass.Y))
-                        //{
-                        //    var coef = (float)point[i].Contr.Count / point[j].Contr.Count;
-                        //    if (coef >= 0.97) // если коэфициент больше вероятности 0.97 предпологаем, что имеем один и тот же контур 
-                        //    {
-                        //        ContourWithMass massVar2 = new ContourWithMass(); 
-                        //        var results = new List<Point>();
-                        //        results.AddRange(point[j].Contr.ToArray());
-                        //        massVar2.Contr = results;
-                        //        tresult.Add(massVar2);
-                        //        k++;
-                        //        break;
-                        //    }
-                        //    else { break; }
-
-                        //}
+                        //создание нового экземпляра класса 
                         ContourWithMass massVar = new ContourWithMass();
-                        var result = new List<Point>();
-                        result.AddRange(point[j].Contr.ToArray());
-                        massVar.Contr = result;
+                        massVar.Contr = point[j].Contr;
                         tresult.Add(massVar);
                         k++;
                     }
                 }
-                //if (tresult.Count == 0) // исходит от случая с буквой О, когда контур внутренний не равен внешнему 
-                //{
-                //    k++;
-                //    i = k;
-                //    continue;
-                //}
                 List<ContourWithMass> SortedList = tresult.OrderByDescending(o => o.Contr.Count).ToList(); // сортировка листа по убыванию по числу точек контура
-                List<ContourWithMass> SortedList2 = SortedList.OrderBy(o => o.Contr[0].X).ToList();
-
+                List<ContourWithMass> SortedList2 = SortedList.OrderBy(o => o.Contr[0].X).ToList(); // сортировка по центру массы 
                 // использование класса , но уже с хранением не центра масс , а последней точки контура
                 ContourWithMass STRUCTendPointAndContr = new ContourWithMass();
                 STRUCTendPointAndContr.Mass.X = SortedList2[0].Contr[SortedList2[0].Contr.Count - 1].X;
                 STRUCTendPointAndContr.Mass.Y = SortedList2[0].Contr[SortedList2[0].Contr.Count - 1].Y;
-                STRUCTendPointAndContr.Contr = tresult[0].Contr;
+                STRUCTendPointAndContr.Contr = SortedList2[0].Contr;
                 endPointAfterMass.Add(STRUCTendPointAndContr);
-                i = k;
+                i = k;// происходит отческа ,т.е на новом шаге происходит обработка новой коллекции подобных контуров
             }
             return endPointAfterMass;
         }

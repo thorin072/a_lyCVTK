@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCV));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label9 = new System.Windows.Forms.Label();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,7 +97,7 @@
             this.справкаToolStripMenuItem});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(672, 24);
+            this.menu.Size = new System.Drawing.Size(703, 24);
             this.menu.TabIndex = 19;
             this.menu.Text = "menuStrip1";
             // 
@@ -148,19 +148,19 @@
             // 
             this.visualgraph.BackColor = System.Drawing.Color.Transparent;
             this.visualgraph.BorderlineColor = System.Drawing.SystemColors.ButtonFace;
-            chartArea1.Name = "ChartArea1";
-            this.visualgraph.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.visualgraph.ChartAreas.Add(chartArea3);
             this.visualgraph.Location = new System.Drawing.Point(-25, 27);
             this.visualgraph.Name = "visualgraph";
             this.visualgraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.visualgraph.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Blue};
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.Color = System.Drawing.Color.RoyalBlue;
-            series1.MarkerSize = 3;
-            series1.Name = "Series1";
-            this.visualgraph.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series3.Color = System.Drawing.Color.RoyalBlue;
+            series3.MarkerSize = 3;
+            series3.Name = "Series1";
+            this.visualgraph.Series.Add(series3);
             this.visualgraph.Size = new System.Drawing.Size(543, 538);
             this.visualgraph.TabIndex = 23;
             this.visualgraph.Text = "visualgraph";
@@ -266,7 +266,7 @@
             this.infoex.AutoSize = true;
             this.infoex.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.infoex.ForeColor = System.Drawing.Color.DarkBlue;
-            this.infoex.Location = new System.Drawing.Point(26, 137);
+            this.infoex.Location = new System.Drawing.Point(47, 168);
             this.infoex.Name = "infoex";
             this.infoex.Size = new System.Drawing.Size(62, 16);
             this.infoex.TabIndex = 6;
@@ -275,8 +275,8 @@
             // infopoint
             // 
             this.infopoint.AutoSize = true;
-            this.infopoint.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.infopoint.ForeColor = System.Drawing.Color.Brown;
+            this.infopoint.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.infopoint.ForeColor = System.Drawing.Color.DarkBlue;
             this.infopoint.Location = new System.Drawing.Point(6, 65);
             this.infopoint.Name = "infopoint";
             this.infopoint.Size = new System.Drawing.Size(12, 16);
@@ -296,8 +296,8 @@
             // infosize
             // 
             this.infosize.AutoSize = true;
-            this.infosize.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.infosize.ForeColor = System.Drawing.Color.Brown;
+            this.infosize.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.infosize.ForeColor = System.Drawing.Color.DarkBlue;
             this.infosize.Location = new System.Drawing.Point(6, 33);
             this.infosize.Name = "infosize";
             this.infosize.Size = new System.Drawing.Size(12, 16);
@@ -326,7 +326,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(507, 30);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(151, 130);
+            this.groupBox1.Size = new System.Drawing.Size(181, 130);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки ";
@@ -334,7 +334,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CVTK.Properties.Resources.excel;
-            this.pictureBox1.Location = new System.Drawing.Point(8, 136);
+            this.pictureBox1.Location = new System.Drawing.Point(8, 150);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(18, 20);
             this.pictureBox1.TabIndex = 7;
@@ -352,7 +352,7 @@
             this.groupBox2.Controls.Add(this.infopoint);
             this.groupBox2.Location = new System.Drawing.Point(507, 166);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(151, 161);
+            this.groupBox2.Size = new System.Drawing.Size(184, 161);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Инфо о контурах";
@@ -360,8 +360,8 @@
             // times
             // 
             this.times.AutoSize = true;
-            this.times.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.times.ForeColor = System.Drawing.Color.Brown;
+            this.times.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.times.ForeColor = System.Drawing.Color.DarkBlue;
             this.times.Location = new System.Drawing.Point(6, 134);
             this.times.Name = "times";
             this.times.Size = new System.Drawing.Size(12, 16);
@@ -374,15 +374,15 @@
             this.label11.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label11.Location = new System.Drawing.Point(6, 117);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(132, 16);
+            this.label11.Size = new System.Drawing.Size(175, 16);
             this.label11.TabIndex = 8;
-            this.label11.Text = "Время построения (сек):";
+            this.label11.Text = "Требуется для построения (сек):";
             // 
             // pointinfo
             // 
             this.pointinfo.AutoSize = true;
-            this.pointinfo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.pointinfo.ForeColor = System.Drawing.Color.Brown;
+            this.pointinfo.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.pointinfo.ForeColor = System.Drawing.Color.DarkBlue;
             this.pointinfo.Location = new System.Drawing.Point(6, 101);
             this.pointinfo.Name = "pointinfo";
             this.pointinfo.Size = new System.Drawing.Size(12, 16);
@@ -412,7 +412,7 @@
             this.groupBox3.Controls.Add(this.pictureBox1);
             this.groupBox3.Location = new System.Drawing.Point(508, 333);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(150, 232);
+            this.groupBox3.Size = new System.Drawing.Size(183, 207);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Для манипулятора";
@@ -421,7 +421,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(5, 60);
+            this.label13.Location = new System.Drawing.Point(8, 60);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(121, 16);
             this.label13.TabIndex = 13;
@@ -431,7 +431,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(4, 18);
+            this.label12.Location = new System.Drawing.Point(8, 18);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(138, 16);
             this.label12.TabIndex = 12;
@@ -485,7 +485,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(4, 170);
+            this.label5.Location = new System.Drawing.Point(8, 102);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(105, 16);
             this.label5.TabIndex = 9;
@@ -493,14 +493,14 @@
             // 
             // time
             // 
-            this.time.Location = new System.Drawing.Point(5, 189);
+            this.time.Location = new System.Drawing.Point(7, 121);
             this.time.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.time.Name = "time";
-            this.time.Size = new System.Drawing.Size(113, 20);
+            this.time.Size = new System.Drawing.Size(120, 20);
             this.time.TabIndex = 8;
             this.time.Value = new decimal(new int[] {
             2,
@@ -512,7 +512,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(5, 116);
+            this.label4.Location = new System.Drawing.Point(25, 151);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(113, 16);
             this.label4.TabIndex = 7;
@@ -523,7 +523,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(672, 583);
+            this.ClientSize = new System.Drawing.Size(703, 551);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

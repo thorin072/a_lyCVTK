@@ -8,13 +8,13 @@ namespace CVTK
     /// </summary>
     public static class Interpretation
     {
-       
+
         public class Constants
         {
             /// <summary>
             /// Ноль манипулятора (Z)
             /// </summary>
-            public const double StartZ= 686.6;
+            public const double StartZ = 686.6;
             /// <summary>
             /// Ноль манипулятора (Y)
             /// </summary>
@@ -32,6 +32,9 @@ namespace CVTK
         {
             public double Time;
         }
+        /// <summary>
+        /// Время для реализации всего контура от опускания до поднятия манипулятора
+        /// </summary>
         public static TimeAll AllTime;
 
         /// <summary>
@@ -41,13 +44,10 @@ namespace CVTK
         /// <param name="Zplot">Высота на которой находится раб.обл</param>
         /// <param name="ZplotPause">Высота на которой будет происходить перемещение с контура на контур</param>
         /// <returns></returns>
-        public static IEnumerable<RobotCommand.RobotPosition> InterpretationOfCommands(IList<CentroMass.ContourWithMass> points,double Zplot,double ZplotPause)
+        public static IEnumerable<RobotCommand.RobotPosition> InterpretationOfCommands(IList<CentroMass.ContourWithMass> points, double Zplot, double ZplotPause)
         {
             TimeAll Times = new TimeAll();
             Times.Time = 1 * 1e-3;
-
-            
-
 
             ///Манипулятор из точки (0,390,687) будет медленно опускаться в первую точку контура (x1,y1,z0)
             var STRUCT = RobotCommand.Start(Times.Time, Constants.StartZ, Constants.StartY, points[0].Contr[0].X - 100, points[0].Contr[0].Y + Constants.StartYPlot, Zplot);
@@ -62,7 +62,7 @@ namespace CVTK
                 yield return result;
             }
 
-            bool flagContourType;// флаг для поднятия
+
             for (int i = 0; i < points.Count; i++) // Коллекция I - ых контуров ( количество найденых 0..n)
             {
                 for (int m = 0; m < points[i].Contr.Count; m++) // Обращение к элементам коллекции points[i].Contr 
@@ -74,7 +74,6 @@ namespace CVTK
                     result.x = points[i].Contr[m].Y + Constants.StartYPlot;
                     result.y = Zplot;
                     Times.Time = 0.001 + Times.Time;
-                    flagContourType = true; // идем по контуру
                     yield return result;
                 }
 
@@ -83,12 +82,9 @@ namespace CVTK
                 {
                     break;
                 }
-                flagContourType = false; // переход
-
-                ///поднимаем манипулятор, флаг ложь 
-                if (flagContourType == false)
+                else
                 {
-                    ///поднятие пера в одной точке 
+                    ///поднятие рабочего органа манипулятора в точке 
                     STRUCT = RobotCommand.PenUp(Times.Time, Zplot, points[i].Contr[points[i].Contr.Count - 1].X - 100, points[i].Contr[points[i].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp, Zplot, ZplotPause);
                     foreach (var position in STRUCT)
                     {
@@ -115,7 +111,7 @@ namespace CVTK
                         yield return result;
                     }
 
-                    ///опускание пера в одной точке
+                    ///опускание рабочего органа манипулятора в точке
                     STRUCT = RobotCommand.PenDown(Times.Time, ZplotPause, points[i + 1].Contr[points[i + 1].Contr.Count - 1].X - 100, points[i + 1].Contr[points[i + 1].Contr.Count - 1].Y + Constants.StartYPlot, Constants.timeUp, Zplot);
                     foreach (var position in STRUCT)
                     {
@@ -129,8 +125,8 @@ namespace CVTK
                     }
                 }
             }
-            ///поднятие органа манипулятор
-            STRUCT = RobotCommand.Stop(Times.Time, Constants.StartZ, Constants.StartY, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Zplot);
+            ///поднятие рабочего органа манипулятора
+            STRUCT = RobotCommand.Stop(Times.Time, Constants.StartZ, Constants.StartY, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].X - 100, points[points.Count - 1].Contr[points[points.Count - 1].Contr.Count - 1].Y + Constants.StartYPlot, Zplot, Constants.timeUp);
             foreach (var position in STRUCT)
             {
                 RobotCommand.RobotPosition result = new RobotCommand.RobotPosition();
@@ -141,12 +137,8 @@ namespace CVTK
                 Times.Time = 0.001 + Times.Time;
                 yield return result;
             }
-
             AllTime = Times;
             AllTime.Time = Times.Time;
-            
-            
-
         }
     }
 }

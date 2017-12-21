@@ -24,7 +24,7 @@ namespace CVTK
         /// <summary>
         /// Поиск контуров изображения и отрисовка на плоскости
         /// </summary>
-        /// <param name="bin"></param>
+        /// <param name="bin">Бинарное изображение</param>
         private void FindContours(Image<Gray, byte> bin)
         {
             var points = CentroMass.DeterminationOfCentromass(bin, ChainApproxMethod.ChainApproxNone);
@@ -42,11 +42,8 @@ namespace CVTK
             var y = visualXY.Select(_ => _.Y).ToArray();
             visualgraph.Series[0].Points.DataBindXY(x, y); // визуализация полного контура
             //Создание выходного файла
-           
-
-            ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (double)height.Value,(double)heigthpause.Value);
-            times.Text = Interpretation.AllTime.ToString();
-        
+            ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (double)height.Value, (double)heigthpause.Value).ToList();
+            times.Text = Interpretation.AllTime.Time.ToString();
         }
         private void открытьИзображениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -91,19 +88,26 @@ namespace CVTK
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "Попытка перестроить нулевое изображение");
+                MessageBox.Show(ex.Message + " Попытка перестроить нулевое изображение");
             }
         }
 
         private void создатьФайлExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExcelProcessor.PointToFile(ExcelArr);
-            infoex.Text = "Cоздан";
+            try
+            {
+                ExcelProcessor.PointToFile(ExcelArr);
+                infoex.Text = "Cоздан";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " Реализация невозможна. Причины: файл не был открыт, или массив точек пуст!");
+            }
         }
 
         private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(">При первичной и последующем открытии изображения следует установить 'Время построения' для модели" + "\r\n" + ">Для того чтобы реализовать модель контуров выполнить: Файл - Открыть изображение" + "\r\n" + ">Для перерисовки выбранного изображения выполнить: Файл - Перерисовка (будет сжато под указанные размеры в 'Сжатие размеров')" + "\r\n" + ">Для получения выходного файла в формате Excel выполнить: Файл - Создать файл Excel", "Справка", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            MessageBox.Show(">Для того чтобы реализовать модель контуров выполнить: Файл - Открыть изображение" + "\r\n" + ">Для перерисовки выбранного изображения выполнить: Файл - Перерисовка (будет сжато под указанные размеры в 'Сжатие размеров')" + "\r\n" + ">Для получения выходного файла в формате Excel выполнить: Файл - Создать файл Excel", "Справка", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
     }
 }

@@ -17,8 +17,6 @@ namespace CVTK
         public static void PointToFile(IEnumerable<RobotCommand.RobotPosition> points)
         {
             //****Создание экземпляра файла Excel****
-            // Создаём экземпляр приложения
-           
             Excel.Application excelApp = new Excel.Application();
             // Создаём экземпляр рабочий книги Excel
             Excel.Workbook workBook;
@@ -45,7 +43,7 @@ namespace CVTK
             foreach (var position in points)
             {
                 workSheet.Cells[COUNT, 1] = position.time;
-                workSheet.Cells[COUNT, 4] = position.z; //------для X = Z —--— 
+                workSheet.Cells[COUNT, 4] = position.z; 
                 workSheet.Cells[COUNT, 2] = position.x;
                 workSheet.Cells[COUNT, 3] = position.y;
                 COUNT++;
@@ -62,7 +60,6 @@ namespace CVTK
                 workBook = null;
                 workSheet= null;
                 GC.Collect();// обнуляются ссылки, процесс удалится сборщиком мусора
-
             }
             catch (Exception ex)
             {

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-
 namespace CVTK
 {
     /// <summary>
@@ -22,7 +21,7 @@ namespace CVTK
         }
 
         /// <summary>
-        /// Старт
+        /// Старт, опускание рабочего органа манипулятора в первую точку контура
         /// </summary>
         /// <param name="time">Начальное время</param>
         /// <param name="ZHight">Ноль манипулятора по Y</param>
@@ -52,7 +51,7 @@ namespace CVTK
         }
 
         /// <summary>
-        /// Поднятие пера
+        /// Поднятие рабочего органа манипулятора
         /// </summary>
         /// <param name="time">Время</param>
         /// <param name="ZHight">Высота для поднятия манипулятора</param>
@@ -105,7 +104,7 @@ namespace CVTK
             }
         }
         /// <summary>
-        /// Опускание пера манипулятора
+        /// Опускание рабочего органа манипулятора
         /// </summary>
         /// <param name="time">Время</param>
         /// <param name="ZHight">Высота с которой опускают</param>
@@ -131,7 +130,18 @@ namespace CVTK
             }
         }
 
-        public static IEnumerable<RobotPosition> Stop(double time, double ZHight, double YHight, double x1, double y1, double Zplot)
+        /// <summary>
+        /// Поднятие рабочего органа манипулятора
+        /// </summary>
+        /// <param name="time">Время</param>
+        /// <param name="ZHight">Высота на которую поднимают (Z)</param>
+        /// <param name="YHight">Координата манипулятора (Y)</param>
+        /// <param name="x1">Последняя координата контура</param>
+        /// <param name="y1">Последняя координата контура</param>
+        /// <param name="Zplot">Высота рабочей области</param>
+        /// <param name="timeUP">Время подьема</param>
+        /// <returns></returns>
+        public static IEnumerable<RobotPosition> Stop(double time, double ZHight, double YHight, double x1, double y1, double Zplot, double timeUP)
         {
             var aX = (2 * (YHight - y1) / Math.Pow(10, 6)); // ускорение по оси Х
             var aY = Math.Abs((2 * (ZHight - Zplot)) / Math.Pow(10, 6)); // ускорение по оси Y
@@ -142,10 +152,11 @@ namespace CVTK
             {
                 RobotPosition result = new RobotPosition();
                 result.time = time;
-                result.z = x1 - (aZ * Math.Pow(time * 1000, 2)) / 2;
-                result.x = y1 + (aX * Math.Pow(time * 1000, 2)) / 2;
-                a = Zplot + (aY * Math.Pow((1000 * time), 2)) / 2;
+                result.z = x1 - (aZ * Math.Pow(timeUP * 1000, 2)) / 2;
+                result.x = y1 + (aX * Math.Pow(timeUP * 1000, 2)) / 2;
+                a = Zplot + (aY * Math.Pow((1000 * timeUP), 2)) / 2;
                 result.y = a;
+                timeUP = 0.001 + timeUP;
                 time = 0.001 + time;
                 a++;
                 yield return result;
