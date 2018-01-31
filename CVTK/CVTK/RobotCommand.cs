@@ -19,7 +19,6 @@ namespace CVTK
             public double z; // = y
             public double time;
         }
-
         /// <summary>
         /// Старт, опускание рабочего органа манипулятора в первую точку контура
         /// </summary>
@@ -161,8 +160,20 @@ namespace CVTK
                 a++;
                 yield return result;
             }
+            var g = (int)(time + 1);
+            while (time<=g) 
+            {
+                
+                RobotPosition result = new RobotPosition();
+                result.time = time;
+                result.z = 0;
+                result.x = YHight;
+                result.y = ZHight;
+                time = 0.001 + time;
+                yield return result;
+            }
         }
-
+  
         /// <summary>
         /// Нахождение коэфициетов прямой
         /// </summary>

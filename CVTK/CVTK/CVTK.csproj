@@ -69,6 +69,7 @@
     <Compile Include="ExcelProcessor.cs" />
     <Compile Include="GrayImg.cs" />
     <Compile Include="Interpretation.cs" />
+    <Compile Include="KeyPoint.cs" />
     <Compile Include="maintk.cs">
       <SubType>Form</SubType>
     </Compile>
