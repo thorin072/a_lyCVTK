@@ -17,6 +17,12 @@ namespace CVTK
         Image<Bgr, byte> img;
         IEnumerable<RobotCommand.RobotPosition> ExcelArr;
 
+        public class InfoDelete
+        {
+            public string parent;
+            public int counts;
+        }
+
         public MainCV()
         {
             InitializeComponent();
@@ -37,24 +43,25 @@ namespace CVTK
             List<CentroMass.ContourWithMass> SortedList = points.OrderBy(j => j.Mass.X).ToList(); // сортировка по центру масс (х)
             infopcontr.Text = points.Count.ToString();
 
-            var visualXY = new List<Point>();
-            ////Заполнение массивов для графика визуализации
-            for (int i = 0; i < SortedList.Count; i++)
-            {
-                visualXY.AddRange(SortedList[i].Contr.ToArray());
-            }
-            var x = visualXY.Select(_ => _.X).ToArray();
-            infopoint.Text = x.Length.ToString();
-            var y = visualXY.Select(_ => _.Y).ToArray();
-            visualgraph.Series[1].Points.DataBindXY(x, y); // визуализация полного контура
+            //var visualXY = new List<Point>();
+            //////Заполнение массивов для графика визуализации
+            //for (int i = 0; i < SortedList.Count; i++)
+            //{
+            //    visualXY.AddRange(SortedList[i].Contr.ToArray());
+            //}
+            //var x = visualXY.Select(_ => _.X).ToArray();
+            //infopoint.Text = x.Length.ToString();
+            //var y = visualXY.Select(_ => _.Y).ToArray();
+            //visualgraph.Series[1].Points.DataBindXY(x, y); // визуализация полного контура
 
-            PickKey(key);
+            //PickKey(key);
             ExcelArr = Interpretation.InterpretationOfCommands(SortedList, (double)height.Value, (double)heigthpause.Value).ToList();
             infotime.Text = Interpretation.AllTime.Time.ToString();
         }
 
         private void PickKey(IList<Point> key)
         {
+
             var x = key.Select(_ => _.X).ToArray();
             infopoint.Text = x.Length.ToString();
             var y = key.Select(_ => _.Y).ToArray();
@@ -70,45 +77,111 @@ namespace CVTK
         void RemoveNode(TreeNodeCollection nodes)
         {
             List<TreeNode> checknode = new List<TreeNode>(); // лист чек-точек
-            foreach (TreeNode node1 in nodes) // уровень контуров
+            foreach (TreeNode parent in nodes) // уровень контуров
             {
-
-                if (node1.Checked) // удаление всей коллекции
+                if (parent.Checked == false)
                 {
-                    for (int i = 0; i < node1.Nodes.Count; i++) // удаление внутриностей узла
+                    foreach (TreeNode child in parent.Nodes) // уровень точек контура 
                     {
-                        node1.Nodes[i].Checked = true;
+                        if (child.Checked)
+                        {
+                            checknode.Add(child);
+                        }
+                        else { continue; }
                     }
+                    for (int i = 0; i < checknode.Count; i++)
+                    {
+                        tree.Nodes.Remove(checknode[i]);
+                    }
+                    checknode.Clear();
                 }
-
-                foreach (TreeNode node in node1.Nodes) // уровень точек контура 
-                {
-                    if (node.Checked) { checknode.Add(node); }
-                    else { continue; }
-                }
-
-                for (int i = 0; i < checknode.Count; i++)
-                {
-                    tree.Nodes.Remove(checknode[i]);
-                }
-                checknode.Clear();
             }
-            foreach (TreeNode node1 in nodes) // уровень контуров
+            foreach (TreeNode parent in nodes) // уровень контуров
             {
-                
-                    if (node1.Nodes.Count == 0) { checknode.Add(node1); }
-                
+                if (parent.Checked)
+                {
+                    checknode.Add(parent);
+                }
+
             }
+
             for (int i = 0; i < checknode.Count; i++) // удаление списка пустых узлов 
             {
                 tree.Nodes.Remove(checknode[i]);
             }
-            checknode.Clear();
+
         }
 
         void VisualPoint(TreeNodeCollection nodes)
         {
+            List<Point> point = new List<Point>();
+            string buf = "";
+            foreach (TreeNode parent in nodes) // уровень контуров
+            {
+                if (parent.Checked == false)
+                {
+                    foreach (TreeNode child in parent.Nodes) // уровень точек контура 
+                    {
+                        if (child.Checked)
+                        {
+                            buf = child.Text;
+                            var sp = buf.Split(';');
+                            point.Add(new Point(Convert.ToInt32(sp[0]), Convert.ToInt32(sp[1])));
+                        }
+                        else { continue; }
+                    }
+                }
+                else
+                {
+                    foreach (TreeNode child in parent.Nodes) // уровень точек контура 
+                    {
+                        child.Checked = true;
+                        buf = child.Text;
+                        var sp = buf.Split(';');
+                        point.Add(new Point(Convert.ToInt32(sp[0]), Convert.ToInt32(sp[1])));
+                    }
+                }
+            }
+            PickKey(point);
+        }
 
+        void nulls(TreeNodeCollection nodes)
+        {
+            foreach (TreeNode parent in nodes) // уровень контуров
+            {
+                for (int i = 0; i < parent.Nodes.Count; i++) { parent.Nodes[i].Checked = false; }
+            }
+
+        }
+
+        private string error(TreeNodeCollection nodes)
+        {
+            string mes = "";
+            List<InfoDelete> checknode = new List<InfoDelete>(); // лист чек-точек
+            foreach (TreeNode parent in nodes) // уровень контуров
+            {
+                InfoDelete inf = new InfoDelete();
+                foreach (TreeNode child in parent.Nodes)
+                {
+                    if (child.Checked)
+                    {
+                        inf.counts++;
+                    }
+                   
+                }
+                inf.parent = parent.Text;
+                checknode.Add(inf);
+            }
+            foreach (var inf in checknode)
+            {
+                mes=mes+inf.parent + ": " + inf.counts+ "\r\n";
+            }
+            return mes;
+            
+        }
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            nulls(tree.Nodes);
         }
         /// <summary>
         /// Создание дерева
@@ -133,7 +206,13 @@ namespace CVTK
         //удалить
         private void button1_Click(object sender, EventArgs e)
         {
-            RemoveNode(tree.Nodes);
+          //  var mes = error(tree.Nodes);
+         //   if (MessageBox.Show(mes, "My Application",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+        //    {
+                 RemoveNode(tree.Nodes);
+        //    }
+      
+           
         }
 
         //визуализировать

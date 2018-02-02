@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCV));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label9 = new System.Windows.Forms.Label();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +69,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.visualCheck = new System.Windows.Forms.Button();
             this.FoundCheck = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).BeginInit();
@@ -84,11 +85,11 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.ForeColor = System.Drawing.Color.MidnightBlue;
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(123, 16);
+            this.label9.Size = new System.Drawing.Size(115, 16);
             this.label9.TabIndex = 15;
             this.label9.Text = "Найденные контуры:";
             // 
@@ -150,25 +151,25 @@
             // 
             this.visualgraph.BackColor = System.Drawing.Color.Transparent;
             this.visualgraph.BorderlineColor = System.Drawing.SystemColors.ButtonFace;
-            chartArea2.Name = "ChartArea1";
-            this.visualgraph.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.visualgraph.ChartAreas.Add(chartArea1);
             this.visualgraph.Location = new System.Drawing.Point(227, 27);
             this.visualgraph.Name = "visualgraph";
             this.visualgraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.visualgraph.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Blue};
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.Red;
-            series3.MarkerSize = 8;
-            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series3.Name = "Series1";
-            series3.YValuesPerPoint = 2;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series4.Name = "Series2";
-            this.visualgraph.Series.Add(series3);
-            this.visualgraph.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series1.Color = System.Drawing.Color.Indigo;
+            series1.MarkerSize = 8;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Series1";
+            series1.YValuesPerPoint = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series2.Name = "Series2";
+            this.visualgraph.Series.Add(series1);
+            this.visualgraph.Series.Add(series2);
             this.visualgraph.Size = new System.Drawing.Size(483, 474);
             this.visualgraph.TabIndex = 23;
             this.visualgraph.Text = "visualgraph";
@@ -460,7 +461,7 @@
             this.tree.CheckBoxes = true;
             this.tree.Location = new System.Drawing.Point(3, 19);
             this.tree.Name = "tree";
-            this.tree.Size = new System.Drawing.Size(201, 170);
+            this.tree.Size = new System.Drawing.Size(219, 170);
             this.tree.TabIndex = 30;
             // 
             // button1
@@ -480,17 +481,18 @@
             this.flowLayoutPanel1.Controls.Add(this.tree);
             this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Controls.Add(this.visualCheck);
+            this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Controls.Add(this.FoundCheck);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 34);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(209, 260);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(227, 266);
             this.flowLayoutPanel1.TabIndex = 32;
             // 
             // visualCheck
             // 
             this.visualCheck.Location = new System.Drawing.Point(98, 195);
             this.visualCheck.Name = "visualCheck";
-            this.visualCheck.Size = new System.Drawing.Size(106, 23);
+            this.visualCheck.Size = new System.Drawing.Size(65, 23);
             this.visualCheck.TabIndex = 32;
             this.visualCheck.Text = "Визуализировать";
             this.visualCheck.UseVisualStyleBackColor = true;
@@ -500,10 +502,20 @@
             // 
             this.FoundCheck.Location = new System.Drawing.Point(3, 224);
             this.FoundCheck.Name = "FoundCheck";
-            this.FoundCheck.Size = new System.Drawing.Size(201, 23);
+            this.FoundCheck.Size = new System.Drawing.Size(219, 23);
             this.FoundCheck.TabIndex = 33;
             this.FoundCheck.Text = "Поиск ключевых";
             this.FoundCheck.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(169, 195);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(53, 23);
+            this.button2.TabIndex = 34;
+            this.button2.Text = "null";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // MainCV
             // 
@@ -522,7 +534,7 @@
             this.MainMenuStrip = this.menu;
             this.Name = "MainCV";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Модель для графопостроителя";
+            this.Text = "CVTK";
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).EndInit();
@@ -581,6 +593,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button visualCheck;
         private System.Windows.Forms.Button FoundCheck;
+        private System.Windows.Forms.Button button2;
     }
 }
 
