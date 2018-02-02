@@ -70,6 +70,9 @@
             this.visualCheck = new System.Windows.Forms.Button();
             this.FoundCheck = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).BeginInit();
@@ -80,27 +83,32 @@
             ((System.ComponentModel.ISupportInitialize)(this.height)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label9.Location = new System.Drawing.Point(3, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(115, 16);
+            this.label9.Size = new System.Drawing.Size(119, 13);
             this.label9.TabIndex = 15;
             this.label9.Text = "Найденные контуры:";
             // 
             // menu
             // 
+            this.menu.BackColor = System.Drawing.Color.LightBlue;
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.справкаToolStripMenuItem});
+            this.menu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(711, 24);
+            this.menu.Size = new System.Drawing.Size(674, 24);
             this.menu.TabIndex = 19;
             this.menu.Text = "menuStrip1";
             // 
@@ -153,7 +161,7 @@
             this.visualgraph.BorderlineColor = System.Drawing.SystemColors.ButtonFace;
             chartArea1.Name = "ChartArea1";
             this.visualgraph.ChartAreas.Add(chartArea1);
-            this.visualgraph.Location = new System.Drawing.Point(227, 27);
+            this.visualgraph.Location = new System.Drawing.Point(182, 27);
             this.visualgraph.Name = "visualgraph";
             this.visualgraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.visualgraph.PaletteCustomColors = new System.Drawing.Color[] {
@@ -161,8 +169,8 @@
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             series1.Color = System.Drawing.Color.Indigo;
-            series1.MarkerSize = 8;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.MarkerSize = 6;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
             series1.Name = "Series1";
             series1.YValuesPerPoint = 2;
             series2.ChartArea = "ChartArea1";
@@ -170,7 +178,7 @@
             series2.Name = "Series2";
             this.visualgraph.Series.Add(series1);
             this.visualgraph.Series.Add(series2);
-            this.visualgraph.Size = new System.Drawing.Size(483, 474);
+            this.visualgraph.Size = new System.Drawing.Size(492, 473);
             this.visualgraph.TabIndex = 23;
             this.visualgraph.Text = "visualgraph";
             // 
@@ -280,7 +288,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(15, 369);
+            this.groupBox1.Location = new System.Drawing.Point(51, 110);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(78, 48);
             this.groupBox1.TabIndex = 26;
@@ -293,7 +301,7 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.heigthpause);
             this.groupBox3.Controls.Add(this.height);
-            this.groupBox3.Location = new System.Drawing.Point(18, 324);
+            this.groupBox3.Location = new System.Drawing.Point(70, 31);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(91, 39);
             this.groupBox3.TabIndex = 28;
@@ -377,9 +385,9 @@
             this.infotime,
             this.toolStripStatusLabel9,
             this.infoexcel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 497);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 490);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(711, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(674, 22);
             this.statusStrip1.TabIndex = 29;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -459,19 +467,21 @@
             // tree
             // 
             this.tree.CheckBoxes = true;
-            this.tree.Location = new System.Drawing.Point(3, 19);
+            this.tree.Location = new System.Drawing.Point(3, 16);
             this.tree.Name = "tree";
-            this.tree.Size = new System.Drawing.Size(219, 170);
+            this.tree.Size = new System.Drawing.Size(165, 170);
             this.tree.TabIndex = 30;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 195);
+            this.button1.AutoSize = true;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(3, 192);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 23);
+            this.button1.Size = new System.Drawing.Size(165, 23);
             this.button1.TabIndex = 31;
             this.button1.Text = "Удалить узел";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -481,54 +491,95 @@
             this.flowLayoutPanel1.Controls.Add(this.tree);
             this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Controls.Add(this.visualCheck);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Controls.Add(this.FoundCheck);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 34);
+            this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 5);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(227, 266);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(186, 370);
             this.flowLayoutPanel1.TabIndex = 32;
             // 
             // visualCheck
             // 
-            this.visualCheck.Location = new System.Drawing.Point(98, 195);
+            this.visualCheck.AutoSize = true;
+            this.visualCheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.visualCheck.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.visualCheck.Location = new System.Drawing.Point(3, 221);
             this.visualCheck.Name = "visualCheck";
-            this.visualCheck.Size = new System.Drawing.Size(65, 23);
+            this.visualCheck.Size = new System.Drawing.Size(165, 23);
             this.visualCheck.TabIndex = 32;
-            this.visualCheck.Text = "Визуализировать";
+            this.visualCheck.Text = "Решение";
             this.visualCheck.UseVisualStyleBackColor = true;
             this.visualCheck.Click += new System.EventHandler(this.button2_Click);
             // 
             // FoundCheck
             // 
-            this.FoundCheck.Location = new System.Drawing.Point(3, 224);
+            this.FoundCheck.AutoSize = true;
+            this.FoundCheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.FoundCheck.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FoundCheck.Location = new System.Drawing.Point(3, 250);
             this.FoundCheck.Name = "FoundCheck";
-            this.FoundCheck.Size = new System.Drawing.Size(219, 23);
+            this.FoundCheck.Size = new System.Drawing.Size(165, 23);
             this.FoundCheck.TabIndex = 33;
             this.FoundCheck.Text = "Поиск ключевых";
             this.FoundCheck.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(169, 195);
+            this.button2.AutoSize = true;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(3, 279);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(53, 23);
+            this.button2.Size = new System.Drawing.Size(165, 23);
             this.button2.TabIndex = 34;
-            this.button2.Text = "null";
+            this.button2.Text = "Обнулить";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(7, 30);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(200, 489);
+            this.tabControl1.TabIndex = 33;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.flowLayoutPanel1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(192, 463);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Ключ.точки";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(192, 463);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Другие параметры ";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // MainCV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(711, 519);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(674, 512);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.visualgraph);
             this.Controls.Add(this.menu);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.visualgraph);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menu;
@@ -550,6 +601,9 @@
             this.statusStrip1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -594,6 +648,9 @@
         private System.Windows.Forms.Button visualCheck;
         private System.Windows.Forms.Button FoundCheck;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 
