@@ -32,12 +32,10 @@ namespace CVTK
         {
             var points = CentroMass.DeterminationOfCentromass(bin, ChainApproxMethod.ChainApproxTc89Kcos);
             var key = KeyPoint.SortTopPoint(points);
-
             //вывод графа все точек и всех контуров 
             TreePick(points);
             List<CentroMass.ContourWithMass> SortedList = points.OrderBy(j => j.Mass.X).ToList(); // сортировка по центру масс (х)
             infopcontr.Text = points.Count.ToString();
-
 
             var visualXY = new List<Point>();
             ////Заполнение массивов для графика визуализации
@@ -71,27 +69,54 @@ namespace CVTK
         /// <param name="nodes">Дерево (его узлы) </param>
         void RemoveNode(TreeNodeCollection nodes)
         {
+            List<TreeNode> checknode = new List<TreeNode>(); // лист чек-точек
             foreach (TreeNode node1 in nodes) // уровень контуров
             {
-                List<TreeNode> checknode = new List<TreeNode>(); // лист чек-точек
+
+                if (node1.Checked) // удаление всей коллекции
+                {
+                    for (int i = 0; i < node1.Nodes.Count; i++) // удаление внутриностей узла
+                    {
+                        node1.Nodes[i].Checked = true;
+                    }
+                }
+
                 foreach (TreeNode node in node1.Nodes) // уровень точек контура 
                 {
                     if (node.Checked) { checknode.Add(node); }
                     else { continue; }
                 }
+
                 for (int i = 0; i < checknode.Count; i++)
                 {
                     tree.Nodes.Remove(checknode[i]);
                 }
+                checknode.Clear();
             }
+            foreach (TreeNode node1 in nodes) // уровень контуров
+            {
+                
+                    if (node1.Nodes.Count == 0) { checknode.Add(node1); }
+                
+            }
+            for (int i = 0; i < checknode.Count; i++) // удаление списка пустых узлов 
+            {
+                tree.Nodes.Remove(checknode[i]);
+            }
+            checknode.Clear();
         }
 
+        void VisualPoint(TreeNodeCollection nodes)
+        {
+
+        }
         /// <summary>
         /// Создание дерева
         /// </summary>
         /// <param name="nodes"></param>
         private void TreePick(IList<CentroMass.ContourWithMass> nodes)
         {
+            tree.Nodes.Clear();
             for (int i = 0; i < nodes.Count; i++)
             {
                 tree.Nodes.Add("Контур " + i.ToString());
@@ -114,7 +139,7 @@ namespace CVTK
         //визуализировать
         private void button2_Click(object sender, EventArgs e)
         {
-
+            VisualPoint(tree.Nodes);
         }
 
         //---------------------------------------Модуль для обработки меню---------------------------------------//
@@ -184,6 +209,6 @@ namespace CVTK
             MessageBox.Show(">Для того чтобы реализовать модель контуров выполнить: Файл - Открыть изображение" + "\r\n" + ">Для перерисовки выбранного изображения выполнить: Файл - Перерисовка (будет сжато под указанные размеры в 'Сжатие размеров')" + "\r\n" + ">Для получения выходного файла в формате Excel выполнить: Файл - Создать файл Excel", "Справка", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
-       
+
     }
 }
