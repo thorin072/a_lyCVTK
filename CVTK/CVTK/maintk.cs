@@ -1,5 +1,6 @@
 ﻿//Класс MainCV
 using System;
+using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,6 +9,8 @@ using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using System.Drawing;
 using System.Collections.Generic;
+using Accord.Imaging;
+using Accord.Imaging.Filters;
 
 
 namespace CVTK
@@ -15,6 +18,7 @@ namespace CVTK
     public partial class MainCV : Form
     {
         Image<Bgr, byte> img;
+        Image<Gray, byte> img2;
         IEnumerable<RobotCommand.RobotPosition> ExcelArr;
 
         public class InfoDelete
@@ -36,8 +40,10 @@ namespace CVTK
         /// <param name="bin">Бинарное изображение</param>
         private void FindContours(Image<Gray, byte> bin)
         {
-            var points = CentroMass.DeterminationOfCentromass(bin, ChainApproxMethod.ChainApproxTc89Kcos);
-            var key = KeyPoint.SortTopPoint(points);
+            var points = CentroMass.DeterminationOfCentromass(bin, ChainApproxMethod.ChainApproxNone);
+            // var key = KeyPoint.SortTopPoint(points);
+
+
             //вывод графа все точек и всех контуров 
             TreePick(points);
             List<CentroMass.ContourWithMass> SortedList = points.OrderBy(j => j.Mass.X).ToList(); // сортировка по центру масс (х)
@@ -167,17 +173,17 @@ namespace CVTK
                     {
                         inf.counts++;
                     }
-                   
+
                 }
                 inf.parent = parent.Text;
                 checknode.Add(inf);
             }
             foreach (var inf in checknode)
             {
-                mes=mes+inf.parent + ": " + inf.counts+ "\r\n";
+                mes = mes + inf.parent + ": " + inf.counts + "\r\n";
             }
             return mes;
-            
+
         }
         private void button2_Click_1(object sender, EventArgs e)
         {
@@ -206,19 +212,22 @@ namespace CVTK
         //удалить
         private void button1_Click(object sender, EventArgs e)
         {
-          //  var mes = error(tree.Nodes);
-         //   if (MessageBox.Show(mes, "My Application",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-        //    {
-                 RemoveNode(tree.Nodes);
-        //    }
-      
-           
+            //  var mes = error(tree.Nodes);
+            //   if (MessageBox.Show(mes, "My Application",MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //    {
+            RemoveNode(tree.Nodes);
+            //    }
         }
 
         //визуализировать
         private void button2_Click(object sender, EventArgs e)
         {
             VisualPoint(tree.Nodes);
+        }
+        //поиск ключевых
+        private void FoundCheck_Click(object sender, EventArgs e)
+        {
+
         }
 
         //---------------------------------------Модуль для обработки меню---------------------------------------//
@@ -233,7 +242,10 @@ namespace CVTK
                     Image<Bgr, byte> _imgInput = new Image<Bgr, byte>(ofd.FileName);// инициализация обькта из переменной ofd   
                     infosize.Text = _imgInput.Width.ToString() + "*" + _imgInput.Height.ToString() + "px";
                     var imgCanny = GrayImg.ApplyCanny(100, 150, _imgInput.Width, _imgInput.Height, _imgInput);
-                    img = _imgInput;
+                    img2 = imgCanny;
+                    var Picture = GrayImg.ResizeImg(pictureBox1.Height, pictureBox1.Width);// подгонка для первоначального показа
+                    Image<Bgr, byte> PictureFirst = _imgInput.Resize(Picture.Item2, Picture.Item1, Inter.Linear);
+                    pictureBox1.Image = PictureFirst.Bitmap;
                     FindContours(imgCanny);
                 }
             }
@@ -288,6 +300,69 @@ namespace CVTK
             MessageBox.Show(">Для того чтобы реализовать модель контуров выполнить: Файл - Открыть изображение" + "\r\n" + ">Для перерисовки выбранного изображения выполнить: Файл - Перерисовка (будет сжато под указанные размеры в 'Сжатие размеров')" + "\r\n" + ">Для получения выходного файла в формате Excel выполнить: Файл - Создать файл Excel", "Справка", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
+        //---------------------------------------Модуль для обработки Accord (ключевых точек)---------------------------------------//
+        void CornerFound(Bitmap input)
+        {
+            double sigma = (double)numSigma.Value;
+            float k = (float)numK.Value;
+            float threshold = (float)numThreshold.Value;
 
+            // Create a new Harris Corners Detector using the given parameters
+            HarrisCornersDetector harris = new HarrisCornersDetector(k)
+            {
+                Threshold = threshold,
+                Sigma = sigma
+            };
+            // Create a new AForge's Corner Marker Filter
+            CornersMarker corners = new CornersMarker(harris, Color.White);
+            // input.RotateFlip(RotateFlipType.Rotate180FlipX);
+            var OriginCorner = harris.ProcessImage(input); // ОРИГИНАЛ
+            var CornerRrev = corners.Apply(input);
+            var Picture = GrayImg.ResizeImg(pictureBox1.Height, pictureBox1.Width);// подгонка для первоначального показа
+            Bitmap endpick = new Bitmap(CornerRrev, new Size(Picture.Item2, Picture.Item1));
+            pictureBox1.Image = endpick;
+
+
+         
+            
+          
+
+            listView1.Columns.Add("№", 75, HorizontalAlignment.Left);
+            listView1.Columns.Add("X", 40, HorizontalAlignment.Left);
+            listView1.Columns.Add("Y", 40, HorizontalAlignment.Left);
+            listView1.Columns.Add("Является точкой", 105, HorizontalAlignment.Left);
+            listView1.Columns.Add("Класс", 50, HorizontalAlignment.Left);
+
+            ListViewGroup g1 = new ListViewGroup("Контрольные точки");
+            listView1.Groups.Add(g1);
+
+            for (int i = 0; i < OriginCorner.Count; i++)
+            {
+                ListViewItem list = new ListViewItem(g1);
+                list.Text = i.ToString();
+                list.SubItems.Add(OriginCorner[i].X.ToString());
+                list.SubItems.Add(OriginCorner[i].Y.ToString());
+                listView1.Items.Add(list);
+            }
+            listView1.CheckBoxes = true;
+
+
+
+
+
+
+
+            var FakeCorner = harris.ProcessImage(endpick); // Уменьшеное
+
+        }
+
+        private void Detect_Click(object sender, EventArgs e)
+        {
+            var ImgCorner = img2.Bitmap;
+            CornerFound(ImgCorner);
+
+        }
+
+       
     }
 }

@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCV));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label9 = new System.Windows.Forms.Label();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +55,7 @@
             this.heigthpause = new System.Windows.Forms.NumericUpDown();
             this.height = new System.Windows.Forms.NumericUpDown();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.infosize = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -66,13 +68,25 @@
             this.infoexcel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tree = new System.Windows.Forms.TreeView();
             this.button1 = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.visualCheck = new System.Windows.Forms.Button();
-            this.FoundCheck = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numK = new System.Windows.Forms.NumericUpDown();
+            this.numThreshold = new System.Windows.Forms.NumericUpDown();
+            this.numSigma = new System.Windows.Forms.NumericUpDown();
+            this.Detect = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.FoundCheck = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.splitter1 = new System.Windows.Forms.Splitter();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.visualgraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.valueY)).BeginInit();
@@ -82,10 +96,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.heigthpause)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.height)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numK)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSigma)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label9
@@ -93,7 +111,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label9.Location = new System.Drawing.Point(3, 0);
+            this.label9.Location = new System.Drawing.Point(57, 7);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(119, 13);
             this.label9.TabIndex = 15;
@@ -108,7 +126,7 @@
             this.menu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(674, 24);
+            this.menu.Size = new System.Drawing.Size(1366, 24);
             this.menu.TabIndex = 19;
             this.menu.Text = "menuStrip1";
             // 
@@ -159,26 +177,28 @@
             // 
             this.visualgraph.BackColor = System.Drawing.Color.Transparent;
             this.visualgraph.BorderlineColor = System.Drawing.SystemColors.ButtonFace;
-            chartArea1.Name = "ChartArea1";
-            this.visualgraph.ChartAreas.Add(chartArea1);
-            this.visualgraph.Location = new System.Drawing.Point(182, 27);
+            chartArea2.Name = "ChartArea1";
+            this.visualgraph.ChartAreas.Add(chartArea2);
+            this.visualgraph.Location = new System.Drawing.Point(226, 35);
             this.visualgraph.Name = "visualgraph";
             this.visualgraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.visualgraph.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Blue};
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.Color = System.Drawing.Color.Indigo;
-            series1.MarkerSize = 6;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
-            series1.Name = "Series1";
-            series1.YValuesPerPoint = 2;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series2.Name = "Series2";
-            this.visualgraph.Series.Add(series1);
-            this.visualgraph.Series.Add(series2);
-            this.visualgraph.Size = new System.Drawing.Size(492, 473);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series3.Color = System.Drawing.Color.Red;
+            series3.MarkerSize = 8;
+            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series3.Name = "Series1";
+            series3.YValuesPerPoint = 2;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series4.Color = System.Drawing.Color.MidnightBlue;
+            series4.MarkerSize = 3;
+            series4.Name = "Series2";
+            this.visualgraph.Series.Add(series3);
+            this.visualgraph.Series.Add(series4);
+            this.visualgraph.Size = new System.Drawing.Size(441, 379);
             this.visualgraph.TabIndex = 23;
             this.visualgraph.Text = "visualgraph";
             // 
@@ -288,9 +308,9 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox1.Location = new System.Drawing.Point(51, 110);
+            this.groupBox1.Location = new System.Drawing.Point(10, 141);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(78, 48);
+            this.groupBox1.Size = new System.Drawing.Size(155, 124);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки ";
@@ -301,9 +321,9 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.heigthpause);
             this.groupBox3.Controls.Add(this.height);
-            this.groupBox3.Location = new System.Drawing.Point(70, 31);
+            this.groupBox3.Location = new System.Drawing.Point(10, 15);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(91, 39);
+            this.groupBox3.Size = new System.Drawing.Size(155, 120);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Для манипулятора";
@@ -375,6 +395,7 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSplitButton1,
             this.toolStripStatusLabel1,
             this.infosize,
             this.toolStripStatusLabel3,
@@ -385,11 +406,20 @@
             this.infotime,
             this.toolStripStatusLabel9,
             this.infoexcel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 490);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 637);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(674, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1366, 22);
             this.statusStrip1.TabIndex = 29;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 20);
+            this.toolStripSplitButton1.Text = "toolStripSplitButton1";
             // 
             // toolStripStatusLabel1
             // 
@@ -467,9 +497,9 @@
             // tree
             // 
             this.tree.CheckBoxes = true;
-            this.tree.Location = new System.Drawing.Point(3, 16);
+            this.tree.Location = new System.Drawing.Point(5, 23);
             this.tree.Name = "tree";
-            this.tree.Size = new System.Drawing.Size(165, 170);
+            this.tree.Size = new System.Drawing.Size(222, 170);
             this.tree.TabIndex = 30;
             // 
             // button1
@@ -477,60 +507,36 @@
             this.button1.AutoSize = true;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(3, 192);
+            this.button1.Location = new System.Drawing.Point(43, 199);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(165, 23);
+            this.button1.Size = new System.Drawing.Size(144, 23);
             this.button1.TabIndex = 31;
             this.button1.Text = "Удалить узел";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.label9);
-            this.flowLayoutPanel1.Controls.Add(this.tree);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Controls.Add(this.visualCheck);
-            this.flowLayoutPanel1.Controls.Add(this.FoundCheck);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 5);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(186, 370);
-            this.flowLayoutPanel1.TabIndex = 32;
             // 
             // visualCheck
             // 
             this.visualCheck.AutoSize = true;
             this.visualCheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
             this.visualCheck.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.visualCheck.Location = new System.Drawing.Point(3, 221);
+            this.visualCheck.Location = new System.Drawing.Point(43, 223);
             this.visualCheck.Name = "visualCheck";
-            this.visualCheck.Size = new System.Drawing.Size(165, 23);
+            this.visualCheck.Size = new System.Drawing.Size(144, 23);
             this.visualCheck.TabIndex = 32;
-            this.visualCheck.Text = "Решение";
+            this.visualCheck.Text = "Построить отмеченные";
+            this.visualCheck.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.visualCheck.UseVisualStyleBackColor = true;
             this.visualCheck.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // FoundCheck
-            // 
-            this.FoundCheck.AutoSize = true;
-            this.FoundCheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
-            this.FoundCheck.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FoundCheck.Location = new System.Drawing.Point(3, 250);
-            this.FoundCheck.Name = "FoundCheck";
-            this.FoundCheck.Size = new System.Drawing.Size(165, 23);
-            this.FoundCheck.TabIndex = 33;
-            this.FoundCheck.Text = "Поиск ключевых";
-            this.FoundCheck.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
             this.button2.AutoSize = true;
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(3, 279);
+            this.button2.Location = new System.Drawing.Point(43, 272);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(165, 23);
+            this.button2.Size = new System.Drawing.Size(143, 23);
             this.button2.TabIndex = 34;
             this.button2.Text = "Обнулить";
             this.button2.UseVisualStyleBackColor = true;
@@ -538,24 +544,12 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(7, 30);
+            this.tabControl1.Location = new System.Drawing.Point(840, 229);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(200, 489);
+            this.tabControl1.Size = new System.Drawing.Size(203, 174);
             this.tabControl1.TabIndex = 33;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.flowLayoutPanel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(192, 463);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Ключ.точки";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -564,20 +558,224 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(192, 463);
+            this.tabPage2.Size = new System.Drawing.Size(195, 148);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Другие параметры ";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(14, 254);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(41, 17);
+            this.checkBox1.TabIndex = 40;
+            this.checkBox1.Text = "k =";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 280);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 13);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "sigma = ";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(100, 255);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.TabIndex = 39;
+            this.label2.Text = "Threshold = ";
+            // 
+            // numK
+            // 
+            this.numK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numK.DecimalPlaces = 2;
+            this.numK.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numK.Location = new System.Drawing.Point(54, 252);
+            this.numK.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numK.Name = "numK";
+            this.numK.Size = new System.Drawing.Size(41, 20);
+            this.numK.TabIndex = 35;
+            this.numK.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            131072});
+            // 
+            // numThreshold
+            // 
+            this.numThreshold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numThreshold.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numThreshold.Location = new System.Drawing.Point(164, 253);
+            this.numThreshold.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numThreshold.Name = "numThreshold";
+            this.numThreshold.Size = new System.Drawing.Size(64, 20);
+            this.numThreshold.TabIndex = 36;
+            this.numThreshold.Value = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            // 
+            // numSigma
+            // 
+            this.numSigma.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numSigma.DecimalPlaces = 3;
+            this.numSigma.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numSigma.Location = new System.Drawing.Point(54, 278);
+            this.numSigma.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numSigma.Name = "numSigma";
+            this.numSigma.Size = new System.Drawing.Size(55, 20);
+            this.numSigma.TabIndex = 37;
+            this.numSigma.Value = new decimal(new int[] {
+            14,
+            0,
+            0,
+            65536});
+            // 
+            // Detect
+            // 
+            this.Detect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Detect.Location = new System.Drawing.Point(114, 276);
+            this.Detect.Name = "Detect";
+            this.Detect.Size = new System.Drawing.Size(113, 23);
+            this.Detect.TabIndex = 34;
+            this.Detect.Text = "Найти точки";
+            this.Detect.UseVisualStyleBackColor = true;
+            this.Detect.Click += new System.EventHandler(this.Detect_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.AliceBlue;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(233, 224);
+            this.pictureBox1.TabIndex = 41;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(27, 8);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(166, 13);
+            this.label4.TabIndex = 43;
+            this.label4.Text = "Визуализация ключевых точек:";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.AliceBlue;
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.numK);
+            this.panel1.Controls.Add(this.Detect);
+            this.panel1.Controls.Add(this.numSigma);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.numThreshold);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Location = new System.Drawing.Point(12, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(233, 306);
+            this.panel1.TabIndex = 43;
+            // 
+            // FoundCheck
+            // 
+            this.FoundCheck.AutoSize = true;
+            this.FoundCheck.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Maroon;
+            this.FoundCheck.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FoundCheck.Location = new System.Drawing.Point(42, 248);
+            this.FoundCheck.Name = "FoundCheck";
+            this.FoundCheck.Size = new System.Drawing.Size(144, 23);
+            this.FoundCheck.TabIndex = 33;
+            this.FoundCheck.Text = "Добавить ключевые";
+            this.FoundCheck.UseVisualStyleBackColor = true;
+            this.FoundCheck.Click += new System.EventHandler(this.FoundCheck_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.visualCheck);
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.tree);
+            this.panel2.Controls.Add(this.FoundCheck);
+            this.panel2.Location = new System.Drawing.Point(12, 328);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(233, 321);
+            this.panel2.TabIndex = 44;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(251, 400);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(416, 174);
+            this.listView1.SmallImageList = this.imageList1;
+            this.listView1.TabIndex = 48;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // splitter1
+            // 
+            this.splitter1.Location = new System.Drawing.Point(0, 24);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(3, 613);
+            this.splitter1.TabIndex = 49;
+            this.splitter1.TabStop = false;
             // 
             // MainCV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(674, 512);
+            this.ClientSize = new System.Drawing.Size(1366, 659);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menu);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.visualgraph);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -599,11 +797,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.height)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numK)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSigma)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -644,13 +847,26 @@
         private System.Windows.Forms.ToolStripStatusLabel infoexcel;
         private System.Windows.Forms.TreeView tree;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button visualCheck;
-        private System.Windows.Forms.Button FoundCheck;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numK;
+        private System.Windows.Forms.NumericUpDown numThreshold;
+        private System.Windows.Forms.NumericUpDown numSigma;
+        private System.Windows.Forms.Button Detect;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button FoundCheck;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
     }
 }
 
