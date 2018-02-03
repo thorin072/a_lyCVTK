@@ -126,7 +126,7 @@
             this.menu.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(1366, 24);
+            this.menu.Size = new System.Drawing.Size(680, 24);
             this.menu.TabIndex = 19;
             this.menu.Text = "menuStrip1";
             // 
@@ -186,7 +186,7 @@
         System.Drawing.Color.Blue};
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series3.Color = System.Drawing.Color.Red;
+            series3.Color = System.Drawing.Color.DarkViolet;
             series3.MarkerSize = 8;
             series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             series3.Name = "Series1";
@@ -408,7 +408,7 @@
             this.infoexcel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 637);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1366, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(680, 22);
             this.statusStrip1.TabIndex = 29;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -768,7 +768,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1366, 659);
+            this.ClientSize = new System.Drawing.Size(680, 659);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.panel1);

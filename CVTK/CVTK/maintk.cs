@@ -71,7 +71,7 @@ namespace CVTK
             var x = key.Select(_ => _.X).ToArray();
             infopoint.Text = x.Length.ToString();
             var y = key.Select(_ => _.Y).ToArray();
-            visualgraph.Series[0].Points.DataBindXY(x, y);
+            visualgraph.Series[1].Points.DataBindXY(x, y);
         }
 
         //---------------------------------------Модуль для дерева---------------------------------------//
